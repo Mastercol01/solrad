@@ -13,6 +13,16 @@ import numpy as np
 from solrad.Site import Site
 import solrad.auxiliary_funcs as aux
 
+#%%                     DEFINITION PATH CONSTANTS
+
+# You must change these paths to mtched where you have actually stored your data in your system 
+# (see tutorial 1) Don't leave as is.
+DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(solrad.__path__[0])), "data")
+OZONE_DATABASE_PATH = os.path.join(DATA_PATH, "ozone")
+WATER_DATABASE_PATH = os.path.join(DATA_PATH, "water")
+AOD_550NM_DATABASE_PATH = os.path.join(DATA_PATH, "aod_550nm")
+
+
 #%%     1) INITIALIZATION OF SITE OBJECT
 
 # In order to initialize a Site object we require some information about the geographical
@@ -174,7 +184,7 @@ Site_obj.compute_sun_data()
 """
 Site_obj.compute_ozone_column_using_van_Heuklon_model()
 """
-Site_obj.compute_ozone_column_using_satelite_data()
+Site_obj.compute_ozone_column_using_satelite_data(path = OZONE_DATABASE_PATH)
 
 # 4.32) -- ATMOSPHERIC WATER COLUMN --
 # There are two options for computing the water column.
@@ -183,7 +193,7 @@ Site_obj.compute_ozone_column_using_satelite_data()
 """
 Site_obj.compute_water_column_using_gueymard94_model()
 """
-Site_obj.compute_water_column_using_satelite_data()
+Site_obj.compute_water_column_using_satelite_data(path = WATER_DATABASE_PATH)
 
 # 4.33) -- ANGSTROM EXPONENT AT 500 nm--
 Site_obj.compute_angstrom_turbidity_exponent_500nm_using_SF_model()
@@ -191,7 +201,7 @@ Site_obj.compute_angstrom_turbidity_exponent_500nm_using_SF_model()
 # 4.34) -- AERSOL OPTICAL DEPTH AT 500 nm --
 # For this step we do have to previously set up
 # # the satellite data we need to use (see tutorial 1).
-Site_obj.compute_aod_500nm_using_satelite_data()
+Site_obj.compute_aod_500nm_using_satelite_data(path = AOD_550NM_DATABASE_PATH)
 
 # 4.4) --- COMPUTE AEROSOL PROPERTIES ---
 Site_obj.compute_single_scattering_albedo_using_SF_model()
@@ -262,7 +272,7 @@ print(interpolated_data)
 #%%    6) SAVE Site_obj
 # You can easily save the object as a pickle format for later use.
 
-# You can change this path if you want
+# You must change this path to hwere you want the pickle obj to be stored. Don't leave as is.
 EXAMPLES_PATH = os.path.join(os.path.dirname(solrad.__path__[0]), "examples")
 Site_obj_path = os.path.join(EXAMPLES_PATH, "example_Site_obj.pkl")
 aux.save_obj_with_pickle(Site_obj, path = Site_obj_path)
