@@ -22,7 +22,8 @@ from scipy.interpolate import interp1d
 # We require a 'Site' class instance in order to initialize a 'Sky' class instance.
 # Therefore, we load the previously compute 'Site_obj' instance from tutorial 2.
 
-# Change this path if you saved the 'example_Site_obj.pkl' object elsewhere.
+# Change this path to where yoy have saved the 'example_Site_obj.pkl' object 
+# (see tutorial 2). Dont' leav as is.
 EXAMPLES_PATH = os.path.join(os.path.dirname(solrad.__path__[0]), "examples")
 Site_obj_path = os.path.join(EXAMPLES_PATH, "example_Site_obj.pkl")
 Site_obj = aux.load_obj_with_pickle(path = Site_obj_path)

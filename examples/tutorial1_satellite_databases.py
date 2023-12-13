@@ -23,6 +23,32 @@ computation of the spectral component of radiance.
 
 Finally, if followed to completion, the steps carried out in this tutorial need only be followed once.
 
+
+                  ---- CLIMATE DATA STORE ----
+
+"The Copernicus - Climate Data Store (CDS) is an online open and free service
+that allows users to browse and access a wide range of climate datasets via a 
+searchable catalogue. It also allows users to build their own applications,
+maps and graphs."
+
+1) CDS webpage at:
+https://cds.climate.copernicus.eu/cdsapp#!/home
+
+2) More info about its API, at:
+https://cds.climate.copernicus.eu/api-how-to
+
+3) Useful tutorial on how to use the API, at
+https://youtu.be/cVtiVTSVdlo
+    
+
+NOTE: As described by the links in 2) and 3), it is necessary to have a CDS 
+      account (and be currently logged in) account in order to be able to use
+      the API. Furtheremore, the user's key and the API website link should be 
+      stored in a place, recognisable by the system being used. We recommend 
+      watching the video tutorial linked in 3), as it is a good explanation on 
+      what steps need to be followed in order to work with cdsapi.
+
+
 """
 #%%                     IMPORTATION OF LIBRARIES
 import os
@@ -43,8 +69,7 @@ AOD_550NM_DATABASE_PATH = os.path.join(DATA_PATH, "aod_550nm")
 #%%                     DEFINITION DEFAULT PATH VARIABLES
 
 # Define the directory where the data files for each atmospheric quantity will be stored.
-# If you don't have a prefered directory you'd like to store your data in, you can use the default
-# path values.
+# (you must change the value of these paths or set them to None).
 # Finally, there are other methods for computing the atmospheric water and the ozone columns. Therefore,
 # these fields are optional. However, the aerosol optical depth at 550nm (aod_550nm) does require the 
 # use of satellite data.

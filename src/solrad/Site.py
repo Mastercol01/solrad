@@ -27,15 +27,6 @@ import solrad.atmosphere.angstrom_exponent as angsexp
 import solrad.atmosphere.single_scattering_albedo as ssa
 import solrad.atmosphere.aerosol_asymmetry_factor as aaf
 
-
-
-#%%                     DEFINITION OF PATH CONSTANTS
- 
-DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(solrad.__path__[0])), "data")
-WATER_DATABASE_PATH = os.path.join(DATA_PATH, "water")
-OZONE_DATABASE_PATH = os.path.join(DATA_PATH, "ozone")
-AOD_550NM_DATABASE_PATH = os.path.join(DATA_PATH, "aod_550nm")
-
 #%%                       DEFINITION OF CONSTANTS
 
 _SPECTRL2_WAVELENGTHS = [# nm
@@ -862,7 +853,7 @@ class Site:
         return None
 
 
-    def compute_ozone_column_using_satelite_data(self, path = OZONE_DATABASE_PATH, percentile = 0.5, interp_method = "linear"):  
+    def compute_ozone_column_using_satelite_data(self, path, percentile = 0.5, interp_method = "linear"):  
 
         """
         Computes the monthly year-wise average or 'percentile'-th percentile of atmospheric ozone column
@@ -870,10 +861,10 @@ class Site:
         
         Parameteres
         -----------
-        path : path-str, optional
+        path : path-str
             Path of the folder where the ozone column raw.ny and filled_NaNs.npy files 
             are stored. That is, the path to the local ozone column database.     
-            Default is 'OZONE_DATABASE_PATH'.
+
             
         percentile : float or None, optional
             If float, it computes the monthly year-wise 'percentile'-th percentile of ozone column. 
@@ -986,7 +977,7 @@ class Site:
         return None
     
 
-    def compute_water_column_using_satelite_data(self, path = WATER_DATABASE_PATH, percentile = 0.5, interp_method = "linear"):  
+    def compute_water_column_using_satelite_data(self, path, percentile = 0.5, interp_method = "linear"):  
 
         """
         Computes the monthly year-wise average or 'percentile'-th percentile of atmospheric water column
@@ -994,10 +985,10 @@ class Site:
         
         Parameteres
         -----------
-        path : path-str, optional
+        path : path-str
             Path of the folder where the water column raw.ny and filled_NaNs.npy files 
             are stored. That is, the path to the local water column database.        
-            Default is 'WATER_DATABASE_PATH'.
+
             
         percentile : float or None, optional
             If float, it computes the monthly year-wise 'percentile'-th percentile of water_column. 
@@ -1100,7 +1091,7 @@ class Site:
         return None
 
 
-    def compute_aod_500nm_using_satelite_data(self, path = AOD_550NM_DATABASE_PATH, percentile = 0.5, interp_method = "linear"):  
+    def compute_aod_500nm_using_satelite_data(self, path, percentile = 0.5, interp_method = "linear"):  
 
         """
         Computes the monthly year-wise average or 'percentile'-th percentile of Aerosol
@@ -1109,10 +1100,9 @@ class Site:
         
         Parameteres
         -----------
-        path : path-str, optional
+        path : path-str
             Path of the folder where the aod_500nm raw.ny and filled_NaNs.npy files 
-            are stored. That is, the path to the local aod_550nm database.  
-            Default is 'AOD_550NM_DATABASE_PATH'.      
+            are stored. That is, the path to the local aod_550nm database.   
             
         percentile : float or None, optional
             If float, it computes the monthly year-wise 'percentile'-th percentile of aod_500nm. 

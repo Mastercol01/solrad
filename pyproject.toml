@@ -26,7 +26,7 @@ maintainers = [
   {name = "Andrés Yesid Moreno Villa", email = "aymorenov@eafit.edu.co"}
 ]
 description = "Simulation and computation of a site's spectral radiance"
-readme = "README.rst"
+readme = "README.md"
 license = {file = "LICENSE.txt"}
 keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
 classifiers = [
