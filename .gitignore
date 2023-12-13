@@ -1,0 +1,9 @@
+# Ignore all 
+*.nc
+*.npy
+*.pkl
+*.egg-info
+*.vscode
+*.json
+*.pyc
+*__pycache__*

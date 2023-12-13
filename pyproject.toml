@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "solrad"
+version = "0.0.1"
+dependencies = [
+  "pvlib",
+  "openpyxl",
+  "pandas",
+  "matplotlib",
+  "netCDF4",
+  "cdsapi",
+  "requests",
+  "scipy",
+  "suntimes",
+  "pytest"
+]
+requires-python = ">=3.7"
+authors = [
+  {name = "Andrés Yesid Moreno Villa", email = "aymorenov@eafit.edu.co"},
+]
+maintainers = [
+  {name = "Andrés Yesid Moreno Villa", email = "aymorenov@eafit.edu.co"}
+]
+description = "Simulation and computation of a site's spectral radiance"
+readme = "README.rst"
+license = {file = "LICENSE.txt"}
+keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python",
+  "Natural Language :: English",
+  "Topic :: Scientific/Engineering"
+]
+
+[project.optional-dependencies]
+dev = ["build", "twine", "sphinx", "sphinx-rtd-theme"]
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ['solrad', 'solrad.atmosphere', 'solrad.climate', 'solrad.radiation', 'solrad.sun', 'solrad.terrain']
+
+
+[project.urls]
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/Mastercol01/solrad.git"
+
