@@ -28,7 +28,7 @@ maintainers = [
 description = "Simulation and computation of a site's spectral radiance"
 readme = "README.md"
 license = {file = "LICENSE.txt"}
-keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
+keywords = ["radiance", "sky radiance", "solar radiance", "spectral radiance"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python",
