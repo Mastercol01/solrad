@@ -309,7 +309,6 @@ def process_CDS_aod_550nm_data(path, percentile = 0.5, interp_method = "linear")
             
             Key : Value
             ------------
-            
             "latitude" : numpy.array of floats (npoints,)
                 Array of latitude values (in degrees) used by the raw.npy and filled_NaNs.npy 
                 files to specify the locations at which the aod_550nm data is 

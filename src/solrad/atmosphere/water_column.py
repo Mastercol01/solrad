@@ -320,7 +320,6 @@ def process_CDS_water_column_data(path, percentile = 0.5, interp_method = "linea
             
             Key : Value
             ------------
-            
             "latitude" : numpy.array of floats (npoints,)
                 Array of latitude values (in degrees) used by the raw.npy and filled_NaNs.npy 
                 files to specify the locations at which the water column data is 
@@ -358,15 +357,14 @@ def process_CDS_water_column_data(path, percentile = 0.5, interp_method = "linea
                 filled-NaN data of water-column values stored in the local 
                 water column database. It has the following key-value pair format:
                     
-                Key : Value
-                -----------
+                    Key : Value
+                    -----------
                     (year, month) : scipy.interpolate.RegularGridInterpolator object
                         Where 'year' and 'month' are integers that specify the 
                         time period for the array of data (with units atm-cm)
                         that the function interpolates. It takes as input a value
                         of latitude and longitude and returns the water-column value 
                         expected at that location.
-              
                         
             "avg_data" : dict
                 Dictionary containing the year-wise averaged data of filled-NaN
@@ -423,48 +421,48 @@ def process_CDS_water_column_data(path, percentile = 0.5, interp_method = "linea
                         
     Raises
     ------
-    1) Exception :
-       "Local water column database is empty. No water column raw.npy nor filled_NaNs.npy files to retrieve were found."
+    1) Exception 
+        "Local water column database is empty. No water column raw.npy nor filled_NaNs.npy files to retrieve were found."
 
-    2) Exception :
-       "Latitude data could not be recovered. No latitude.npy files are present in the database."
+    2) Exception 
+        "Latitude data could not be recovered. No latitude.npy files are present in the database."
 
-    3) Exception :
-       "Longitude data could not be recovered. No longitude.npy files are present in the database."
+    3) Exception 
+        "Longitude data could not be recovered. No longitude.npy files are present in the database."
 
     Warns
     -----
-    1) Warning:
+    1) Warning
        "Local water column database is empty of filled_NaNs.npy files. No column water filled_NaNs.npy files to retrieve were found."
     
-    2) Warning:
+    2) Warning
        "Local water column database is empty of raw.npy files. No column water raw.npy files to retrieve were found."       
 
-    3) Warning:
+    3) Warning
        "Not all raw.npy files have an associated filled_NaNs.npy file in the database, and viceversa. Therefore, not all information will be available for all files."
 
-    4) Warning:
+    4) Warning
        "WARNING: Local water column database lacks raw.npy data files for all 12 months of the year."
 
-    5) Warning:
+    5) Warning
        "WARNING: Local water column database lacks filled_NaNs.npy data files for all 12 months of the year."
 
     Notes
     -----
     1) res["raw_data"] contains as many key-value pairs as there are raw.npy
-      files in the local water database.
+    files in the local water database.
        
     2) res["filled_nan_data"], res["filled_nan_data_funcs"], res["avg_data"],
-       res["avg_data_funcs"], res["precentile_data"] and res["precentile_data_funcs"]
-       as many key-value pairs as there are filled_NaNs.npy files in the local water 
-       database.
+    res["avg_data_funcs"], res["precentile_data"] and res["precentile_data_funcs"]
+    as many key-value pairs as there are filled_NaNs.npy files in the local water 
+    database.
     
     3) Latitude of -90° corresponds to the geographic South pole, while a 
-       latitude of 90° corresponds to the geographic North Pole.
+    latitude of 90° corresponds to the geographic North Pole.
        
     4) A negative longitude correspondes to a point west of the greenwhich 
-       meridian, while a positive longitude means it is east of the greenwhich 
-       meridian.
+    meridian, while a positive longitude means it is east of the greenwhich 
+    meridian.
        
     
     """

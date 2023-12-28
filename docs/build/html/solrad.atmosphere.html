@@ -1119,12 +1119,6 @@ expected at that location.</p>
 </dl>
 </div></blockquote>
 </dd>
-</dl>
-</div></blockquote>
-</dd>
-<dt class="field-even">rtype<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-<dl>
 <dt>“avg_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise averaged data of filled-NaN
 water-column values stored in the local water database, for each
 month. It has the following key-value pair format:</p>
@@ -1179,14 +1173,18 @@ expected at that location.</p>
 </div></blockquote>
 </dd>
 </dl>
+</div></blockquote>
 </dd>
-<dt class="field-odd">raises 1) Exception :<span class="colon">:</span></dt>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+<dt class="field-odd">raises 1) Exception<span class="colon">:</span></dt>
 <dd class="field-odd"><p>“Local water column database is empty. No water column raw.npy nor filled_NaNs.npy files to retrieve were found.”</p>
 </dd>
-<dt class="field-even">raises 2) Exception :<span class="colon">:</span></dt>
+<dt class="field-even">raises 2) Exception<span class="colon">:</span></dt>
 <dd class="field-even"><p>“Latitude data could not be recovered. No latitude.npy files are present in the database.”</p>
 </dd>
-<dt class="field-odd">raises 3) Exception :<span class="colon">:</span></dt>
+<dt class="field-odd">raises 3) Exception<span class="colon">:</span></dt>
 <dd class="field-odd"><p>“Longitude data could not be recovered. No longitude.npy files are present in the database.”</p>
 </dd>
 <dt class="field-even">Warns<span class="colon">:</span></dt>
@@ -1200,23 +1198,17 @@ expected at that location.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>res[“raw_data”] contains as many key-value pairs as there are raw.npy</p></li>
-</ol>
-<blockquote>
-<div><p>files in the local water database.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>res[“filled_nan_data”], res[“filled_nan_data_funcs”], res[“avg_data”],
+<p>1) res[“raw_data”] contains as many key-value pairs as there are raw.npy
+files in the local water database.</p>
+<p>2) res[“filled_nan_data”], res[“filled_nan_data_funcs”], res[“avg_data”],
 res[“avg_data_funcs”], res[“precentile_data”] and res[“precentile_data_funcs”]
 as many key-value pairs as there are filled_NaNs.npy files in the local water
-database.</p></li>
-<li><p>Latitude of -90° corresponds to the geographic South pole, while a
-latitude of 90° corresponds to the geographic North Pole.</p></li>
-<li><p>A negative longitude correspondes to a point west of the greenwhich
+database.</p>
+<p>3) Latitude of -90° corresponds to the geographic South pole, while a
+latitude of 90° corresponds to the geographic North Pole.</p>
+<p>4) A negative longitude correspondes to a point west of the greenwhich
 meridian, while a positive longitude means it is east of the greenwhich
-meridian.</p></li>
-</ol>
+meridian.</p>
 </section>
 </dd></dl>
 
