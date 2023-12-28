@@ -91,7 +91,9 @@ for day in range(1, MONTH_DAYS[month]+1):
     timestamp = pd.Timestamp(f"{year}-{month_}-{day}")
     
     for i, lat_ in enumerate(lat):
-            van_heuklen_data[i,:] += compute_van_Heuklon_ozone(lat_, lon, timestamp)
+            van_heuklen_data[i,:] += compute_van_Heuklon_ozone(np.full(lon.shape, lat_), 
+                                                               lon,
+                                                               np.full(timestamp, lat_))
             
     print(f"Days computed: {day}")
 

@@ -4,7 +4,7 @@ This module contains all functions, methods and classes related to the
 computation and manipulation of the atmospheric ozone column of a site.
 
 
-                  ---- CLIMATE DATA STORE ----
+**CLIMATE DATA STORE**
 
 "The Copernicus - Climate Data Store (CDS) is an online open and free service
 that allows users to browse and access a wide range of climate datasets via a 
@@ -21,10 +21,10 @@ https://cds.climate.copernicus.eu/api-how-to
 https://youtu.be/cVtiVTSVdlo
     
 
-NOTE: As described by the links in 2) and 3), it is necessary to have a CDS 
-      account (and be currently logged in) account in order to be able to use
-      the API. Furtheremore, the user's key and the API website link should be 
-      stored in a place, recognisable by the system being used.  
+**NOTE:** As described by the links in 2) and 3), it is necessary to have a CDS 
+account (and be currently logged in) account in order to be able to use
+the API. Furtheremore, the user's key and the API website link should be 
+stored in a place, recognisable by the system being used. 
 """
 
 #%%                  IMPORTATION OF LIBRARIES
@@ -35,6 +35,7 @@ import zipfile
 import warnings
 import numpy as np
 import netCDF4 as nc
+from functools import wraps
 from dateutil.parser import parse
 from scipy.interpolate import RegularGridInterpolator
 
@@ -43,7 +44,6 @@ from scipy.interpolate import RegularGridInterpolator
 #%%
 
 
-@np.vectorize
 def compute_van_Heuklon_ozone(latitude, longitude, timestamp):
     """
     Returns the ozone contents in atm-cm for the given latitude/longitude and
@@ -57,14 +57,13 @@ def compute_van_Heuklon_ozone(latitude, longitude, timestamp):
     
     Parameters
     ----------
-    
-    latitude : float
-        Site's latitude in degrees. Must a number between -90 and 90.
+    latitude : float or array-like of floats (npoints,)
+        Site's latitude in degrees. Values must be between -90 and 90.
         
-    longitude : float
-        Site's longitude in degrees. Must be a number between -180 and 180.
+    longitude : float or array-like of floats (npoints,)
+        Site's longitude in degrees. Values must be between -180 and 180.
     
-    timestamp : pandas.Timestamp object or array like of pandas.Timestamp objects
+    timestamp : pandas.Timestamp object or array-like of pandas.Timestamp objects float or array-like of floats (npoints,)
         The times for which the ozone is to be computed. It is strongly 
         recommend that the timestamp use an ISO 8601 format of yyyy-mm-dd.
         
@@ -72,6 +71,14 @@ def compute_van_Heuklon_ozone(latitude, longitude, timestamp):
     -------
     result : float
         Ozone amount in atm-cm.
+
+    Raises
+    ------
+    1) ValueError 
+        "lan and lon arrays must be the same length"
+
+    2) ValueError 
+        "Timestamp must be the same length as lat and lon"
         
     Notes
     -----
@@ -80,9 +87,8 @@ def compute_van_Heuklon_ozone(latitude, longitude, timestamp):
        downloading tthe pachage from pip as I wanted to add some very minor
        changes.
        
-    2) The function also supports array like inputs for lat and long but in that
-       case timestamp must be either a single element or an array matching the
-       length of the lat and lon arrays.
+    2) The function supports array-like inputs for latitude, longitude
+       and timestamp, as long as all 3 arguments are the same length. 
       
     3) Latitude of -90° corresponds to the geographic South pole, while a 
        latitude of 90° corresponds to the geographic North Pole.
@@ -611,3 +617,5 @@ def process_CDS_ozone_column_data(path, percentile = 0.5, interp_method = "linea
         
     
 
+
+# %%

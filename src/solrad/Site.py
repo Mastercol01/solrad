@@ -847,8 +847,8 @@ class Site:
 
         for date, DatetimeIndex_obj in self.simulation_time_data.items():
             self.climate_and_air_data[date]['O3'] =\
-            oz.compute_van_Heuklon_ozone(latitude  = self.latitude,
-                                         longitude = self.longitude,
+            oz.compute_van_Heuklon_ozone(latitude  = np.full(DatetimeIndex_obj.size, self.latitude),
+                                         longitude = np.full(DatetimeIndex_obj.size, self.longitude),
                                          timestamp = DatetimeIndex_obj)
         return None
 

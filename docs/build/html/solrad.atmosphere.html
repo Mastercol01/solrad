@@ -605,9 +605,7 @@ meridian.</p></li>
 <span id="solrad-atmosphere-ozone-column-module"></span><h2>solrad.atmosphere.ozone_column module<a class="headerlink" href="#module-solrad.atmosphere.ozone_column" title="Permalink to this heading">#</a></h2>
 <p>This module contains all functions, methods and classes related to the
 computation and manipulation of the atmospheric ozone column of a site.</p>
-<blockquote>
-<div><p>—- CLIMATE DATA STORE —-</p>
-</div></blockquote>
+<p><strong>CLIMATE DATA STORE</strong></p>
 <p>“The Copernicus - Climate Data Store (CDS) is an online open and free service
 that allows users to browse and access a wide range of climate datasets via a
 searchable catalogue. It also allows users to build their own applications,
@@ -618,12 +616,54 @@ maps and graphs.”</p>
 <a class="reference external" href="https://cds.climate.copernicus.eu/api-how-to">https://cds.climate.copernicus.eu/api-how-to</a></p>
 <p>3) Useful tutorial on how to use the API, at
 <a class="reference external" href="https://youtu.be/cVtiVTSVdlo">https://youtu.be/cVtiVTSVdlo</a></p>
-<dl class="simple">
-<dt>NOTE: As described by the links in 2) and 3), it is necessary to have a CDS</dt><dd><p>account (and be currently logged in) account in order to be able to use
+<p><strong>NOTE:</strong> As described by the links in 2) and 3), it is necessary to have a CDS
+account (and be currently logged in) account in order to be able to use
 the API. Furtheremore, the user’s key and the API website link should be
 stored in a place, recognisable by the system being used.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone_">
+<span class="sig-prename descclassname"><span class="pre">solrad.atmosphere.ozone_column.</span></span><span class="sig-name descname"><span class="pre">compute_van_Heuklon_ozone_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone_" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the ozone contents in atm-cm for the given latitude/longitude and
+timestamp according to van Heuklon’s Ozone model. The model is described in
+Van Heuklon, ‘T. K. (1979). Estimating atmospheric ozone for solar radiation
+models. Solar Energy, 22(1), 63-68’. This function uses numpy functions,
+so you can pass arrays and it will return an array of results. The
+timestamp argument can be either an array/list or a single value.
+If timestamp is a single value then this will be used for all lat/lon
+values given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>latitude</strong> (<em>float</em>) – Site’s latitude in degrees. Must a number between -90 and 90.</p></li>
+<li><p><strong>longitude</strong> (<em>float</em>) – Site’s longitude in degrees. Must be a number between -180 and 180.</p></li>
+<li><p><strong>timestamp</strong> (<em>pandas.Timestamp object</em><em> or </em><em>array like</em><em> of </em><em>pandas.Timestamp objects</em>) – The times for which the ozone is to be computed. It is strongly
+recommend that the timestamp use an ISO 8601 format of yyyy-mm-dd.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – Ozone amount in atm-cm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<ol class="arabic simple">
+<li><p>This function was directly taken from <a class="reference external" href="https://github.com/robintw/vanHOzone">https://github.com/robintw/vanHOzone</a>
+all credit goes to him. I copy-pasted the code rather than directly
+downloading tthe pachage from pip as I wanted to add some very minor
+changes.</p></li>
+<li><p>The function also supports array like inputs for lat and long but in that
+case timestamp must be either a single element or an array matching the
+length of the lat and lon arrays.</p></li>
+<li><p>Latitude of -90° corresponds to the geographic South pole, while a
+latitude of 90° corresponds to the geographic North Pole.</p></li>
+<li><p>A negative longitude correspondes to a point west of the greenwhich
+meridian, while a positive longitude means it is east of the greenwhich
+meridian.</p></li>
+</ol>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.atmosphere.ozone_column.get_CDS_ozone_column_data">
 <span class="sig-prename descclassname"><span class="pre">solrad.atmosphere.ozone_column.</span></span><span class="sig-name descname"><span class="pre">get_CDS_ozone_column_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'numpy'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.atmosphere.ozone_column.get_CDS_ozone_column_data" title="Permalink to this definition">#</a></dt>
@@ -1260,6 +1300,7 @@ meridian.</p></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-solrad.atmosphere.ozone_column">solrad.atmosphere.ozone_column module</a><ul>
+<li><a class="reference internal" href="#solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone_"><code class="docutils literal notranslate"><span class="pre">compute_van_Heuklon_ozone_()</span></code></a></li>
 <li><a class="reference internal" href="#solrad.atmosphere.ozone_column.get_CDS_ozone_column_data"><code class="docutils literal notranslate"><span class="pre">get_CDS_ozone_column_data()</span></code></a></li>
 <li><a class="reference internal" href="#solrad.atmosphere.ozone_column.process_CDS_ozone_column_data"><code class="docutils literal notranslate"><span class="pre">process_CDS_ozone_column_data()</span></code></a></li>
 </ul>
