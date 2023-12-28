@@ -621,8 +621,8 @@ account (and be currently logged in) account in order to be able to use
 the API. Furtheremore, the user’s key and the API website link should be
 stored in a place, recognisable by the system being used.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone_">
-<span class="sig-prename descclassname"><span class="pre">solrad.atmosphere.ozone_column.</span></span><span class="sig-name descname"><span class="pre">compute_van_Heuklon_ozone_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone_" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone">
+<span class="sig-prename descclassname"><span class="pre">solrad.atmosphere.ozone_column.</span></span><span class="sig-name descname"><span class="pre">compute_van_Heuklon_ozone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the ozone contents in atm-cm for the given latitude/longitude and
 timestamp according to van Heuklon’s Ozone model. The model is described in
 Van Heuklon, ‘T. K. (1979). Estimating atmospheric ozone for solar radiation
@@ -634,9 +634,9 @@ values given.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>latitude</strong> (<em>float</em>) – Site’s latitude in degrees. Must a number between -90 and 90.</p></li>
-<li><p><strong>longitude</strong> (<em>float</em>) – Site’s longitude in degrees. Must be a number between -180 and 180.</p></li>
-<li><p><strong>timestamp</strong> (<em>pandas.Timestamp object</em><em> or </em><em>array like</em><em> of </em><em>pandas.Timestamp objects</em>) – The times for which the ozone is to be computed. It is strongly
+<li><p><strong>latitude</strong> (<em>float</em><em> or </em><em>array-like</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Site’s latitude in degrees. Values must be between -90 and 90.</p></li>
+<li><p><strong>longitude</strong> (<em>float</em><em> or </em><em>array-like</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Site’s longitude in degrees. Values must be between -180 and 180.</p></li>
+<li><p><strong>timestamp</strong> (<em>pandas.Timestamp object</em><em> or </em><em>array-like</em><em> of </em><em>pandas.Timestamp objects float</em><em> or </em><em>array-like</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – The times for which the ozone is to be computed. It is strongly
 recommend that the timestamp use an ISO 8601 format of yyyy-mm-dd.</p></li>
 </ul>
 </dd>
@@ -646,6 +646,12 @@ recommend that the timestamp use an ISO 8601 format of yyyy-mm-dd.</p></li>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>1</strong><strong>) </strong><strong>ValueError</strong> – “lan and lon arrays must be the same length”</p></li>
+<li><p><strong>2</strong><strong>) </strong><strong>ValueError</strong> – “Timestamp must be the same length as lat and lon”</p></li>
+</ul>
+</dd>
 </dl>
 <p class="rubric">Notes</p>
 <ol class="arabic simple">
@@ -653,9 +659,8 @@ recommend that the timestamp use an ISO 8601 format of yyyy-mm-dd.</p></li>
 all credit goes to him. I copy-pasted the code rather than directly
 downloading tthe pachage from pip as I wanted to add some very minor
 changes.</p></li>
-<li><p>The function also supports array like inputs for lat and long but in that
-case timestamp must be either a single element or an array matching the
-length of the lat and lon arrays.</p></li>
+<li><p>The function supports array-like inputs for latitude, longitude
+and timestamp, as long as all 3 arguments are the same length.</p></li>
 <li><p>Latitude of -90° corresponds to the geographic South pole, while a
 latitude of 90° corresponds to the geographic North Pole.</p></li>
 <li><p>A negative longitude correspondes to a point west of the greenwhich
@@ -683,7 +688,7 @@ If not None, it must be list of months for which to retrieve the data.
 Said months must be of type str rather than int.
 Eg.: month = [“01”, “02”, “11”, “12”].</p></li>
 <li><p><strong>file_format</strong> (<em>{'NetCDF4'</em><em>, </em><em>'numpy'}</em><em>, </em><em>optional</em>) – Format in which the data is to be downloaded.
-If ‘NetCDF4’, the data is downloaded in its original format and no changes are made.
+If ‘NetCDF4’, the data is downloaded in its original format and no changes are made to it.
 If ‘numpy’  , the relevant water column data are downloaded, along with the latitude
 and longitude data, as numpy arrays. We also convert units from Dobson to atm-cm (see notes
 for more info). Default is ‘numpy’.</p></li>
@@ -702,7 +707,7 @@ Copernicus Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/
 <li><p>For this function to work, the user must have a Climate Data Store
 account and be currently logged in. Furtheremore, the user’s key and the
 API website link should be stored in a place, recognisable by the system being used.
-See <a class="reference external" href="https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm">https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm</a> for a quick Youtube tutorial.
+See <a class="reference external" href="https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm">https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm</a> for a quick Youtube tutorial about it.
 See <a class="reference external" href="https://cds.climate.copernicus.eu/api-how-to">https://cds.climate.copernicus.eu/api-how-to</a> for the official documentation.</p></li>
 <li><p>For more information on the specific databse used, see:
 <a class="reference external" href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-ozone-v1">https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-ozone-v1</a>?tab=overview</p></li>
@@ -715,8 +720,8 @@ See <a class="reference external" href="https://cds.climate.copernicus.eu/api-ho
 <dt class="sig sig-object py" id="solrad.atmosphere.ozone_column.process_CDS_ozone_column_data">
 <span class="sig-prename descclassname"><span class="pre">solrad.atmosphere.ozone_column.</span></span><span class="sig-name descname"><span class="pre">process_CDS_ozone_column_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.atmosphere.ozone_column.process_CDS_ozone_column_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Process ozone data located in the local ozone database. This function reads the raw.npy
-ozone-column files (files which were obtained via the ‘get_CDS_ozone_column_data’ function)
-stored at the directory specified by ‘path’ and then computes multiple useful quantities.</p>
+ozone-column files (files which were obtained via the <a class="reference internal" href="#solrad.atmosphere.ozone_column.get_CDS_ozone_column_data" title="solrad.atmosphere.ozone_column.get_CDS_ozone_column_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_CDS_ozone_column_data()</span></code></a> function)
+stored at the directory specified by <em>path</em> and then computes multiple useful quantities.</p>
 <section id="parameteres">
 <h3>Parameteres<a class="headerlink" href="#parameteres" title="Permalink to this heading">#</a></h3>
 <dl class="simple">
@@ -771,12 +776,6 @@ expected at that location.</p>
 </dl>
 </div></blockquote>
 </dd>
-</dl>
-</div></blockquote>
-</dd>
-<dt class="field-even">rtype<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-<dl>
 <dt>“avg_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise averaged data of ozone-column
 values stored in the local ozone database, for each month. It has
 the following key-value pair format:</p>
@@ -829,6 +828,22 @@ expected at that location.</p>
 </div></blockquote>
 </dd>
 </dl>
+</div></blockquote>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+<dt class="field-odd">raises 1) Exception<span class="colon">:</span></dt>
+<dd class="field-odd"><p>“Local ozone column database is empty. No ozone column raw.npy nor filled_NaNs.npy files to retrieve were found.”</p>
+</dd>
+<dt class="field-even">raises 2) Exception<span class="colon">:</span></dt>
+<dd class="field-even"><p>“Latitude data could not be recovered. No latitude.npy files are present in the database.”</p>
+</dd>
+<dt class="field-odd">raises 3) Exception<span class="colon">:</span></dt>
+<dd class="field-odd"><p>“Longitude data could not be recovered. No longitude.npy files are present in the database.”</p>
+</dd>
+<dt class="field-even">Warns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>1) Warning</strong> – “WARNING: Local ozone column database lacks raw.npy data files for all 12 months of the year.”</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -885,7 +900,7 @@ Properties. Environ. Res.. 94.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Solrad.Atmosphere.single_scattering_albedo</span> <span class="kn">import</span> <span class="n">compute_single_scattering_albedo_using_SF</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">solrad.atmosphere.single_scattering_albedo</span> <span class="kn">import</span> <span class="n">compute_single_scattering_albedo_using_SF</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">280</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">RHs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">99</span><span class="p">])</span>
@@ -916,7 +931,7 @@ Properties. Environ. Res.. 94.</p>
 <span id="solrad-atmosphere-water-column-module"></span><h2>solrad.atmosphere.water_column module<a class="headerlink" href="#module-solrad.atmosphere.water_column" title="Permalink to this heading">#</a></h2>
 <p>This module contains all functions, methods and classes related to the
 computation and manipulation of the precipitable water column of a site.</p>
-<p>#                  —- CLIMATE DATA STORE —-</p>
+<p><strong>CLIMATE DATA STORE</strong></p>
 <p>“The Copernicus - Climate Data Store (CDS) is an online open and free service
 that allows users to browse and access a wide range of climate datasets via a
 searchable catalogue. It also allows users to build their own applications,
@@ -927,12 +942,10 @@ maps and graphs.”</p>
 <a class="reference external" href="https://cds.climate.copernicus.eu/api-how-to">https://cds.climate.copernicus.eu/api-how-to</a></p>
 <p>3) Useful tutorial on how to use the API, at
 <a class="reference external" href="https://youtu.be/cVtiVTSVdlo">https://youtu.be/cVtiVTSVdlo</a></p>
-<dl class="simple">
-<dt>NOTE: As described by the links in 2) and 3), it is necessary to have a CDS</dt><dd><p>account (and be currently logged in) account in order to be able to use
+<p><strong>NOTE:</strong> As described by the links in 2) and 3), it is necessary to have a CDS
+account (and be currently logged in) account in order to be able to use
 the API. Furtheremore, the user’s key and the API website link should be
 stored in a place, recognisable by the system being used.</p>
-</dd>
-</dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.atmosphere.water_column.fill_CDS_water_column_data_nans">
 <span class="sig-prename descclassname"><span class="pre">solrad.atmosphere.water_column.</span></span><span class="sig-name descname"><span class="pre">fill_CDS_water_column_data_nans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.atmosphere.water_column.fill_CDS_water_column_data_nans" title="Permalink to this definition">#</a></dt>
@@ -940,9 +953,9 @@ stored in a place, recognisable by the system being used.</p>
 <p>The data retrieved from the Climate Data Store (CDS) database referenced
 in [1] has a considerable amount of missing or defective values in its files.
 This is inconvenient for later computations. As such, this function reads all
-‘raw.npy’ files in the directory specified by the ‘path’ variable (i.e, the local water
-column database), that were obtained via the function ‘get_CDS_water_column_data’; and
-uses the function ‘auxiliary_funcs.fill_CDS_globe_nans_using_laplace’ to fill each file’s
+‘raw.npy’ files in the directory specified by the <em>path</em> argument (i.e, the local water
+column database), that were obtained via the function <a class="reference internal" href="#solrad.atmosphere.water_column.get_CDS_water_column_data" title="solrad.atmosphere.water_column.get_CDS_water_column_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_CDS_water_column_data()</span></code></a>; and
+uses the function <a class="reference internal" href="solrad.html#solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace" title="solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill_CDS_globe_nans_using_laplace()</span></code></a> to fill each file’s
 NaN values with a suitable numeric approximation and then saves each modified file back
 to the same directory as a ‘filled_NaNs.npy’ file.</p>
 <dl class="field-list simple">
@@ -952,7 +965,7 @@ to the same directory as a ‘filled_NaNs.npy’ file.</p>
 column information downloaded from the aforementioned database, are
 stored. The resulting filled_NaNs.npy files will also be stored in
 this same directory.</p></li>
-<li><p><strong>iterations</strong> (<em>int</em>) – Number of iterations that the ‘auxiliary_funcs.fill_CDS_globe_nans_using_laplace’
+<li><p><strong>iterations</strong> (<em>int</em>) – Number of iterations that the <a class="reference internal" href="solrad.html#solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace" title="solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill_CDS_globe_nans_using_laplace()</span></code></a>
 function should use for computing the numerical approximation to the
 NaN values, before stopping (must be non-negative). The greater the
 number of iterations, the greater the chance that convergence of the
@@ -973,10 +986,6 @@ Default is False.</p></li>
 <dd class="field-odd"><p>None</p>
 </dd>
 </dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code></p>
-</div>
 <p class="rubric">References</p>
 <p>[1] Preusker, R., El Kassar, R. (2022): Monthly total column water vapour over
 land and ocean from 2002 to 2012 derived from satellite observation. Copernicus
@@ -992,47 +1001,37 @@ time frame. A new folder (whose path is specified by the user) is then automatic
 created to store the downloaded files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>path-str</em>) – Path of the folder where one wishes to store the downloaded files in.
-Said folder need not exist, as it will be automatically created.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>year<span class="classifier">list of str</span></dt><dd><p>List of years for which the water-column data is to be retieved.
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>path-str</em>) – Path of the folder where one wishes to store the downloaded files in.</p></li>
+<li><p><strong>year</strong> (<em>list</em><em> of </em><em>str</em>) – List of years for which the water-column data is to be retieved.
 The years must be of type str rather than int.
-Eg.: year = [“2009”, “2010”, “2011”].</p>
-</dd>
-<dt>month<span class="classifier">None or list of str, optional</span></dt><dd><p>If is None (default), all months for the selected years are retrieved.
+Eg.: year = [“2009”, “2010”, “2011”].</p></li>
+<li><p><strong>month</strong> (<em>None</em><em> or </em><em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – If is None (default), all months for the selected years are retrieved.
 If not None, it must be list of months for which to retrieve the data.
 Said months must be of type str rather than int.
-Eg.: month = [“01”, “02”, “11”, “12”].</p>
-</dd>
-<dt>file_format<span class="classifier">{‘NetCDF4’, ‘numpy’}, optional</span></dt><dd><p>Format in which the data is to be downloaded.
-If ‘NetCDF4’, the data is downloaded in its original format and no changes are made.
+Eg.: month = [“01”, “02”, “11”, “12”].</p></li>
+<li><p><strong>file_format</strong> (<em>{'NetCDF4'</em><em>, </em><em>'numpy'}</em><em>, </em><em>optional</em>) – Format in which the data is to be downloaded.
+If ‘NetCDF4’, the data is downloaded in its original format and no changes are made about it.
 If ‘numpy’  , the relevant water column data are downloaded, along with the latitude
 and longitude data, as numpy arrays. We also convert units from kg/m² to atm-cm (see notes
-for more info). Default is ‘numpy’.</p>
+for more info). Default is ‘numpy’.</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>For this function to work, the user must have a Climate Data Store
+<p>1) For this function to work, the user must have a Climate Data Store
 account and be currently logged in. Furtheremore, the user’s key and the
 API website link should be stored in a place, recognisable by the system being used.
-See <a class="reference external" href="https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm">https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm</a> for a quick Youtube tutorial.
-See <a class="reference external" href="https://cds.climate.copernicus.eu/api-how-to">https://cds.climate.copernicus.eu/api-how-to</a> for the official documentation.</p></li>
-<li><p>For more information on the specific databse used, see:
-<a class="reference external" href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-total-column-water-vapour-land-ocean">https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-total-column-water-vapour-land-ocean</a>?tab=overview</p></li>
-<li><dl class="simple">
-<dt>The original, unaltered, downloaded data are .nc files holding the Total Column</dt><dd><p>Water Vapour (in kg/m²) of the whole globe, for the requested time frame.</p>
-</dd>
-</dl>
-</li>
-<li><p>“Total Column Water Vapour (also called integrated Water Vapour (IWV) or
+See <a class="reference external" href="https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm">https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm</a> for a quick Youtube tutorial about it.
+See <a class="reference external" href="https://cds.climate.copernicus.eu/api-how-to">https://cds.climate.copernicus.eu/api-how-to</a> for the official documentation.</p>
+<p>2) For more information on the specific databse used, see:
+<a class="reference external" href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-total-column-water-vapour-land-ocean">https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-total-column-water-vapour-land-ocean</a>?tab=overview</p>
+<p>3) The original, unaltered, downloaded data are .nc files holding the Total Column
+Water Vapour (in kg/m²) of the whole globe, for the requested time frame.</p>
+<p>4) “Total Column Water Vapour (also called integrated Water Vapour (IWV) or
 Precipitable Water Vapour (PWV)) is the integrated mass of gaseous water
 in the total column of the atmosphere over an area of 1 m²” and it is
 usually given in kg/m². However, another common way of expressing this
@@ -1040,8 +1039,7 @@ same variable, is as the height (in cm) that a column of x kilograms
 of water would have, when being bounded by a cube whose base has an area
 of 1 m². Using the average density of water (997 kg/m³ ≈ 1000 kg/m³),
 we see that a Total column of water vapour of x kg/m² would roughly
-equate to a x/10 cm water column.</p></li>
-</ol>
+equate to a x/10 cm water column.</p>
 <p class="rubric">References</p>
 <p>[1] Preusker, R., El Kassar, R. (2022): Monthly total column water vapour over
 land and ocean from 2002 to 2012 derived from satellite observation. Copernicus
@@ -1053,9 +1051,9 @@ Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/cds.8e0e472
 <span class="sig-prename descclassname"><span class="pre">solrad.atmosphere.water_column.</span></span><span class="sig-name descname"><span class="pre">process_CDS_water_column_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.atmosphere.water_column.process_CDS_water_column_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Process the water column data located in the local water column database.
 This function reads all the raw.ny and filled_NaNs.npy water column files (files which
-were obtained via the ‘get_CDS_water_column_data’ and  ‘fill_CDS_water_column_data_nans’
-functions) stored at the directory specified by ‘path’ and then computes multiple
-useful quantities.</p>
+were obtained via the <a class="reference internal" href="#solrad.atmosphere.water_column.get_CDS_water_column_data" title="solrad.atmosphere.water_column.get_CDS_water_column_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_CDS_water_column_data()</span></code></a> function) and
+<a class="reference internal" href="solrad.html#solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace" title="solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill_CDS_globe_nans_using_laplace()</span></code></a> functions) stored at the directory
+specified by <em>path</em> and then computes multiple useful quantities.</p>
 <section id="parameteres">
 <h3>Parameteres<a class="headerlink" href="#parameteres" title="Permalink to this heading">#</a></h3>
 <dl class="simple">
@@ -1300,7 +1298,7 @@ meridian.</p></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-solrad.atmosphere.ozone_column">solrad.atmosphere.ozone_column module</a><ul>
-<li><a class="reference internal" href="#solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone_"><code class="docutils literal notranslate"><span class="pre">compute_van_Heuklon_ozone_()</span></code></a></li>
+<li><a class="reference internal" href="#solrad.atmosphere.ozone_column.compute_van_Heuklon_ozone"><code class="docutils literal notranslate"><span class="pre">compute_van_Heuklon_ozone()</span></code></a></li>
 <li><a class="reference internal" href="#solrad.atmosphere.ozone_column.get_CDS_ozone_column_data"><code class="docutils literal notranslate"><span class="pre">get_CDS_ozone_column_data()</span></code></a></li>
 <li><a class="reference internal" href="#solrad.atmosphere.ozone_column.process_CDS_ozone_column_data"><code class="docutils literal notranslate"><span class="pre">process_CDS_ozone_column_data()</span></code></a></li>
 </ul>

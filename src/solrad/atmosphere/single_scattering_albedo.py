@@ -108,7 +108,7 @@ def compute_single_scattering_albedo_using_SF(RH, wavelength, model, interp_meth
     --------
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
-    >>> from Solrad.Atmosphere.single_scattering_albedo import compute_single_scattering_albedo_using_SF
+    >>> from solrad.atmosphere.single_scattering_albedo import compute_single_scattering_albedo_using_SF
     >>>
     >>> wavelengths = np.linspace(280, 4000, 1000)
     >>> RHs = np.array([0, 50, 70, 80, 90, 95, 98, 99])

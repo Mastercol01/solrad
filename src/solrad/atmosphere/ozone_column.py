@@ -220,7 +220,7 @@ def get_CDS_ozone_column_data(path, year, month=None, file_format = "numpy"):
 
     file_format : {'NetCDF4', 'numpy'}, optional
         Format in which the data is to be downloaded. 
-        If 'NetCDF4', the data is downloaded in its original format and no changes are made.
+        If 'NetCDF4', the data is downloaded in its original format and no changes are made to it.
         If 'numpy'  , the relevant water column data are downloaded, along with the latitude
         and longitude data, as numpy arrays. We also convert units from Dobson to atm-cm (see notes 
         for more info). Default is 'numpy'.
@@ -243,7 +243,7 @@ def get_CDS_ozone_column_data(path, year, month=None, file_format = "numpy"):
     1) For this function to work, the user must have a Climate Data Store 
        account and be currently logged in. Furtheremore, the user's key and the
        API website link should be stored in a place, recognisable by the system being used. 
-       See https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm for a quick Youtube tutorial.
+       See https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm for a quick Youtube tutorial about it.
        See https://cds.climate.copernicus.eu/api-how-to for the official documentation.
        
     2) For more information on the specific databse used, see:
@@ -339,8 +339,8 @@ def process_CDS_ozone_column_data(path, percentile = 0.5, interp_method = "linea
 
     """
     Process ozone data located in the local ozone database. This function reads the raw.npy 
-    ozone-column files (files which were obtained via the 'get_CDS_ozone_column_data' function)
-    stored at the directory specified by 'path' and then computes multiple useful quantities.
+    ozone-column files (files which were obtained via the :func:`~solrad.atmosphere.ozone_column.get_CDS_ozone_column_data` function)
+    stored at the directory specified by *path* and then computes multiple useful quantities.
     
     Parameteres
     -----------
@@ -403,7 +403,6 @@ def process_CDS_ozone_column_data(path, percentile = 0.5, interp_method = "linea
                         of latitude and longitude and returns the ozone-column value 
                         expected at that location.
               
-                        
             "avg_data" : dict
                 Dictionary containing the year-wise averaged data of ozone-column 
                 values stored in the local ozone database, for each month. It has 
@@ -454,8 +453,23 @@ def process_CDS_ozone_column_data(path, percentile = 0.5, interp_method = "linea
                         that the function interpolates. It takes as input a value
                         of latitude and longitude and returns the ozone-column value 
                         expected at that location.
+                   
+    Raises
+    ------
+    1) Exception 
+        "Local ozone column database is empty. No ozone column raw.npy nor filled_NaNs.npy files to retrieve were found."
+
+    2) Exception 
+        "Latitude data could not be recovered. No latitude.npy files are present in the database."
+
+    3) Exception 
+        "Longitude data could not be recovered. No longitude.npy files are present in the database."
+
+    Warns
+    -----
+    1) Warning
+       "WARNING: Local ozone column database lacks raw.npy data files for all 12 months of the year."
  
-    
     Notes
     -----       
     1) res["raw_data"], res["raw_data_funcs"], res["avg_data"], res["avg_data_funcs"],

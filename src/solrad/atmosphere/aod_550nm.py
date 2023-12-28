@@ -412,14 +412,14 @@ def process_CDS_aod_550nm_data(path, percentile = 0.5, interp_method = "linear")
  
     Raises
     ------
-    1) Exception 
-       "Local aod_550nm database is empty. No aod_550nm raw.npy nor filled_NaNs.npy files to retrieve were found."
+    1) Exception
+        "Local aod_550nm database is empty. No aod_550nm raw.npy nor filled_NaNs.npy files to retrieve were found."
 
     2) Exception 
-       "Latitude data could not be recovered. No latitude.npy files are present in the database."
+        "Latitude data could not be recovered. No latitude.npy files are present in the database."
 
     3) Exception 
-       "Longitude data could not be recovered. No longitude.npy files are present in the database."
+        "Longitude data could not be recovered. No longitude.npy files are present in the database."
 
     Warns
     -----

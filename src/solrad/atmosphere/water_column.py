@@ -5,7 +5,7 @@ This module contains all functions, methods and classes related to the
 computation and manipulation of the precipitable water column of a site.
 
 
-#                  ---- CLIMATE DATA STORE ----
+**CLIMATE DATA STORE**
 
 "The Copernicus - Climate Data Store (CDS) is an online open and free service
 that allows users to browse and access a wide range of climate datasets via a 
@@ -22,10 +22,10 @@ https://cds.climate.copernicus.eu/api-how-to
 https://youtu.be/cVtiVTSVdlo
     
 
-NOTE: As described by the links in 2) and 3), it is necessary to have a CDS 
-      account (and be currently logged in) account in order to be able to use
-      the API. Furtheremore, the user's key and the API website link should be 
-      stored in a place, recognisable by the system being used.  
+**NOTE:** As described by the links in 2) and 3), it is necessary to have a CDS 
+account (and be currently logged in) account in order to be able to use
+the API. Furtheremore, the user's key and the API website link should be 
+stored in a place, recognisable by the system being used. 
 """
 
 
@@ -57,8 +57,6 @@ def get_CDS_water_column_data(path, year, month=None, file_format = "numpy"):
     ----------
     path : path-str
         Path of the folder where one wishes to store the downloaded files in. 
-        Said folder need not exist, as it will be automatically created.
-
     
     year : list of str
         List of years for which the water-column data is to be retieved. 
@@ -73,40 +71,38 @@ def get_CDS_water_column_data(path, year, month=None, file_format = "numpy"):
 
     file_format : {'NetCDF4', 'numpy'}, optional
         Format in which the data is to be downloaded. 
-        If 'NetCDF4', the data is downloaded in its original format and no changes are made.
+        If 'NetCDF4', the data is downloaded in its original format and no changes are made about it.
         If 'numpy'  , the relevant water column data are downloaded, along with the latitude
         and longitude data, as numpy arrays. We also convert units from kg/m² to atm-cm (see notes 
         for more info). Default is 'numpy'.
 
-        
     Returns
     -------
-    None
-    
+    None    
         
     Notes
     -----
     1) For this function to work, the user must have a Climate Data Store 
-       account and be currently logged in. Furtheremore, the user's key and the
-       API website link should be stored in a place, recognisable by the system being used. 
-       See https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm for a quick Youtube tutorial.
-       See https://cds.climate.copernicus.eu/api-how-to for the official documentation.
+    account and be currently logged in. Furtheremore, the user's key and the
+    API website link should be stored in a place, recognisable by the system being used. 
+    See https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm for a quick Youtube tutorial about it.
+    See https://cds.climate.copernicus.eu/api-how-to for the official documentation.
         
     2) For more information on the specific databse used, see:
-       https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-total-column-water-vapour-land-ocean?tab=overview
+    https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-total-column-water-vapour-land-ocean?tab=overview
 
     3) The original, unaltered, downloaded data are .nc files holding the Total Column
-        Water Vapour (in kg/m²) of the whole globe, for the requested time frame.
+    Water Vapour (in kg/m²) of the whole globe, for the requested time frame.
        
     4) "Total Column Water Vapour (also called integrated Water Vapour (IWV) or
-       Precipitable Water Vapour (PWV)) is the integrated mass of gaseous water 
-       in the total column of the atmosphere over an area of 1 m²" and it is 
-       usually given in kg/m². However, another common way of expressing this
-       same variable, is as the height (in cm) that a column of x kilograms
-       of water would have, when being bounded by a cube whose base has an area
-       of 1 m². Using the average density of water (997 kg/m³ ≈ 1000 kg/m³), 
-       we see that a Total column of water vapour of x kg/m² would roughly 
-       equate to a x/10 cm water column.
+    Precipitable Water Vapour (PWV)) is the integrated mass of gaseous water 
+    in the total column of the atmosphere over an area of 1 m²" and it is 
+    usually given in kg/m². However, another common way of expressing this
+    same variable, is as the height (in cm) that a column of x kilograms
+    of water would have, when being bounded by a cube whose base has an area
+    of 1 m². Using the average density of water (997 kg/m³ ≈ 1000 kg/m³), 
+    we see that a Total column of water vapour of x kg/m² would roughly 
+    equate to a x/10 cm water column.
 
     References
     ----------
@@ -196,13 +192,12 @@ def fill_CDS_water_column_data_nans(path, iterations = 20000, show_progress = Fa
     """
     Fill NaNs with suitable numeric aproximation of CDS water column raw data.
 
-
     The data retrieved from the Climate Data Store (CDS) database referenced
     in [1] has a considerable amount of missing or defective values in its files.
     This is inconvenient for later computations. As such, this function reads all
-    'raw.npy' files in the directory specified by the 'path' variable (i.e, the local water
-    column database), that were obtained via the function 'get_CDS_water_column_data'; and 
-    uses the function 'auxiliary_funcs.fill_CDS_globe_nans_using_laplace' to fill each file's 
+    'raw.npy' files in the directory specified by the *path* argument (i.e, the local water
+    column database), that were obtained via the function :func:`~solrad.atmosphere.water_column.get_CDS_water_column_data`; and 
+    uses the function :func:`~solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace` to fill each file's 
     NaN values with a suitable numeric approximation and then saves each modified file back 
     to the same directory as a 'filled_NaNs.npy' file. 
     
@@ -215,7 +210,7 @@ def fill_CDS_water_column_data_nans(path, iterations = 20000, show_progress = Fa
         this same directory.
         
     iterations: int
-        Number of iterations that the 'auxiliary_funcs.fill_CDS_globe_nans_using_laplace'
+        Number of iterations that the :func:`~solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace`
         function should use for computing the numerical approximation to the
         NaN values, before stopping (must be non-negative). The greater the 
         number of iterations, the greater the chance that convergence of the
@@ -237,14 +232,9 @@ def fill_CDS_water_column_data_nans(path, iterations = 20000, show_progress = Fa
     1) Exception :
        "Local water column database is empty. No water column raw.npy files to retrieve were found."     
 
-
     Returns
     -------
     None
-
-    See Also
-    --------
-    1) auxiliary_funcs.fill_CDS_globe_nans_using_laplace 
 
     References
     ----------
@@ -302,9 +292,9 @@ def process_CDS_water_column_data(path, percentile = 0.5, interp_method = "linea
     """
     Process the water column data located in the local water column database. 
     This function reads all the raw.ny and filled_NaNs.npy water column files (files which
-    were obtained via the 'get_CDS_water_column_data' and  'fill_CDS_water_column_data_nans' 
-    functions) stored at the directory specified by 'path' and then computes multiple 
-    useful quantities.
+    were obtained via the :func:`~solrad.atmosphere.water_column.get_CDS_water_column_data` function) and  
+    :func:`~solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace` functions) stored at the directory 
+    specified by *path* and then computes multiple useful quantities.
     
     Parameteres
     -----------
