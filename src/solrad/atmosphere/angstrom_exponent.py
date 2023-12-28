@@ -62,11 +62,11 @@ def compute_angstrom_exponent_using_SF(RH, wavelength = 500, model = "Urban"):
     --------
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
-    >>> from atmosphere.aerosol_asymmetry_factor import compute_angstrom_exponent_using_SF
+    >>> from solrad.atmosphere.angstrom_exponent import compute_angstrom_exponent_using_SF
     >>>
     >>> RHs = np.linspace(0, 100, 101)
     >>> for model in ["Rural", "Urban", "Maritime"]:
-
+    >>>
     >>>     fig = plt.figure(figsize=(15,10))
     >>>     alpha1 = compute_angstrom_exponent_using_SF(RHs, 499, model=model)
     >>>     alpha2 = compute_angstrom_exponent_using_SF(RHs, 500, model=model)

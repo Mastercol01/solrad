@@ -106,7 +106,7 @@ def compute_aerosol_asymmetry_factor_using_SF(RH, wavelength, model, interp_meth
     --------
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
-    >>> from atmosphere.aerosol_asymmetry_factor import compute_aerosol_asymmetry_factor_using_SF
+    >>> from solrad.atmosphere.aerosol_asymmetry_factor import compute_aerosol_asymmetry_factor_using_SF
     >>>
     >>> wavelengths = np.linspace(280, 4000, 1000)
     >>> RHs = np.array([0, 50, 70, 80, 90, 95, 98, 99])

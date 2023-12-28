@@ -6,7 +6,7 @@ computation and manipulation of the Aerosol Optical Depth at 550nm (AOD_550)
 of a site.
 
 
-                  ---- CLIMATE DATA STORE ----
+**CLIMATE DATA STORE**
 
 "The Copernicus - Climate Data Store (CDS) is an online open and free service
 that allows users to browse and access a wide range of climate datasets via a 
@@ -23,10 +23,11 @@ https://cds.climate.copernicus.eu/api-how-to
 https://youtu.be/cVtiVTSVdlo
     
 
-NOTE: As described by the links in 2) and 3), it is necessary to have a CDS 
-      account (and be currently logged in) account in order to be able to use
-      the API. Furtheremore, the user's key and the API website link should be 
-      stored in a place, recognisable by the system being used.  
+**NOTE:** As described by the links in 2) and 3), it is necessary to have a CDS 
+account (and be currently logged in) account in order to be able to use
+the API. Furtheremore, the user's key and the API website link should be 
+stored in a place, recognisable by the system being used.  
+
 """
 
 
@@ -57,8 +58,6 @@ def get_CDS_aod_550nm_data(path, year, month=None, file_format = "numpy"):
     ----------
     path : path-str
         Path of the folder where one wishes to store the downloaded files in. 
-        Said folder need not exist, as it will be automatically created.
-
     
     year : list of str
         List of years for which the water-column data is to be retieved. 
@@ -73,34 +72,31 @@ def get_CDS_aod_550nm_data(path, year, month=None, file_format = "numpy"):
 
     file_format : {'NetCDF4', 'numpy'}, optional
         Format in which the data is to be downloaded. 
-        If 'NetCDF4', the data is downloaded in its original format and no changes are made.
+        If 'NetCDF4', the data is downloaded in its original format and no changes are made to it.
         If 'numpy'  , the relevant aod_550nm data are downloaded, along with the latitude
         and longitude data, as numpy arrays. We also convert units from kg/m² to atm-cm (see notes 
         for more info). Default is 'numpy'.
 
-        
     Returns
     -------
     None
-    
         
     Notes
     -----
     1) For this function to work, the user must have a Climate Data Store 
-       account and be currently logged in. Furtheremore, the user's key and the
+       account and be currently logged in. Furthermore, the user's key and the
        API website link should be stored in a place, recognisable by the system being used. 
-       See https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm for a quick Youtube tutorial.
+       See https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm for a quick Youtube tutorial about it.
        See https://cds.climate.copernicus.eu/api-how-to for the official documentation.
         
     2) For more information on the specific databse used, see:
        https://cds.climate.copernicus.eu/cdsapp#!/dataset/satellite-total-column-water-vapour-land-ocean?tab=overview
 
-
     References
     ----------
     [1] Copernicus Climate Change Service, Climate Data Store, (2019): Aerosol
-        properties gridded data from 1995 to present derived from satellite observation. 
-        Copernicus Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/cds.239d815c 
+    properties gridded data from 1995 to present derived from satellite observation. 
+    Copernicus Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/cds.239d815c 
 
     """
     
@@ -185,16 +181,15 @@ def fill_CDS_aod_550nm_data_nans(path, iterations = 20000, show_progress = False
     """
     Fill NaNs with suitable numeric aproximation of CDS aod_550nm raw data.
 
-
     The data retrieved from the Climate Data Store (CDS) database referenced
     in [1] has a considerable amount of missing or defective values in its files.
     This is inconvenient for later computations. As such, this function reads all
-    'raw.npy' files in the directory specified by the 'path' variable (i.e, the local 
-    aod_550nm database), that were obtained via the function 'get_CDS_water_column_data'; and 
-    uses the function 'auxiliary_funcs.fill_CDS_globe_nans_using_laplace' to fill each file's 
+    'raw.npy' files in the directory specified by the *path* argument (i.e, the local 
+    aod_550nm database), that were obtained via the function :func:`~solrad.atmosphere.aod_550nm.get_CDS_aod_550nm_data`; and 
+    uses the function :func:`~solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace` to fill each file's 
     NaN values with a suitable numeric approximation and then saves each modified file back 
     to the same directory as a 'filled_NaNs.npy' file. 
-    
+
     Parameters
     ----------
     path : path-str
@@ -204,7 +199,7 @@ def fill_CDS_aod_550nm_data_nans(path, iterations = 20000, show_progress = False
         files will also be stored in this same directory.
         
     iterations: int
-        Number of iterations that the 'auxiliary_funcs.fill_CDS_globe_nans_using_laplace'
+        Number of iterations that the :func:`~solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace`
         function should use for computing the numerical approximation to the
         NaN values, before stopping (must be non-negative). The greater the 
         number of iterations, the greater the chance that convergence of the
@@ -218,9 +213,8 @@ def fill_CDS_aod_550nm_data_nans(path, iterations = 20000, show_progress = False
 
     replace : bool, optional
         Whether to errase the original raw.npy files, after the new filled_NaNs.npy
-        files (with have been created. This, as a way to save space in memory. 
+        files (with have been created. This, as a way to save space in memory). 
         Default is False. 
-
 
     Returns
     -------
@@ -228,18 +222,14 @@ def fill_CDS_aod_550nm_data_nans(path, iterations = 20000, show_progress = False
 
     Raises
     ------
-    1) Exception :
+    1) Exception
        "Local aod_550nm database is empty. No aod_550nm raw.npy files to retrieve were found."
-
-    See Also
-    --------
-    1) auxiliary_funcs.fill_CDS_globe_nans_using_laplace 
 
     References
     ----------
     [1] Copernicus Climate Change Service, Climate Data Store, (2019): Aerosol
-        properties gridded data from 1995 to present derived from satellite observation. 
-        Copernicus Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/cds.239d815c 
+    properties gridded data from 1995 to present derived from satellite observation. 
+    Copernicus Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/cds.239d815c 
 
     """
 
@@ -289,16 +279,16 @@ def fill_CDS_aod_550nm_data_nans(path, iterations = 20000, show_progress = False
 def process_CDS_aod_550nm_data(path, percentile = 0.5, interp_method = "linear"):
 
     """
-    Process Aerosol Optical Depth at 550nm (aod_550) data located in the local aod_550 database. 
+    Process Aerosol Optical Depth at 550nm (aod_550nm) data located in the local aod_550nm database. 
     This function reads all the raw.ny and filled_NaNs.npy aod_550nm files (files which
-    were obtained via the 'get_CDS_aod_550nm_data' and 'fill_CDS_aod_550nm_data_nans' 
-    functions) stored at the directory specified by 'path' and then computes multiple 
-    useful quantities.
+    were obtained via the :func:`~solrad.atmosphere.aod_550nm.get_CDS_aod_550nm_data` and 
+    :func:`~solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace` functions) stored at the directory specified by 
+    *path* and then computes multiple useful quantities.
     
-    Parameteres
+    Parameters
     -----------
     path : path-str
-        Path of the folder where the aud_550nm raw.ny and filled_NaNs.npy files 
+        Path of the folder where the aod_550nm raw.ny and filled_NaNs.npy files 
         are stored. That is, the path to the local aod_550nm database.        
         
     percentile : float
@@ -366,7 +356,6 @@ def process_CDS_aod_550nm_data(path, percentile = 0.5, interp_method = "linear")
                         of latitude and longitude and returns the aod_550nm value 
                         expected at that location.
               
-                        
             "avg_data" : dict
                 Dictionary containing the year-wise averaged data of filled-NaN
                 aod_550nm values stored in the local aod_550nm database, for each
@@ -423,36 +412,36 @@ def process_CDS_aod_550nm_data(path, percentile = 0.5, interp_method = "linear")
  
     Raises
     ------
-    1) Exception :
+    1) Exception 
        "Local aod_550nm database is empty. No aod_550nm raw.npy nor filled_NaNs.npy files to retrieve were found."
 
-    2) Exception :
+    2) Exception 
        "Latitude data could not be recovered. No latitude.npy files are present in the database."
 
-    3) Exception :
+    3) Exception 
        "Longitude data could not be recovered. No longitude.npy files are present in the database."
 
     Warns
     -----
-    1) Warning:
-       "Local aod_550nm database is empty of filled_NaNs.npy files. No column water filled_NaNs.npy files to retrieve were found."
+    1) Warning
+       "Local aod_550nm database is empty of filled_NaNs.npy files. No aod_550nm filled_NaNs.npy files to retrieve were found."
     
-    2) Warning:
-       "Local aod_550nm database is empty of raw.npy files. No column water raw.npy files to retrieve were found."       
+    2) Warning
+       "Local aod_550nm database is empty of raw.npy files. No aod_550nm raw.npy files to retrieve were found."       
 
-    3) Warning:
+    3) Warning
        "Not all raw.npy files have an associated filled_NaNs.npy file in the database, and viceversa. Therefore, not all information will be available for all files."
 
-    4) Warning:
+    4) Warning
        "WARNING: Local aod_550nm database lacks raw.npy data files for all 12 months of the year."
 
-    5) Warning:
+    5) Warning
        "WARNING: Local aod_550nm database lacks filled_NaNs.npy data files for all 12 months of the year."
                     
     Notes
     -----
     1) res["raw_data"] contains as many key-value pairs as there are raw.npy
-      files in the local aod_550nm database.
+       files in the local aod_550nm database.
        
     2) res["filled_nan_data"], res["filled_nan_data_funcs"], res["avg_data"],
        res["avg_data_funcs"], res["precentile_data"] and res["precentile_data_funcs"]
