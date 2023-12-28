@@ -6,23 +6,20 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import os
-import sys
-sys.path.insert(0, os.path.abspath('..'))
-
 project = 'solrad'
-copyright = '2023, Andrés Moreno'
-author = 'Andrés Moreno'
-release = '0.0.1'
+copyright = '2023, Andrés Yesid Moreno Villa'
+author = 'Andrés Yesid Moreno Villa'
+release = '0.0.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.intersphinx',
+    "myst_parser",
+    "sphinx.ext.autosectionlabel", 
+    "nbsphinx",
+    "sphinx.ext.napoleon", 
+    "sphinx.ext.autodoc"
 ]
 
 templates_path = ['_templates']
@@ -33,7 +30,5 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 html_static_path = ['_static']
-
-github_doc_rut = "https://github.com/Mastercol01/solrad.git"

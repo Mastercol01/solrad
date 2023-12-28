@@ -1,12 +1,12 @@
-<h1 align="center">
-<img src="solrad_logo_ai_rescaled_2.png" width="400">
-</h1><br>
+![Solrad logo](solrad_logo_ai_rescaled_2.png)
 
 Solrad is a modular set of tools, entirely written in Python 3, designed for modeling and estimating the spatial and spectral distributions of radiation coming from the sky. The package enables the computation of relevant radiometric quantities such as (spectral or regular) radiance, (spectral or regular) radiant exposure vectors, and total absorbed energy. For this, solrad employs a simplified All-Sky radiation model that incorporates geographic and meteorological data of a site in its calculations.
 
 Solrad is a project that aims to provide an easy-to-use, *plug and play*, solution for the problem of sky radiation modeling; from the acquisition and processing of site-relevant variables to the implementation and computation of spectral and spatial radiation models.
 
-
+```{warning}
+This library is still under development.
+```
 # Installation 
 You can install Solrad directly from PyPI using the following command:
 

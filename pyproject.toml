@@ -37,7 +37,15 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["build", "twine", "sphinx", "sphinx-rtd-theme"]
+dev = [
+  "build",
+  "twine", 
+  "sphinx", 
+  "myst_parser",
+  "furo",
+  "nbsphinx",
+  "rst-to-myst"
+]
 
 
 [tool.setuptools]
