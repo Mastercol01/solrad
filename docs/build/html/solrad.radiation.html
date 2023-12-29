@@ -218,9 +218,9 @@ paper.</p>
 <p>[1] Norio Igawa, Yasuko Koga, Tomoko Matsuzawa, Hiroshi Nakamura, Models of sky radiance distribution and sky luminance distribution,
 Solar Energy, Volume 77, Issue 2, 2004, Pages 137-157, ISSN 0038-092X,
 <a class="reference external" href="https://doi.org/10.1016/j.solener.2004.04.016">https://doi.org/10.1016/j.solener.2004.04.016</a>. (<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0038092X04001070">https://www.sciencedirect.com/science/article/pii/S0038092X04001070</a>)</p>
-<p>[2] Norio Igawa, Yasuko Koga, Tomoko Matsuzawa, Hiroshi Nakamura, Models of sky radiance distribution and sky luminance distribution,
-Solar Energy, Volume 77, Issue 2,2004, Pages 137-157, ISSN 0038-092X, <a class="reference external" href="https://doi.org/10.1016/j.solener.2004.04.016">https://doi.org/10.1016/j.solener.2004.04.016</a>.
-(<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0038092X04001070">https://www.sciencedirect.com/science/article/pii/S0038092X04001070</a>)</p>
+<p>[2] Norio Igawa, Improving the All Sky Model for the luminance and radiance distributions of the sky,
+Solar Energy, Volume 105, 2014, Pages 354-372, ISSN 0038-092X,
+<a class="reference external" href="https://doi.org/10.1016/j.solener.2014.03.020">https://doi.org/10.1016/j.solener.2014.03.020</a>. (<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0038092X14001546">https://www.sciencedirect.com/science/article/pii/S0038092X14001546</a>)</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.radiation.diffuse_radiance_model.compute_angular_distance_between_sun_and_sky_element_Zeta">
 <span class="sig-prename descclassname"><span class="pre">solrad.radiation.diffuse_radiance_model.</span></span><span class="sig-name descname"><span class="pre">compute_angular_distance_between_sun_and_sky_element_Zeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">El</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sun_az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sun_apel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.radiation.diffuse_radiance_model.compute_angular_distance_between_sun_and_sky_element_Zeta" title="Permalink to this definition">#</a></dt>
@@ -229,20 +229,14 @@ elements on the sky.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float, it should be the azimuth coordinate (in degrees) of the sky element for which
-the angular distance to the sun is to be calculated. Else, it should be equal to
-<code class="docutils literal notranslate"><span class="pre">numpy.meshgrid(azimuths,</span> <span class="pre">elevations)[0]</span></code>, where <code class="docutils literal notranslate"><span class="pre">azimuths</span></code> and <code class="docutils literal notranslate"><span class="pre">elevations</span></code>
-are numpy.arrays with shape (A,) and (E,), respectively, that contain the
-azimuth and elevation coordinates (in degrees) of the sky elements for which the angular
-distances are to be calculated. In any case, values should always
-lie between 0 and 360 (inclusive).</p></li>
-<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float, it should be the elevation coordinate (in degrees) of the sky element for which
-the angular distance to the sun is to be calculated. Else, it should be equal to
-<code class="docutils literal notranslate"><span class="pre">numpy.meshgrid(azimuths,</span> <span class="pre">elevations)[1]</span></code>, where <code class="docutils literal notranslate"><span class="pre">azimuths</span></code> and <code class="docutils literal notranslate"><span class="pre">elevations</span></code>
-are numpy.arrays with shape (A,) and (E,), respectively, that contain the
-azimuth and elevation coordinates (in degrees) of the sky elements for which the angular
-distances are to be calculated. In any case, values should always
-lie between 0 and 90 (inclusive).</p></li>
+<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float, it should be the azimuth coordinate (in degrees) of the sky element for which the angular
+distance to the sun is to be calculated. If array, it should be a grid of azimuth coordinates (in degrees) of
+the sky elements for which the angular distance to the sun is to be calculated; and its values should also vary along axis 1.
+In any case, all values should be between 0 and 360 (inclusive).</p></li>
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float, it should be the elevation coordinate (in degrees) of the sky element for which the angular
+distance to the sun is to be calculated. If array, it should be a grid of elevation coordinates (in degrees) of
+the sky elements for which the angular distance to the sun is to be calculated; and its values should also vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p></li>
 <li><p><strong>sun_az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Azimuth coordinate of the sun (in degrees) across time.
 Values of must lie between 0 and 360 (inclusive).</p></li>
 <li><p><strong>sun_apel</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Apparent elevation coordinate of the sun (in degrees) across time.
@@ -257,6 +251,10 @@ at a time or across multiple times.</p>
 <dd class="field-odd"><p>float or numpy.array of floats with shape (E,A,T)</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<ol class="arabic simple">
+<li><p>One can</p></li>
+</ol>
 </dd></dl>
 
 <dl class="py function">
@@ -265,32 +263,23 @@ at a time or across multiple times.</p>
 <dd><p>Compute Igawa’s ‘clear sky index’ (Kc) parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Gh</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Global horizontal irradiance [W/m^2]. Must be a non-negative number or array
-of numbers. If it is a numpy.array, it should be the same shape as ‘Ghs’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Gh</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Global horizontal irradiance [W/m^2]. Values must be non-negative.</p></li>
+<li><p><strong>Ghs</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Standard global irradiance [W/m^2]. Values must be non-negative.</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Ghs<span class="classifier">float or numpy.array of floats</span></dt><dd><p>Standard global irradiance [W/m^2]. Must be a positive number or array
-of numbers. If it is a numpy.array, it should be the same shape as
-‘Gh’.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Kc</strong> – Igawa’s ‘clear sky index’ (Kc) parameter.</p>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Kc</strong> – Igawa’s ‘clear sky index’ (Kc) parameter. It is float if params are float
-and a numpy.array of equal shape if params are numpy.arrays.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>float or numpy.array of floats</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or numpy.array of floats (npoints,)</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>Values of Kc above 1.2 are clipped down to 1.2. The reason is that
+<p>1) Values of Kc above 1.2 are clipped down to 1.2. The reason is that
 in Igawa’s 2014 paper, all values reported for Kc were at or below 1.2,
 which makes me believe that a Cle of Kc is the maximum
-physically-sensible value for Kc.</p></li>
-</ol>
+physically-sensible value for Kc.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -300,15 +289,12 @@ physically-sensible value for Kc.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Gdh</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Diffuse horizontal irradiance. Must be a non-negative number or
-array of numbers.</p></li>
-<li><p><strong>Gh</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Global horizontal irradiance. Must be a positive number or array of
-numbers.</p></li>
+<li><p><strong>Gdh</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Diffuse horizontal irradiance. Values must be non-negative.</p></li>
+<li><p><strong>Gh</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Global horizontal irradiance. Values must be positive.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Ce</strong> – Igawa’s ‘cloud ratio’ (Ce) parameter. It is float if params are float
-and a numpy.array of equal shape if params are numpy.arrays.</p>
+<dd class="field-even"><p><strong>Ce</strong> – Igawa’s ‘cloud ratio’ (Ce) parameter.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float or numpy.array of floats (npoints,)</p>
@@ -323,10 +309,8 @@ and a numpy.array of equal shape if params are numpy.arrays.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Ce</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘cloud ratio’ (Ce) parameter. Must be a number or array of
-numbers between 0 and 1.</p></li>
-<li><p><strong>Ces</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘standard cloud ratio’ (Ces) parameter. Must be a number or
-array of numbers between 0 and 1.</p></li>
+<li><p><strong>Ce</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘cloud ratio’ (Ce) parameter. Values must be between 0 and 1.</p></li>
+<li><p><strong>Ces</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘standard cloud ratio’ (Ces) parameter. Values must be between 0 and 1.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -348,21 +332,18 @@ physically-sensible value for Cle.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.radiation.diffuse_radiance_model.compute_diffuse_radiance">
 <span class="sig-prename descclassname"><span class="pre">solrad.radiation.diffuse_radiance_model.</span></span><span class="sig-name descname"><span class="pre">compute_diffuse_radiance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">El</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dAz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dEl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gdh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_Gbn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sun_az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sun_apel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_airmass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.radiation.diffuse_radiance_model.compute_diffuse_radiance" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute diffuse sky radiance using Igawa’s 2014 paper detailed in “Improving the All Sky Model
-for the luminance and radiance distributions of the sky”.</p>
+<dd><p>Compute diffuse sky radiance using Igawa’s 2014 model detailed in [1].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Az</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-the azimuth (in degrees) of each sky element to be considered in
-the calculation of diffuse sky radiance. The values of ‘Az’ should vary
-along axis 1. Values should be between 0 and 360.</p></li>
-<li><p><strong>El</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of diffuse sky radiance. The values of ‘El’ should vary
-along axis 0. Values should be between 0 and 90.</p></li>
-<li><p><strong>dAz</strong> (<em>float</em>) – Angular resolution of ‘Az’ in degrees.</p></li>
-<li><p><strong>dEl</strong> (<em>float</em>) – Angular resolution of ‘El’ in degrees.</p></li>
+<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of azimuth coordinates (in degrees) of the sky elements for which the angular distance
+to the sun is to be calculated. Its values should vary along axis 1.
+In any case, all values should be between 0 and 360 (inclusive).</p></li>
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of elevation coordinates (in degrees) of the sky elements for which the angular distance
+to the sun is to be calculated. Its values should vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p></li>
+<li><p><strong>dAz</strong> (<em>float</em>) – Angular resolution of <em>Az</em> in degrees.</p></li>
+<li><p><strong>dEl</strong> (<em>float</em>) – Angular resolution of <em>El</em> in degrees.</p></li>
 <li><p><strong>Gh</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Global horizontal irradiance [W/m^2] across time. Must be a
 non-negative array of numbers.</p></li>
 <li><p><strong>Gdh</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Diffuse horizontal irradiance[W/m^2] across time. Must be a non-negative
@@ -390,7 +371,7 @@ pairs:</p>
 </dd>
 <dt>”Lea”<span class="classifier">numpy.array of floats with shape (E,A,T)</span></dt><dd><p>Diffuse sky radiance distribution [W/m^2/sr] across time.</p>
 </dd>
-<dt>”Le”<span class="classifier">numpy.array of floats with shape (E,A,T)</span></dt><dd><p>Relative sky radiance distribution [adimensional] across time.</p>
+<dt>”Le”<span class="classifier">numpy.array of floats with shape (E,A,T)</span></dt><dd><p>Relative sky radiance distribution [adm] across time.</p>
 </dd>
 <dt>”Lez”<span class="classifier">numpy.array of floats with shape (1,1,T)</span></dt><dd><p>Zenith radiance distribution [W/m^2/sr] across time.</p>
 </dd>
@@ -411,6 +392,10 @@ distribution.</p>
 method proposed by the authors (i.e, the best fit constants) but the
 resulting values were quite bad.</p></li>
 </ol>
+<p class="rubric">References</p>
+<p>[1] Norio Igawa, Improving the All Sky Model for the luminance and radiance distributions of the sky,
+Solar Energy, Volume 105, 2014, Pages 354-372, ISSN 0038-092X,
+<a class="reference external" href="https://doi.org/10.1016/j.solener.2014.03.020">https://doi.org/10.1016/j.solener.2014.03.020</a>. (<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0038092X14001546">https://www.sciencedirect.com/science/article/pii/S0038092X14001546</a>)</p>
 </dd></dl>
 
 <dl class="py function">
@@ -420,22 +405,21 @@ resulting values were quite bad.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coeff_name</strong> (<em>str</em>) – Name of the coefficient to compute.
-Supported are: “a”, “b”, “c”, “d”, “e”.</p></li>
-<li><p><strong>Kc</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Igawa’s ‘clear sky index’ (Kc) parameter. Must be a number of array
-of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-same shape as Cle.</p></li>
-<li><p><strong>Cle</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Igawa’s ‘cloudless index’ (Cle) parameter. Must be a number of array
-of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-same shape as Kc.</p></li>
+<li><p><strong>coeff_name</strong> (<em>{'a'</em><em>, </em><em>'b'</em><em>, </em><em>'c'</em><em>, </em><em>'d'</em><em>, </em><em>'e'}</em>) – Name of the coefficient to compute.</p></li>
+<li><p><strong>Kc</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – <dl class="simple">
+<dt>Igawa’s ‘clear sky index’ (Kc) parameter. Values must be</dt><dd><p>between 0 and 1.2.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>Cle</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘cloudless index’ (Cle) parameter. Values must be
+between 0 and 1.2.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>coeff_val</strong> – Value of the specified sky model coefficients. It is float if params
-are float and a numpy.array of equal shape if params are numpy.arrays.</p>
+<dd class="field-even"><p><strong>coeff_val</strong> – Value of the specified sky model coefficients.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float or numpy.array of floats</p>
+<dd class="field-odd"><p>float or numpy.array of floats (npoints,)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -450,18 +434,16 @@ rule.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Le</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>T</em><em>)</em>) – Un-normalized relative sky radiance distribution in W/m^2/sr,
-across time. ‘Le[n,m,t]’ holds the radiance of a sky element with
+<li><p><strong>Le</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>T</em><em>)</em>) – Unnormalized relative sky radiance distribution in W/m^2/sr,
+across time. <em>Le[n,m,t]</em> holds the radiance of a sky element with
 elevation specified by n, azimuth specified by m on a time specified by
-t. In other words, axis 0 of ‘Le’ takes account of the variation of
+t. In other words, axis 0 of <em>Le</em> takes account of the variation of
 radiance across the sky with respect to elevation, axis 1 accounts for
 the variation with respect to azimuth and axis 2 accounts for the
-variation with respect to time. Values of ‘le’ must be non-negative.
-Values must be non-negative.</p></li>
-<li><p><strong>El</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of ‘LzEd’. The values of ‘El’ should vary along axis 0.
-Values must lie between 0 and 90 (inclusive).</p></li>
+variation with respect to time. Values of <em>Le</em> must be non-negative.</p></li>
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of elevation coordinates (in degrees) of the sky elements for which
+<em>LzEd</em> is to be calculated. Its values should vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p></li>
 <li><p><strong>dAz</strong> (<em>float</em>) – Angular resolution of azimuth values in degrees.
 Values must be positive.</p></li>
 <li><p><strong>dEl</strong> (<em>float</em>) – Angular resolution of elevation values in degrees.
@@ -486,23 +468,16 @@ regression constants proposed by the author.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Kc</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Igawa’s ‘clear sky index’ (Kc) parameter. Must be a number of array
-of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-same shape as sun_apel.</p></li>
-<li><p><strong>Cle</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Igawa’s ‘cloudless index’ (Cle) parameter. Must be a number of array
-of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-same shape as sun_apel.</p></li>
-<li><p><strong>sun_apel</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Sun’s apparent elevation in degrees. Must be a number or array of
-numbers between 0 and 90.</p></li>
+<li><p><strong>Kc</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘clear sky index’ (Kc) parameter. values must be between 0 and 1.2.</p></li>
+<li><p><strong>Cle</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘cloudless index’ (Cle) parameter. values must be between 0 and 1.2.</p></li>
+<li><p><strong>sun_apel</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Sun’s apparent elevation in degrees. Values must be between 0 and 90.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>LzEd</strong> – Inverse of the integration value of relative sky radiance distribution.
-It is float if params are float and a numpy.array of equal shape if
-params are numpy.arrays.</p>
+<dd class="field-even"><p><strong>LzEd</strong> – Inverse of the integration value of relative sky radiance distribution.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float or numpy.array of floats</p>
+<dd class="field-odd"><p>float or numpy.array of floats (npoints,)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -515,20 +490,17 @@ sky.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Kc</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Igawa’s ‘clear sky index’ (Kc) parameter. Must be a number of array
-of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-same shape as Cle.</p></li>
-<li><p><strong>Cle</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Igawa’s ‘cloudless index’ (Cle) parameter. Must be a number of array
-of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-same shape as Kc.</p></li>
+<li><p><strong>Kc</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘clear sky index’ (Kc) parameter. Values must be
+between 0 and 1.2.</p></li>
+<li><p><strong>Cle</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Igawa’s ‘cloudless index’ (Cle) parameter. Values must be
+between 0 and 1.2.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Siv</strong> – Igawa’s ‘Sky index’ (Siv) parameter. It is float if params are float and a
-numpy.array of equal shape if params are numpy.arrays.</p>
+<dd class="field-even"><p><strong>Siv</strong> – Igawa’s ‘Sky index’ (Siv) parameter.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float or numpy.array of floats</p>
+<dd class="field-odd"><p>float or numpy.array of floats (npoints,)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -539,8 +511,7 @@ numpy.array of equal shape if params are numpy.arrays.</p>
 <dd><p>Compute Igawa’s ‘standard cloud ratio’ (Ces) parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>sun_apel</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Sun’s apparent elevation in degrees. Must be a number or array of
-numbers between 0 and 90.</p>
+<dd class="field-odd"><p><strong>sun_apel</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Sun’s apparent elevation in degrees. Values must be between 0 and 90.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>Ces</strong> – Igawa’s ‘standard cloud ratio’ (Ces) parameter.</p>
@@ -551,8 +522,7 @@ numbers between 0 and 90.</p>
 </dl>
 <p class="rubric">Notes</p>
 <p>1) Ces must be a number between 0 and 1. As such, any values above 1 are
-clipped down to 1. It is float if params are float and a numpy.array of
-equal shape if params are numpy.arrays.</p>
+clipped down to 1.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -561,24 +531,16 @@ equal shape if params are numpy.arrays.</p>
 <dd><p>Compute Igawa’s ‘standard global irradiance’ (Ghs) parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>extra_Gbn</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em>) – Extraterrestrial normal irradiance [W/m^2]. Must be a non-negative
-number or array of numbers. If it is a numpy.array, it should be the
-same shape as ‘rel_airmass’.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra_Gbn</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Extraterrestrial normal irradiance [W/m^2]. Values must be non-negative.</p></li>
+<li><p><strong>rel_airmass</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Relative airmass [adimensional]. Values must be positive.</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>rel_airmass<span class="classifier">float or numpy.array of floats</span></dt><dd><p>Relative airmass [adimensional]. Must be a positive number or array of
-numbers. If it is a numpy.array, it should be the same shape as
-‘extra_Gbn’.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Ghs</strong> – Igawa’s ‘standard global irradiance’ (Ghs) parameter.</p>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Ghs</strong> – Igawa’s ‘standard global irradiance’ (Ghs) parameter. It is float if
-params are float and a numpy.array of equal shape if params are numpy.arrays.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>float or numpy.array of floats</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or numpy.array of floats (npoints,)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -591,7 +553,7 @@ params are float and a numpy.array of equal shape if params are numpy.arrays.</p
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Zeta</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>T</em><em>)</em>) – Angular distance between the sun and_sky element(s) (in degrees).
-If a numpy.array, axis0 and axis1 take account of the spatial
+If a numpy.array, axis 0 and axis 1 take account of the spatial
 varaition of ‘Zeta’ with respect to the Elevation and the Azimuth,
 respectively, while axis 2 takes account of its temporal variation.</p></li>
 <li><p><strong>c</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Igawa’s improved all sky model coefficient ‘c’.</p></li>
@@ -615,12 +577,10 @@ respectively, while axis 2 takes account of its temporal variation.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float it is the elevation (in degrees) of the sky element for which
-the gradation at that point is to be calculated. Else, it is an
-Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of ‘gradation’. The values of ‘El’ should vary along axis 0.
-Values of must lie between 0 and 90 (inclusive).</p></li>
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float, it should be the elevation coordinate (in degrees) of the sky element for which the
+gradation is to be calculated. If array, it should be a grid of elevation coordinates (in degrees) of
+the sky elements for which the gradiation is to be calculated; and its values should also vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p></li>
 <li><p><strong>a</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Igawa’s improved all sky model coefficient ‘a’.</p></li>
 <li><p><strong>b</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Igawa’s improved all sky model coefficient ‘b’.</p></li>
 </ul>

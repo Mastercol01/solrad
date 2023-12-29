@@ -14,10 +14,9 @@ References
 Solar Energy, Volume 77, Issue 2, 2004, Pages 137-157, ISSN 0038-092X,
 https://doi.org/10.1016/j.solener.2004.04.016. (https://www.sciencedirect.com/science/article/pii/S0038092X04001070)
 
-[2] Norio Igawa, Yasuko Koga, Tomoko Matsuzawa, Hiroshi Nakamura, Models of sky radiance distribution and sky luminance distribution,
-Solar Energy, Volume 77, Issue 2,2004, Pages 137-157, ISSN 0038-092X, https://doi.org/10.1016/j.solener.2004.04.016.
-(https://www.sciencedirect.com/science/article/pii/S0038092X04001070)
-
+[2] Norio Igawa, Improving the All Sky Model for the luminance and radiance distributions of the sky,
+Solar Energy, Volume 105, 2014, Pages 354-372, ISSN 0038-092X,
+https://doi.org/10.1016/j.solener.2014.03.020. (https://www.sciencedirect.com/science/article/pii/S0038092X14001546)
 
 
 """
@@ -118,18 +117,15 @@ def compute_cloud_ratio_Ce(Gdh, Gh):
     Parameters
     ----------
     Gdh : float or numpy.array of floats (npoints,)
-        Diffuse horizontal irradiance. Must be a non-negative number or
-        array of numbers. 
+        Diffuse horizontal irradiance. Values must be non-negative.
         
     Gh : float or numpy.array of floats (npoints,)
-        Global horizontal irradiance. Must be a positive number or array of 
-        numbers. 
+        Global horizontal irradiance. Values must be positive.
     
     Returns
     ---------
     Ce : float or numpy.array of floats (npoints,)
-        Igawa's 'cloud ratio' (Ce) parameter. It is float if params are float
-        and a numpy.array of equal shape if params are numpy.arrays.
+        Igawa's 'cloud ratio' (Ce) parameter. 
     
     """
     Ce = Gdh/Gh
@@ -144,8 +140,7 @@ def compute_standard_cloud_ratio_Ces(sun_apel):
     Parameters
     ----------
     sun_apel : float or numpy.array of floats (npoints,)
-        Sun's apparent elevation in degrees. Must be a number or array of 
-        numbers between 0 and 90.
+        Sun's apparent elevation in degrees. Values must be between 0 and 90.
         
     Returns
     ---------
@@ -155,8 +150,7 @@ def compute_standard_cloud_ratio_Ces(sun_apel):
     Notes
     -----
     1) Ces must be a number between 0 and 1. As such, any values above 1 are
-    clipped down to 1. It is float if params are float and a numpy.array of 
-    equal shape if params are numpy.arrays.
+    clipped down to 1. 
     
     """
     
@@ -186,12 +180,10 @@ def compute_cloudless_index_Cle(Ce, Ces):
     Parameters
     ----------
     Ce : float or numpy.array of floats (npoints,)
-        Igawa's 'cloud ratio' (Ce) parameter. Must be a number or array of
-        numbers between 0 and 1. 
+        Igawa's 'cloud ratio' (Ce) parameter. Values must be between 0 and 1. 
         
     Ces : float or numpy.array of floats (npoints,)
-        Igawa's 'standard cloud ratio' (Ces) parameter. Must be a number or
-        array of numbers between 0 and 1. 
+        Igawa's 'standard cloud ratio' (Ces) parameter. Values must be between 0 and 1.
         
     Returns
     ---------
@@ -231,22 +223,16 @@ def compute_standard_global_irradiance_Ghs(extra_Gbn, rel_airmass):
     
     Parameters
     ----------
-    extra_Gbn : float or numpy.array of floats 
-        Extraterrestrial normal irradiance [W/m^2]. Must be a non-negative
-        number or array of numbers. If it is a numpy.array, it should be the 
-        same shape as 'rel_airmass'.
-        
-        
-    rel_airmass : float or numpy.array of floats 
-        Relative airmass [adimensional]. Must be a positive number or array of 
-        numbers. If it is a numpy.array, it should be the same shape as 
-        'extra_Gbn'.
+    extra_Gbn : float or numpy.array of floats (npoints,)
+        Extraterrestrial normal irradiance [W/m^2]. Values must be non-negative.
+         
+    rel_airmass : float or numpy.array of floats (npoints,)
+        Relative airmass [adimensional]. Values must be positive.
         
     Returns
     ---------
-    Ghs : float or numpy.array of floats 
-        Igawa's 'standard global irradiance' (Ghs) parameter. It is float if
-        params are float and a numpy.array of equal shape if params are numpy.arrays.
+    Ghs : float or numpy.array of floats (npoints,)
+        Igawa's 'standard global irradiance' (Ghs) parameter.
     """
     Ghs = 0.84*(extra_Gbn/rel_airmass)*np.exp(-0.054*rel_airmass)
     return Ghs
@@ -259,28 +245,23 @@ def compute_clear_sky_index_Kc(Gh, Ghs):
     
     Parameters
     ----------
-    Gh : float or numpy.array of floats 
-       Global horizontal irradiance [W/m^2]. Must be a non-negative number or array
-       of numbers. If it is a numpy.array, it should be the same shape as 'Ghs'.
+    Gh : float or numpy.array of floats (npoints,)
+        Global horizontal irradiance [W/m^2]. Values must be non-negative.
         
-        
-    Ghs : float or numpy.array of floats 
-        Standard global irradiance [W/m^2]. Must be a positive number or array
-        of numbers. If it is a numpy.array, it should be the same shape as 
-        'Gh'.
+    Ghs : float or numpy.array of floats (npoints,)
+        Standard global irradiance [W/m^2]. Values must be non-negative.
         
     Returns
     ---------
-    Kc : float or numpy.array of floats 
-        Igawa's 'clear sky index' (Kc) parameter. It is float if params are float
-        and a numpy.array of equal shape if params are numpy.arrays.
+    Kc : float or numpy.array of floats (npoints,)
+        Igawa's 'clear sky index' (Kc) parameter. 
         
     Notes
     -----
     1) Values of Kc above 1.2 are clipped down to 1.2. The reason is that
-       in Igawa's 2014 paper, all values reported for Kc were at or below 1.2,
-       which makes me believe that a Cle of Kc is the maximum 
-       physically-sensible value for Kc.
+    in Igawa's 2014 paper, all values reported for Kc were at or below 1.2,
+    which makes me believe that a Cle of Kc is the maximum 
+    physically-sensible value for Kc.
        
     """
     
@@ -309,25 +290,20 @@ def compute_sky_index_Siv(Kc, Cle):
     
     Parameters
     ----------
-    Kc : float or numpy.array of floats 
-       Igawa's 'clear sky index' (Kc) parameter. Must be a number of array 
-       of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-       same shape as Cle.
+    Kc : float or numpy.array of floats (npoints,)
+       Igawa's 'clear sky index' (Kc) parameter. Values must be
+       between 0 and 1.2.
         
-    Cle : float or numpy.array of floats 
-        Igawa's 'cloudless index' (Cle) parameter. Must be a number of array 
-        of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-        same shape as Kc.    
+    Cle : float or numpy.array of floats (npoints,)
+        Igawa's 'cloudless index' (Cle) parameter. Values must be
+        between 0 and 1.2.   
         
     Returns 
     -------
-    Siv : float or numpy.array of floats
-        Igawa's 'Sky index' (Siv) parameter. It is float if params are float and a 
-        numpy.array of equal shape if params are numpy.arrays.
+    Siv : float or numpy.array of floats (npoints,)
+        Igawa's 'Sky index' (Siv) parameter. 
     
     """
-    
-
     
     Siv  = (1.0 - Kc)**2
     Siv += (1.0 - np.sqrt(Cle))**2
@@ -348,30 +324,24 @@ def compute_improved_all_sky_model_coeffs(coeff_name, Kc, Cle):
     
     Parameters
     ----------
-    coeff_name : str
+    coeff_name : {'a', 'b', 'c', 'd', 'e'}
         Name of the coefficient to compute. 
-        Supported are: "a", "b", "c", "d", "e".
         
-    Kc : float or numpy.array of floats 
-       Igawa's 'clear sky index' (Kc) parameter. Must be a number of array 
-       of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-       same shape as Cle.
+    Kc : float or numpy.array of floats (npoints,)
+       Igawa's 'clear sky index' (Kc) parameter. Values must be
+        between 0 and 1.2.   
         
-    Cle : float or numpy.array of floats 
-        Igawa's 'cloudless index' (Cle) parameter. Must be a number of array 
-        of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-        same shape as Kc.    
+    Cle : float or numpy.array of floats (npoints,)
+        Igawa's 'cloudless index' (Cle) parameter. Values must be
+        between 0 and 1.2.   
         
     Returns
     -------
-    coeff_val : float or numpy.array of floats 
-        Value of the specified sky model coefficients. It is float if params 
-        are float and a numpy.array of equal shape if params are numpy.arrays.
-    
+    coeff_val : float or numpy.array of floats (npoints,)
+        Value of the specified sky model coefficients. 
     
     """
         
-    
     A, B, C, D, E, F, G, H =\
     IMPROVED_ALL_SKY_MODEL_CTS[coeff_name]
     
@@ -414,26 +384,19 @@ def compute_inverse_of_the_integration_value_of_relative_sky_radiance_distributi
     
     Parameters
     ----------
-    Kc : float or numpy.array of floats 
-        Igawa's 'clear sky index' (Kc) parameter. Must be a number of array 
-        of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-        same shape as sun_apel.
+    Kc : float or numpy.array of floats (npoints,)
+        Igawa's 'clear sky index' (Kc) parameter. values must be between 0 and 1.2. 
         
-    Cle : float or numpy.array of floats 
-        Igawa's 'cloudless index' (Cle) parameter. Must be a number of array 
-        of numbers between 0 and 1.2. If it is a numpy.array, it should be the
-        same shape as sun_apel.   
+    Cle : float or numpy.array of floats (npoints,)
+        Igawa's 'cloudless index' (Cle) parameter. values must be between 0 and 1.2. 
         
-    sun_apel : float or numpy.array of floats
-        Sun's apparent elevation in degrees. Must be a number or array of 
-        numbers between 0 and 90.
+    sun_apel : float or numpy.array of floats (npoints,)
+        Sun's apparent elevation in degrees. Values must be between 0 and 90.
 
     Returns
     -------
-    LzEd : float or numpy.array of floats
+    LzEd : float or numpy.array of floats (npoints,)
         Inverse of the integration value of relative sky radiance distribution.
-        It is float if params are float and a numpy.array of equal shape if
-        params are numpy.arrays.
 
     """
     
@@ -457,20 +420,18 @@ def compute_inverse_of_the_integration_value_of_relative_sky_radiance_distributi
     Parameters
     ----------
     Le : numpy.array of floats with shape (E,A,T)
-        Un-normalized relative sky radiance distribution in W/m^2/sr,
-        across time. 'Le[n,m,t]' holds the radiance of a sky element with
+        Unnormalized relative sky radiance distribution in W/m^2/sr,
+        across time. *Le[n,m,t]* holds the radiance of a sky element with
         elevation specified by n, azimuth specified by m on a time specified by 
-        t. In other words, axis 0 of 'Le' takes account of the variation of 
+        t. In other words, axis 0 of *Le* takes account of the variation of 
         radiance across the sky with respect to elevation, axis 1 accounts for 
         the variation with respect to azimuth and axis 2 accounts for the
-        variation with respect to time. Values of 'le' must be non-negative.
-        Values must be non-negative.
+        variation with respect to time. Values of *Le* must be non-negative.
         
-    El : numpy.array of floats with shape (E,A,1)
-       Elevation array of meshgrid of Azimuth, Elevation values. It contains
-       the elevation (in degrees) of each sky element to be considered in 
-       the calculation of 'LzEd'. The values of 'El' should vary along axis 0.
-       Values must lie between 0 and 90 (inclusive).
+    El : float or numpy.array of floats with shape (E,A,1)
+        Grid of elevation coordinates (in degrees) of the sky elements for which
+        *LzEd* is to be calculated. Its values should vary along axis 0.
+        In any case, all values should be between 0 and 90 (inclusive). 
        
     dAz : float
         Angular resolution of azimuth values in degrees.
@@ -478,10 +439,7 @@ def compute_inverse_of_the_integration_value_of_relative_sky_radiance_distributi
         
     dEl : float
         Angular resolution of elevation values in degrees.
-        Values must be positive.
-        
-
-        
+        Values must be positive.        
 
     Returns
     -------
@@ -519,14 +477,12 @@ def gradation_function(El, a, b):
     
     Parameters
     ----------
-    
+
     El : float or numpy.array of floats with shape (E,A,1)
-       If float it is the elevation (in degrees) of the sky element for which
-       the gradation at that point is to be calculated. Else, it is an
-       Elevation array of meshgrid of Azimuth, Elevation values. It contains
-       the elevation (in degrees) of each sky element to be considered in 
-       the calculation of 'gradation'. The values of 'El' should vary along axis 0.
-       Values of must lie between 0 and 90 (inclusive).
+        If float, it should be the elevation coordinate (in degrees) of the sky element for which the
+        gradation is to be calculated. If array, it should be a grid of elevation coordinates (in degrees) of 
+        the sky elements for which the gradiation is to be calculated; and its values should also vary along axis 0.
+        In any case, all values should be between 0 and 90 (inclusive). 
        
     a : float or numpy.array of floats with shape (1,1,T)
       Igawa's improved all sky model coefficient 'a'.
@@ -553,27 +509,21 @@ def compute_angular_distance_between_sun_and_sky_element_Zeta(Az, El, sun_az, su
     """
     Compute the angular distance between the sun and one or multiple sky 
     elements on the sky.
-    
+
     Parameters
     ----------
     Az : float or numpy.array of floats with shape (E,A,1)
-       If float, it should be the azimuth coordinate (in degrees) of the sky element for which
-       the angular distance to the sun is to be calculated. Else, it should be equal to
-       ``numpy.meshgrid(azimuths, elevations)[0]``, where ``azimuths`` and ``elevations`` 
-       are numpy.arrays with shape (A,) and (E,), respectively, that contain the 
-       azimuth and elevation coordinates (in degrees) of the sky elements for which the angular 
-       distances are to be calculated. In any case, values should always 
-       lie between 0 and 360 (inclusive).
+        If float, it should be the azimuth coordinate (in degrees) of the sky element for which the angular
+        distance to the sun is to be calculated. If array, it should be a grid of azimuth coordinates (in degrees) of 
+        the sky elements for which the angular distance to the sun is to be calculated; and its values should also vary along axis 1.
+        In any case, all values should be between 0 and 360 (inclusive). 
     
     El : float or numpy.array of floats with shape (E,A,1)
-       If float, it should be the elevation coordinate (in degrees) of the sky element for which
-       the angular distance to the sun is to be calculated. Else, it should be equal to
-       ``numpy.meshgrid(azimuths, elevations)[1]``, where ``azimuths`` and ``elevations`` 
-       are numpy.arrays with shape (A,) and (E,), respectively, that contain the 
-       azimuth and elevation coordinates (in degrees) of the sky elements for which the angular 
-       distances are to be calculated. In any case, values should always 
-       lie between 0 and 90 (inclusive).
-      
+        If float, it should be the elevation coordinate (in degrees) of the sky element for which the angular
+        distance to the sun is to be calculated. If array, it should be a grid of elevation coordinates (in degrees) of 
+        the sky elements for which the angular distance to the sun is to be calculated; and its values should also vary along axis 0.
+        In any case, all values should be between 0 and 90 (inclusive). 
+          
     sun_az : float or numpy.array of floats with shape (1,1,T)
         Azimuth coordinate of the sun (in degrees) across time.
         Values of must lie between 0 and 360 (inclusive).
@@ -582,13 +532,15 @@ def compute_angular_distance_between_sun_and_sky_element_Zeta(Az, El, sun_az, su
         Apparent elevation coordinate of the sun (in degrees) across time.
         Values of must lie between 0 and 90 (inclusive).
     
-
-        
     Returns
     -------
     Zeta : float or numpy.array of floats with shape (E,A,T)
         Angular distance between the sun and a/all sky element(s) (in degrees)
         at a time or across multiple times.
+
+    Notes
+    -----
+    1) One can 
         
     """
     
@@ -620,7 +572,7 @@ def diffusion_indicatrix_function(Zeta, c, d, e):
     
     Zeta : float or numpy.array of floats with shape (E,A,T)
         Angular distance between the sun and_sky element(s) (in degrees).
-        If a numpy.array, axis0 and axis1 take account of the spatial 
+        If a numpy.array, axis 0 and axis 1 take account of the spatial 
         varaition of 'Zeta' with respect to the Elevation and the Azimuth,
         respectively, while axis 2 takes account of its temporal variation.
     
@@ -656,28 +608,26 @@ def diffusion_indicatrix_function(Zeta, c, d, e):
 def compute_diffuse_radiance(Az, El, dAz, dEl, Gh, Gdh, extra_Gbn, sun_az, sun_apel, rel_airmass, num_iterations=500):
     
     """
-    Compute diffuse sky radiance using Igawa's 2014 paper detailed in "Improving the All Sky Model 
-    for the luminance and radiance distributions of the sky".
+    Compute diffuse sky radiance using Igawa's 2014 model detailed in [1].
     
     Parameters
     ----------
-    Az : numpy.array of floats with shape (E,A,1)
-       Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-       the azimuth (in degrees) of each sky element to be considered in 
-       the calculation of diffuse sky radiance. The values of 'Az' should vary 
-       along axis 1. Values should be between 0 and 360.
+
+    Az : float or numpy.array of floats with shape (E,A,1)
+        Grid of azimuth coordinates (in degrees) of the sky elements for which the angular distance 
+        to the sun is to be calculated. Its values should vary along axis 1.
+        In any case, all values should be between 0 and 360 (inclusive). 
     
-    El : numpy.array of floats with shape (E,A,1)
-       Elevation array of meshgrid of Azimuth, Elevation values. It contains
-       the elevation (in degrees) of each sky element to be considered in 
-       the calculation of diffuse sky radiance. The values of 'El' should vary 
-       along axis 0. Values should be between 0 and 90.
+    El : float or numpy.array of floats with shape (E,A,1)
+        Grid of elevation coordinates (in degrees) of the sky elements for which the angular distance 
+        to the sun is to be calculated. Its values should vary along axis 0.
+        In any case, all values should be between 0 and 90 (inclusive). 
        
     dAz : float
-        Angular resolution of 'Az' in degrees.
+        Angular resolution of *Az* in degrees.
         
     dEl : float
-        Angular resolution of 'El' in degrees.
+        Angular resolution of *El* in degrees.
        
     Gh : numpy.array of floats with shape (1,1,T)  
        Global horizontal irradiance [W/m^2] across time. Must be a
@@ -727,7 +677,7 @@ def compute_diffuse_radiance(Az, El, dAz, dEl, Gh, Gdh, extra_Gbn, sun_az, sun_a
                 Diffuse sky radiance distribution [W/m^2/sr] across time.
                 
             "Le" : numpy.array of floats with shape (E,A,T) 
-                Relative sky radiance distribution [adimensional] across time.
+                Relative sky radiance distribution [adm] across time.
                 
             "Lez" : numpy.array of floats with shape (1,1,T) 
                 Zenith radiance distribution [W/m^2/sr] across time.
@@ -741,7 +691,12 @@ def compute_diffuse_radiance(Az, El, dAz, dEl, Gh, Gdh, extra_Gbn, sun_az, sun_a
     1) This function computes 'LzEd' numerically. I tried using the shortcut
        method proposed by the authors (i.e, the best fit constants) but the 
        resulting values were quite bad.
-       
+
+    References
+    ----------
+    [1] Norio Igawa, Improving the All Sky Model for the luminance and radiance distributions of the sky,
+    Solar Energy, Volume 105, 2014, Pages 354-372, ISSN 0038-092X,
+    https://doi.org/10.1016/j.solener.2014.03.020. (https://www.sciencedirect.com/science/article/pii/S0038092X14001546)
 
     """
     
