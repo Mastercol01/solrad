@@ -612,15 +612,14 @@ def compute_diffuse_radiance(Az, El, dAz, dEl, Gh, Gdh, extra_Gbn, sun_az, sun_a
     
     Parameters
     ----------
-
     Az : float or numpy.array of floats with shape (E,A,1)
-        Grid of azimuth coordinates (in degrees) of the sky elements for which the angular distance 
-        to the sun is to be calculated. Its values should vary along axis 1.
+        Grid of azimuth coordinates (in degrees) of the sky elements for which the 
+        diffuse radiance is to be calculated. Its values should vary along axis 1.
         In any case, all values should be between 0 and 360 (inclusive). 
     
     El : float or numpy.array of floats with shape (E,A,1)
-        Grid of elevation coordinates (in degrees) of the sky elements for which the angular distance 
-        to the sun is to be calculated. Its values should vary along axis 0.
+        Grid of elevation coordinates (in degrees) of the sky elements for which the
+        diffuse radiance is to be calculated. Its values should vary along axis 0.
         In any case, all values should be between 0 and 90 (inclusive). 
        
     dAz : float

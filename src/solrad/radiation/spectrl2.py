@@ -10,7 +10,7 @@ descriptions were changed to better suit the standard being used in other
 modules of this package. Second, the 'spectrl2' function was slightly altered
 in order to accomodate the use of the Shettel and Fenn models (see reference [1]) for the
 Aerosol Asymmetry Factor and the Single Scattering Albedo. Third, one extra
-function has been added: 'compute_direct_and_diffuse_normalized_spectra' which
+function has been added: :func:`~solrad.radiation.spectrl2.compute_direct_and_diffuse_normalized_spectra` which
 basically just uses spectrl2 and then normalizes the obtained irradiance spectra.
 To be absolutely clear, most of this code is not mine (just the changes
 mentioned above) and was taken from the source mentioned above. Credit for the
@@ -19,7 +19,7 @@ spctrl2 implementation belongs to them.
 References 
 ----------
 [1] Shettle, Eric & Fenn, Robert. (1979). Models for the Aerosols of the Lower 
-    Atmosphere and the Effects of Humidity Variations on their Optical Properties. Environ. Res.. 94. 
+Atmosphere and the Effects of Humidity Variations on their Optical Properties. Environ. Res.. 94. 
 
 """
 #%%                      IMPORTATION OF LIBRARIES
@@ -471,72 +471,56 @@ def compute_direct_and_diffuse_normalized_spectra(sun_apzen, SP, rel_airmass, H2
 
     Parameters
     ----------
-    sun_apzen : float, numpy.array of floats or pandas.Series of floats
+    sun_apzen : float, numpy.array of floats or pandas.Series of floats of length N
         Solar zenith angle of the sun [degrees].
                 
-    SP : float, numpy.array of floats or pandas.Series of floats
-        Surface Pressure [Pa]. If it is a numpy.array or a pandas.Series, 
-        it must be the same length as 'apzen' and, additionally, if
-        it is a pandas.Series, it should have the same index as 
-        'apzen'.
+    SP : float, numpy.array of floats or pandas.Series of floats of length N
+        Surface Pressure [Pa]. If it is a pandas.Series, it should have the same index as 
+        *apzen*.
         
-    rel_airmass : float, numpy.array of floats or pandas.Series of floats
-        Relative airmass [unitless]. If it is a numpy.array or a pandas.Series, 
-        it must be the same length as 'apzen' and, additionally, if
-        it is a pandas.Series, it should have the same index as 
-        'apzen'.
+    rel_airmass : float, numpy.array of floats or pandas.Series of floats of length N
+        Relative airmass [unitless]. If it is a pandas.Series, it should have the same 
+        index as *apzen*.
         
-    H2O : float, numpy.array of floats or pandas.Series of floats
-        Atmospheric water vapor content [cm]. If it is a numpy.array or a
-        pandas.Series, it must be the same length as 'apzen' and,
-        additionally, if it is a pandas.Series, it should have the same index 
-        as 'apzen'.
+    H2O : float, numpy.array of floats or pandas.Series of floats of length N
+        Atmospheric water vapor content [cm]. If it is a pandas.Series, 
+        it should have the same index as *apzen*.
         
-    O3 : float, numpy.array of floats or pandas.Series of floats
-        Atmospheric ozone content [atm-cm]. If it is a numpy.array or a
-        pandas.Series, it must be the same length as 'apzen' and,
-        additionally, if it is a pandas.Series, it should have the same index 
-        as 'apzen'.
+    O3 : float, numpy.array of floats or pandas.Series of floats of length N
+        Atmospheric ozone content [atm-cm]. If it is a pandas.Series, 
+        it should have the same index as *apzen*.
         
-    aod_500nm : float, numpy.array of floats or pandas.Series of floats
-        Aerosol turbidity at 500 nm [unitless]. If it is a numpy.array or a
-        pandas.Series, it must be the same length as 'apzen' and,
-        additionally, if it is a pandas.Series, it should have the same index 
-        as 'apzen'.
+    aod_500nm : float, numpy.array of floats or pandas.Series of floats of length N
+        Aerosol turbidity at 500 nm [unitless]. If it is a pandas.Series, 
+        it should have the same index as *apzen*.
         
-    alpha_500nm : float, numpy.array of floats or pandas.Series of floats
-        Angstrom turbidity exponent at 500nm [unitless]. If it is a numpy.array or a
-        pandas.Series, it must be the same length as 'apzen' and,
-        additionally, if it is a pandas.Series, it should have the same index 
-        as 'apzen'.
+    alpha_500nm : float, numpy.array of floats or pandas.Series of floats of length N
+        Angstrom turbidity exponent at 500nm [unitless]. If it is a pandas.Series, 
+        it should have the same index as *apzen*.
         
-    single_scattering_albedo : 2D-numpy.array of floats
+    single_scattering_albedo : 2D-numpy.array of floats with shape (N,122)
         Aerosol single scattering albedo at multiple wavelengths. It is matrix 
         of size Nx122 where the second dimension spans the wavelength range and
         the first one spans the number of simulations (i.e, length of 
-        'apzen') [unitless]. That is, it should be a matrix of size Nx122.
+        *apzen*) [unitless]. 
         
-    spectrally_averaged_aerosol_asymmetry_factor : float, numpy.array of floats or pandas.Series of floats
+    spectrally_averaged_aerosol_asymmetry_factor : float, numpy.array of floats or pandas.Series of floats of length N
         Average across selected range of wavelengths of the Aerosol asymmetry 
-        factor (mean cosine of scattering angle) [unitless]. If it is a 
-        numpy.array or a pandas.Series, it must be the same length as 
-        'apzen' and, additionally, if it is a pandas.Series, 
-        it should have the same index as 'apzen'.
+        factor (mean cosine of scattering angle) [unitless]. If it is a pandas.Series, 
+        it should have the same index as *apzen*.
         
-    ground_albedo : float or 2D-numpy.array of floats
+    ground_albedo : float or 2D-numpy.array of floats with shape (N,122)
         Albedo [0-1] of the ground surface. Can be provided as a scalar value
         if albedo is not spectrally-dependent, or as a Nx122 matrix where
         the second dimension spans the wavelength range and the first one spans
-        the number of simulations (i.e, length of 'apzen').
+        the number of simulations (i.e, length of *apzen*).
         [unitless]. Default is 0.
         
-    mean_surface_tilt : float, numpy.array of floats or pandas.Series of floats
-        Mean panel tilt from horizontal [degrees]. If it is a numpy.array or a
-        pandas.Series, it must be the same length as 'apzen' and,
-        additionally, if it is a pandas.Series, it should have the same index 
-        as 'apzen'. Default is 0.
+    mean_surface_tilt : float, numpy.array of floats or pandas.Series of floats of length N
+        Mean panel tilt from horizontal [degrees]. IIf it is a pandas.Series, 
+        it should have the same index as *apzen*.
         
-    dayofyear : float or numpy.array of floats, optional.
+    dayofyear : float or numpy.array of floats of length N, optional.
         The day of year [1-365].  Must be provided if `apzen` is
         not a pandas Series. Default is None.
         
@@ -552,16 +536,16 @@ def compute_direct_and_diffuse_normalized_spectra(sun_apzen, SP, rel_airmass, H2
         
             "direct" : numpy.array of floats with shape (122,) or 2D numpy.array of floats with (N, 122)
                 Normalized spectrum of direct/beam irradiance. The shape of the output
-                depends on the shape of the inputs. If 'apzen' is a single value,
-                Gb_normalized_spectrum will have shape (122,). Else, it will have shape
-                (N, 122) where N is the length of 'apzen'. The 122 makes reference to 
+                depends on the shape of the inputs. If *apzen* is a single value,
+                *res["direct"]* will have shape (122,). Else, it will have shape
+                (N, 122) where N is the length of *apzen*. The 122 makes reference to 
                 the number of wavelengths at which the results are given.
     
             "diffuse" : numpy.array of floats with shape (122,) or 2D numpy.array of floats with (N, 122)   
                 Normalized spectrum of diffuse irradiance. The shape of the output
-                depends on the shape of the inputs. If 'apzen' is a single value,
-                Gd_normalized_spectrum will have shape (122,). Else, it will have shape
-                (N, 122) where N is the length of 'apzen'. The 122 makes reference to 
+                depends on the shape of the inputs. If *apzen* is a single value,
+                *res["diffuse"]* will have shape (122,). Else, it will have shape
+                (N, 122) where N is the length of *apzen*. The 122 makes reference to 
                 the number of wavelengths at which the results are given.
                 
             "wavelengths" : numpy.array of floats with shape (122,)
@@ -573,13 +557,13 @@ def compute_direct_and_diffuse_normalized_spectra(sun_apzen, SP, rel_airmass, H2
     ------
     1) TypeError : 
         The following TypeError was raised: 'loop of ufunc does not support argument 0 of type 
-        float which has no callable exp method'. This usually happens when 'single_scattering_albedo'
-        is not an numpy.array of floats. Attempt to pass 'numpy.array(single_scattering_albedo).astype(float)' instead."
+        float which has no callable exp method'. This usually happens when *single_scattering_albedo*
+        is not an numpy.array of floats. Attempt to pass ``numpy.array(single_scattering_albedo).astype(float)`` instead."
         
             
     Notes
     -----
-    1) "mean_surface_tilt" variable really only affects the computation of
+    1) The *mean_surface_tilt* argument really only affects the computation of
        the spectral distribution of diffuse radiance. It has no effect on 
        the actual value. 
                 
@@ -590,7 +574,7 @@ def compute_direct_and_diffuse_normalized_spectra(sun_apzen, SP, rel_airmass, H2
     # This is because requires that the shape for ground albedo be 122xN, where N
     # is the number of simulations (length of 'apzen').
 
-    if not isinstance(ground_albedo, int|float):
+    if not isinstance(ground_albedo, int) or isinstance(ground_albedo, float):
         ground_albedo_ = ground_albedo.T
     else:
         ground_albedo_ = ground_albedo

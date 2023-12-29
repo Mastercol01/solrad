@@ -9,129 +9,128 @@ import pandas as pd
 def compute_sun_data(latitude, longitude, altitude, time_data, pressure_data, temperature_data, NaN_handling = "strict"):
 
   """
-    Compute solar position data and related parameters for a specific location and time.
+  Compute solar position data and related parameters for a specific location and time.
 
-    Parameters
-    ----------
-    latitude : float
-      Latitude of the location in degrees.
+  Parameters
+  ----------
+  latitude : float
+    Latitude of the location in degrees.
 
-    longitude : float
-      Longitude of the location in degrees.
+  longitude : float
+    Longitude of the location in degrees.
 
-    altitude : float or None
-      Altitude of the location in meters. If None, 0 meters above sea level are asumed.
+  altitude : float or None
+    Altitude of the location in meters. If None, 0 meters above sea level are asumed.
 
-    time_data : dict
-      A dictionary containing the time series for simulation, separated by date.
-      Its strucure is as follows. Each key must be a 3-tuple of (year : int, month : int, day :int) and each corresponding value has to be a
-      pandas.DatetimeIndex object containing the time series of the date for which the solar position data is to be calculated.
+  time_data : dict
+    A dictionary containing the time series for the simulation, separated by date.
+    Its strucure is as follows. Each key must be a 3-tuple of (year : int, month : int, day :int) and each corresponding value has to be a
+    pandas.DatetimeIndex object containing the time series of the date for which the solar position data is to be calculated.
 
-    pressure_data : dict, float or None
-      Normally, it is dictionary containing atmospheric pressure data [Pa] for each time step, separated by year, month, and day.
-      Its keys must be the same as that as that of 'time_data'. Its correponding values must be of type 'array_like', where
-      each array contains the atmospheric pressure values associated with each DatetimeIndex object of 'time_data'.
-      If float, it means the pressure is constant throughout all timesteps and the same value is used.
+  pressure_data : dict, float or None
+    Normally, it is dictionary containing atmospheric pressure data [Pa] for each time step, separated by year, month, and day.
+    Its keys must be the same as that as that of *time_data*. Its correponding values must be of type 'array_like', where
+    each array contains the atmospheric pressure values associated with each DatetimeIndex object of *time_data*.
+    If float, it means the pressure is constant throughout all timesteps and the same value is used.
 
-    temperature_data : dict, float or None
-      Normally, it is dictionary air temperature data [°C] for each time step, separated by year, month, and day.
-      Its keys must be the same as that as that of 'time_data'. Its correponding values must be of type 'array_like', where
-      each array contains the air temperature values associated with each DatetimeIndex object of 'time_data'.
-      If float, it means the air temperature is constant throughout all timesteps and the same value is used.
+  temperature_data : dict, float or None
+    Normally, it is dictionary air temperature data [°C] for each time step, separated by year, month, and day.
+    Its keys must be the same as that as that of *time_data*. Its correponding values must be of type 'array_like', where
+    each array contains the air temperature values associated with each DatetimeIndex object of *time_data*.
+    If float, it means the air temperature is constant throughout all timesteps and the same value is used.
 
-    NaN_handling : {"strict", "loose", "null"}, optional
-      How to handle NaN and None values when present in 'pressure_data' and 'temperature_data'.
-      If "strict" an Exception is raised.
-      If "loose", default values are used instead (see notes for more info).
-      If "null", nothing is done about it and NaN/None values are directly passed onto the calculation, which may
-      produce NaN results or raise another Exception. 
-      Default is "strict".
+  NaN_handling : {"strict", "loose", "null"}, optional
+    How to handle NaN and None values when present in *pressure_data* and *temperature_data*.
+    If "strict" an Exception is raised.
+    If "loose", default values are used instead (see notes for more info).
+    If "null", nothing is done about it and NaN/None values are directly passed onto the calculation, which may
+    produce NaN results or raise another Exception. 
+    Default is "strict".
 
+  Returns
+  --------
+  sun_data : dict
+      A dictionary containing solar data and related parameters for each specific year, month, and day.
+      The keys are the same as for *time_data*. The corresping values are pandas.DataFrames whose
+      index are the pandas.DatetimeIndex objects contained in *time_data* and whose columns
+      contain the calculated sun position variables, time step. 
+      Its columns, along with their descriptions, are as follows:
 
-    Returns:
-    --------
-    sun_data : dict
-        A dictionary containing solar data and related parameters for each specific year, month, and day.
-        The keys are the same as for 'time_data'. The corresping values are pandas.DataFrames whose
-        index are the pandas.DatetimeIndex objects contained in 'time_data' and whose columns
-        contain the calculated sun position variables from 'tmy_data', evaluated at each
-        time step. Its columns, along with their descriptions, are as follows:
+        1) "apzen" : Apparent zenith [°].
 
-          1) "apzen" : Apparent zenith [°].
+        2) "zen" : Zenith [°].
 
-          2) "zen" : Real zenith [°].
+        3) "apel" : Apparent elevation [°].
 
-          3) "apel" : Apparent elevation [°].
+        4) "el" : Elevation [°].
 
-          4) "el" : Elevation [°].
+        5) "az" : Azimuth [°].
 
-          5) "az" : Azimuth [°].
+        6) "i" : x-component of Sun's unit direction vector [-].
 
-          6) "i" : x-component of Sun's unit direction vector [-].
+        7) "j" : y-component of Sun's unit direction vector [-].
 
-          7) "j" : y-component of Sun's unit direction vector [-].
+        8) "k" : z-component of Sun's unit direction vector [-].
 
-          8) "k" : z-component of Sun's unit direction vector [-].
+        9) "rel_airmass": Relative airmass [-].
 
-          9) "rel_airmass": Relative airmass [-].
+  Raises
+  ------
+  1) Exception 
+    "NaN/None values present in pressure_data[date]"
 
-    Raises
-    ------
-    1) Exception : 
-      "NaN/None values present in pressure_data[date]"
+  2) Exception 
+    "NaN/None values present in temperature_data[date]"
 
-    2) Exception : 
-      "NaN/None values present in temperature_data[date]"
+  Warns
+  -----
+  1) Warning 
+    "NaN/None values present in pressure_data[date]. Using default values instead."
 
-    Warns
-    -----
-    1) Warning : 
-      "NaN/None values present in pressure_data[date]. Using default values instead."
+  2) Warning 
+    "NaN/None values present in temperature_data[date]. Using default values instead."
 
-    2) Warning : 
-      "NaN/None values present in temperature_data[date]. Using default values instead."
+  See Also
+  --------
+  pvlib.solarposition.get_solarposition
 
-    See Also
-    --------
-    pvlib.solarposition.get_solarposition
+  Notes
+  -----
+  1) In case that NaN_handling is "loose", the default value of temperature used is 15°C and the default
+  value of pressure is computed from altitude using the function ``pvlib.atmosphere.alt2pres``.
 
-    Notes
-    -----
-    1) In case that NaN_handling is "loose", the default value of temperature used is 15°C and the default
-       value of pressure is computed from altitude using the function 'pvlib.atmosphere.alt2pres'.
+  References
+  ----------
+  https://pvlib-python.readthedocs.io/en/v0.4.2/generated/pvlib.solarposition.get_solarposition.html
 
-    References
-    ----------
-    https://pvlib-python.readthedocs.io/en/v0.4.2/generated/pvlib.solarposition.get_solarposition.html
-
-    Examples
-    --------
-    >>> import geotime as tm
-    >>> from sun.sun import compute_sun_data
-    >>>
-    >>> time_data = tm.geo_date_range(latitude   = 6.2518,
-    >>>                               longitude  = -75.5636,
-    >>>                               tz         = "-05:00",
-    >>>                               start_time = "2023-01-01 00:00:00",
-    >>>                               end_time   = "2023-01-02 23:59:59.999",
-    >>>                               freq       = "5min",
-    >>>                               min_hms    = "sunrise",
-    >>>                               max_hms    = "sunset")
-    >>>
-    >>> len_day1 = len(time_data[(2023,1,1)])
-    >>> len_day2 = len(time_data[(2023,1,2)])
-    >>>
-    >>> pressure_data    = {(2023, 1, 1): np.full(len_day1, 101325),
-    >>>                     (2023, 1, 2): np.full(len_day2, 101270)}
-    >>> temperature_data = {(2023, 1, 1): np.full(len_day1, 25),
-    >>>                     (2023, 1, 2): np.full(len_day2, 26.5)}
-    >>>
-    >>> sun_data = compute_sun_data(latitude         = 6.2518,
-    >>>                             longitude        = -75.5636,
-    >>>                             altitude         = 10,
-    >>>                             time_data        = time_data,
-    >>>                             pressure_data    = pressure_data,
-    >>>                             temperature_data = temperature_data)
+  Examples
+  --------
+  >>> import solrad.geotime as tm
+  >>> from solrad.sun.sun import compute_sun_data
+  >>>
+  >>> time_data = tm.geo_date_range(latitude   = 6.2518,
+  >>>                               longitude  = -75.5636,
+  >>>                               tz         = "-05:00",
+  >>>                               start_time = "2023-01-01 00:00:00",
+  >>>                               end_time   = "2023-01-02 23:59:59.999",
+  >>>                               freq       = "5min",
+  >>>                               min_hms    = "sunrise",
+  >>>                               max_hms    = "sunset")
+  >>>
+  >>> len_day1 = len(time_data[(2023,1,1)])
+  >>> len_day2 = len(time_data[(2023,1,2)])
+  >>>
+  >>> pressure_data    = {(2023, 1, 1): np.full(len_day1, 101325),
+  >>>                     (2023, 1, 2): np.full(len_day2, 101270)}
+  >>> temperature_data = {(2023, 1, 1): np.full(len_day1, 25),
+  >>>                     (2023, 1, 2): np.full(len_day2, 26.5)}
+  >>>
+  >>> sun_data = compute_sun_data(latitude         = 6.2518,
+  >>>                             longitude        = -75.5636,
+  >>>                             altitude         = 10,
+  >>>                             time_data        = time_data,
+  >>>                             pressure_data    = pressure_data,
+  >>>                             temperature_data = temperature_data)
   """
 
   pressure_from_altitude = pv.atmosphere.alt2pres(altitude)

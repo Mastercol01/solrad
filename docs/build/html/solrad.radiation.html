@@ -336,11 +336,11 @@ physically-sensible value for Cle.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of azimuth coordinates (in degrees) of the sky elements for which the angular distance
-to the sun is to be calculated. Its values should vary along axis 1.
+<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of azimuth coordinates (in degrees) of the sky elements for which the
+diffuse radiance is to be calculated. Its values should vary along axis 1.
 In any case, all values should be between 0 and 360 (inclusive).</p></li>
-<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of elevation coordinates (in degrees) of the sky elements for which the angular distance
-to the sun is to be calculated. Its values should vary along axis 0.
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of elevation coordinates (in degrees) of the sky elements for which the
+diffuse radiance is to be calculated. Its values should vary along axis 0.
 In any case, all values should be between 0 and 90 (inclusive).</p></li>
 <li><p><strong>dAz</strong> (<em>float</em>) – Angular resolution of <em>Az</em> in degrees.</p></li>
 <li><p><strong>dEl</strong> (<em>float</em>) – Angular resolution of <em>El</em> in degrees.</p></li>
@@ -611,14 +611,12 @@ to the nearest points which do appear in the regular grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Az</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-the azimuth (in degrees) of each sky element to be considered in
-the calculation of diffuse sky radiance. The values of ‘Az’ should vary
-along axis 1. Values should be between 0 and 360.</p></li>
-<li><p><strong>El</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of diffuse sky radiance. The values of ‘El’ should vary
-along axis 0. Values should be between 0 and 90.</p></li>
+<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of azimuth coordinates (in degrees) of the sky elements for which the
+direct radiance is to be calculated. Its values should vary along axis 1.
+In any case, all values should be between 0 and 360 (inclusive).</p></li>
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – Grid of elevation coordinates (in degrees) of the sky elements for which the
+direct radiance is to be calculated. Its values should vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p></li>
 <li><p><strong>Gbn</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Direct normal irradiance [W/m^2] across time. Must be a
 non-negative array of numbers.</p></li>
 <li><p><strong>sun_apel</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Sun’s apparent elevation (in degrees) across time. Values must lie
@@ -640,11 +638,11 @@ between 0 and 360 (inclusive).</p></li>
 <section id="module-solrad.radiation.spectral_radiance_model">
 <span id="solrad-radiation-spectral-radiance-model-module"></span><h2>solrad.radiation.spectral_radiance_model module<a class="headerlink" href="#module-solrad.radiation.spectral_radiance_model" title="Permalink to this heading">#</a></h2>
 <p>This module contains all functions related to the computation of the
-spatial and pectral distribution of direct and diffuse irradiance, also called
-spectral radiance. This is accomplished by a combination of various models.
+spatial and spectral distribution of direct and diffuse irradiance, also called
+spectral radiance. This is accomplished by the combination of various models.
 More specifically, one model for the spatial distribution of the diffuse component,
 one model for the spatial distribution of the direct component and one model
-for the spectral distribution of both.</p>
+for the spectral distribution of both components.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.radiation.spectral_radiance_model.compute_spectral_radiance">
 <span class="sig-prename descclassname"><span class="pre">solrad.radiation.spectral_radiance_model.</span></span><span class="sig-name descname"><span class="pre">compute_spectral_radiance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">El</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dAz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dEl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DatetimeIndex_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sun_apel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sun_az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_Gbn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gbn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gdh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_airmass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2O</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">O3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aod_500nm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_500nm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrally_averaged_aaf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_scattering_albedo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_albedo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_surface_tilt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.radiation.spectral_radiance_model.compute_spectral_radiance" title="Permalink to this definition">#</a></dt>
@@ -652,16 +650,14 @@ for the spectral distribution of both.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Az</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>)</em>) – Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-the azimuth (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘Az’ should vary
-along axis 1. Values should be between 0 and 360.</p></li>
-<li><p><strong>El</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>)</em>) – Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘El’ should vary
-along axis 0. Values should be between 0 and 90.</p></li>
-<li><p><strong>dAz</strong> (<em>float</em>) – Angular resolution of ‘Az’ in degrees.</p></li>
-<li><p><strong>dEl</strong> (<em>float</em>) – Angular resolution of ‘El’ in degrees.</p></li>
+<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>)</em>) – Grid of azimuth coordinates (in degrees) of the sky elements for which the
+spectral radiance is to be calculated. Its values should vary along axis 1.
+In any case, all values should be between 0 and 360 (inclusive).</p></li>
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>)</em>) – Grid of elevation coordinates (in degrees) of the sky elements for which the
+spectral radiance is to be calculated. Its values should vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p></li>
+<li><p><strong>dAz</strong> (<em>float</em>) – Angular resolution of <em>Az</em> in degrees.</p></li>
+<li><p><strong>dEl</strong> (<em>float</em>) – Angular resolution of <em>El</em> in degrees.</p></li>
 <li><p><strong>DatetimeIndex_obj</strong> (<em>pandas.DatetimeIndex object with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – An index of Timestamp values detailing the times at which each of the
 samples of the time-dependent variables were taken. We denote its
 length as T.</p></li>
@@ -675,24 +671,24 @@ non-negative array of numbers.</p></li>
 non-negative array of numbers.</p></li>
 <li><p><strong>Gbn</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Direct normal irradiance [W/m^2] across time. Must be a
 non-negative array of numbers.</p></li>
-<li><p><strong>Gdh</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Diffuse horizontal irradiance[W/m^2] across time. Must be a
+<li><p><strong>Gdh</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Diffuse horizontal irradiance [W/m^2] across time. Must be a
 non-negative array of numbers.</p></li>
 <li><p><strong>SP</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Surface Pressure [Pa] across time.</p></li>
-<li><p><strong>rel_airmass</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Relative airmass [unitless] acorss time.</p></li>
+<li><p><strong>rel_airmass</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Relative airmass [unitless] across time.</p></li>
 <li><p><strong>H2O</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Atmospheric water vapor content [cm] across time.</p></li>
 <li><p><strong>O3</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Atmospheric ozone content [atm-cm] across time.</p></li>
 <li><p><strong>aod_500nm</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Aerosol turbidity at 500 nm [unitless] across time.</p></li>
 <li><p><strong>alpha_500nm</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Angstrom turbidity exponent at 500nm [unitless] across time.</p></li>
 <li><p><strong>spectrally_averaged_aerosol_asymmetry_factor</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em>) – Average across selected range of wavelengths of the Aerosol asymmetry
 factor (mean cosine of scattering angle) [unitless], across time.</p></li>
-<li><p><strong>single_scattering_albedo</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>122</em><em>)</em>) – Aerosol single scattering albedo at multiple wavelengths. It is matrix
+<li><p><strong>single_scattering_albedo</strong> (<em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>122</em><em>)</em>) – Aerosol single scattering albedo at multiple wavelengths. It is a matrix
 of size Tx122 where the second dimension spans the wavelength range and
 the first one spans the number of simulations (i.e, length of
-‘DatetimeIndex_obj’) [unitless].</p></li>
+<em>DatetimeIndex_obj</em>) [unitless].</p></li>
 <li><p><strong>ground_albedo</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>122</em><em>)</em><em>, </em><em>optional</em>) – Albedo [0-1] of the ground surface. Can be provided as a scalar value
 if albedo is not spectrally-dependent, or as a Tx122 matrix where
 the second dimension spans the wavelength range and the first one spans
-the number of simulations (i.e, length of ‘DatetimeIndex_obj’).
+the number of simulations (i.e, length of <em>DatetimeIndex_obj</em>).
 [unitless]. Default is 0.</p></li>
 <li><p><strong>mean_surface_tilt</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>T</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Mean panel tilt from horizontal [degrees] across time. Default is 0.</p></li>
 <li><p><strong>num_iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of iterations to use when filling NaN data. Default is 500.</p></li>
@@ -711,13 +707,13 @@ pairs:</p>
 </dd>
 <dt>”wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers.</p>
 </dd>
-<dt>”DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects.</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
+<dt>”DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects with shape (T,)</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
 samples of the time-dependent variables were taken. We denote its
 length as T.</p>
 </dd>
 <dt>”direct”<span class="classifier">List with length T of numpy.arrays of floats with shape (E,A,122)</span></dt><dd><p>Direct component of spectral radiance across time.</p>
 </dd>
-<dt>”dffuse”<span class="classifier">List with length T of numpy.arrays of floats with shape (E,A,122)</span></dt><dd><p>Diffuse component of sepctral radiance across time.</p>
+<dt>”diffuse”<span class="classifier">List with length T of numpy.arrays of floats with shape (E,A,122)</span></dt><dd><p>Diffuse component of sepctral radiance across time.</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -729,7 +725,7 @@ length as T.</p>
 </dl>
 <p class="rubric">Notes</p>
 <ol class="arabic simple">
-<li><p>“mean_surface_tilt” variable really only affects the computation of
+<li><p><em>mean_surface_tilt</em> variable really only affects the computation of
 the spectral distribution of diffuse radiance. It has no effect on
 the actual value.</p></li>
 </ol>
@@ -746,16 +742,14 @@ descriptions were changed to better suit the standard being used in other
 modules of this package. Second, the ‘spectrl2’ function was slightly altered
 in order to accomodate the use of the Shettel and Fenn models (see reference [1]) for the
 Aerosol Asymmetry Factor and the Single Scattering Albedo. Third, one extra
-function has been added: ‘compute_direct_and_diffuse_normalized_spectra’ which
+function has been added: <a class="reference internal" href="#solrad.radiation.spectrl2.compute_direct_and_diffuse_normalized_spectra" title="solrad.radiation.spectrl2.compute_direct_and_diffuse_normalized_spectra"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_direct_and_diffuse_normalized_spectra()</span></code></a> which
 basically just uses spectrl2 and then normalizes the obtained irradiance spectra.
 To be absolutely clear, most of this code is not mine (just the changes
 mentioned above) and was taken from the source mentioned above. Credit for the
 spctrl2 implementation belongs to them.</p>
 <p class="rubric">References</p>
-<dl class="simple">
-<dt>[1] Shettle, Eric &amp; Fenn, Robert. (1979). Models for the Aerosols of the Lower</dt><dd><p>Atmosphere and the Effects of Humidity Variations on their Optical Properties. Environ. Res.. 94.</p>
-</dd>
-</dl>
+<p>[1] Shettle, Eric &amp; Fenn, Robert. (1979). Models for the Aerosols of the Lower
+Atmosphere and the Effects of Humidity Variations on their Optical Properties. Environ. Res.. 94.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.radiation.spectrl2.compute_direct_and_diffuse_normalized_spectra">
 <span class="sig-prename descclassname"><span class="pre">solrad.radiation.spectrl2.</span></span><span class="sig-name descname"><span class="pre">compute_direct_and_diffuse_normalized_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sun_apzen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_airmass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2O</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">O3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aod_500nm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_500nm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_scattering_albedo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrally_averaged_aaf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_albedo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_surface_tilt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.radiation.spectrl2.compute_direct_and_diffuse_normalized_spectra" title="Permalink to this definition">#</a></dt>
@@ -765,50 +759,34 @@ and diffuse irradiance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sun_apzen</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Solar zenith angle of the sun [degrees].</p></li>
-<li><p><strong>SP</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Surface Pressure [Pa]. If it is a numpy.array or a pandas.Series,
-it must be the same length as ‘apzen’ and, additionally, if
-it is a pandas.Series, it should have the same index as
-‘apzen’.</p></li>
-<li><p><strong>rel_airmass</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Relative airmass [unitless]. If it is a numpy.array or a pandas.Series,
-it must be the same length as ‘apzen’ and, additionally, if
-it is a pandas.Series, it should have the same index as
-‘apzen’.</p></li>
-<li><p><strong>H2O</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Atmospheric water vapor content [cm]. If it is a numpy.array or a
-pandas.Series, it must be the same length as ‘apzen’ and,
-additionally, if it is a pandas.Series, it should have the same index
-as ‘apzen’.</p></li>
-<li><p><strong>O3</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Atmospheric ozone content [atm-cm]. If it is a numpy.array or a
-pandas.Series, it must be the same length as ‘apzen’ and,
-additionally, if it is a pandas.Series, it should have the same index
-as ‘apzen’.</p></li>
-<li><p><strong>aod_500nm</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Aerosol turbidity at 500 nm [unitless]. If it is a numpy.array or a
-pandas.Series, it must be the same length as ‘apzen’ and,
-additionally, if it is a pandas.Series, it should have the same index
-as ‘apzen’.</p></li>
-<li><p><strong>alpha_500nm</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Angstrom turbidity exponent at 500nm [unitless]. If it is a numpy.array or a
-pandas.Series, it must be the same length as ‘apzen’ and,
-additionally, if it is a pandas.Series, it should have the same index
-as ‘apzen’.</p></li>
-<li><p><strong>single_scattering_albedo</strong> (<em>2D-numpy.array</em><em> of </em><em>floats</em>) – Aerosol single scattering albedo at multiple wavelengths. It is matrix
+<li><p><strong>sun_apzen</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Solar zenith angle of the sun [degrees].</p></li>
+<li><p><strong>SP</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Surface Pressure [Pa]. If it is a pandas.Series, it should have the same index as
+<em>apzen</em>.</p></li>
+<li><p><strong>rel_airmass</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Relative airmass [unitless]. If it is a pandas.Series, it should have the same
+index as <em>apzen</em>.</p></li>
+<li><p><strong>H2O</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Atmospheric water vapor content [cm]. If it is a pandas.Series,
+it should have the same index as <em>apzen</em>.</p></li>
+<li><p><strong>O3</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Atmospheric ozone content [atm-cm]. If it is a pandas.Series,
+it should have the same index as <em>apzen</em>.</p></li>
+<li><p><strong>aod_500nm</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Aerosol turbidity at 500 nm [unitless]. If it is a pandas.Series,
+it should have the same index as <em>apzen</em>.</p></li>
+<li><p><strong>alpha_500nm</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Angstrom turbidity exponent at 500nm [unitless]. If it is a pandas.Series,
+it should have the same index as <em>apzen</em>.</p></li>
+<li><p><strong>single_scattering_albedo</strong> (<em>2D-numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>N</em><em>,</em><em>122</em><em>)</em>) – Aerosol single scattering albedo at multiple wavelengths. It is matrix
 of size Nx122 where the second dimension spans the wavelength range and
 the first one spans the number of simulations (i.e, length of
-‘apzen’) [unitless]. That is, it should be a matrix of size Nx122.</p></li>
-<li><p><strong>spectrally_averaged_aerosol_asymmetry_factor</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Average across selected range of wavelengths of the Aerosol asymmetry
-factor (mean cosine of scattering angle) [unitless]. If it is a
-numpy.array or a pandas.Series, it must be the same length as
-‘apzen’ and, additionally, if it is a pandas.Series,
-it should have the same index as ‘apzen’.</p></li>
-<li><p><strong>ground_albedo</strong> (<em>float</em><em> or </em><em>2D-numpy.array</em><em> of </em><em>floats</em>) – Albedo [0-1] of the ground surface. Can be provided as a scalar value
+<em>apzen</em>) [unitless].</p></li>
+<li><p><strong>spectrally_averaged_aerosol_asymmetry_factor</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Average across selected range of wavelengths of the Aerosol asymmetry
+factor (mean cosine of scattering angle) [unitless]. If it is a pandas.Series,
+it should have the same index as <em>apzen</em>.</p></li>
+<li><p><strong>ground_albedo</strong> (<em>float</em><em> or </em><em>2D-numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>N</em><em>,</em><em>122</em><em>)</em>) – Albedo [0-1] of the ground surface. Can be provided as a scalar value
 if albedo is not spectrally-dependent, or as a Nx122 matrix where
 the second dimension spans the wavelength range and the first one spans
-the number of simulations (i.e, length of ‘apzen’).
+the number of simulations (i.e, length of <em>apzen</em>).
 [unitless]. Default is 0.</p></li>
-<li><p><strong>mean_surface_tilt</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em>) – Mean panel tilt from horizontal [degrees]. If it is a numpy.array or a
-pandas.Series, it must be the same length as ‘apzen’ and,
-additionally, if it is a pandas.Series, it should have the same index
-as ‘apzen’. Default is 0.</p></li>
-<li><p><strong>dayofyear</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em>, </em><em>optional.</em>) – The day of year [1-365].  Must be provided if <cite>apzen</cite> is
+<li><p><strong>mean_surface_tilt</strong> (<em>float</em><em>, </em><em>numpy.array</em><em> of </em><em>floats</em><em> or </em><em>pandas.Series</em><em> of </em><em>floats</em><em> of </em><em>length N</em>) – Mean panel tilt from horizontal [degrees]. IIf it is a pandas.Series,
+it should have the same index as <em>apzen</em>.</p></li>
+<li><p><strong>dayofyear</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats</em><em> of </em><em>length N</em><em>, </em><em>optional.</em>) – The day of year [1-365].  Must be provided if <cite>apzen</cite> is
 not a pandas Series. Default is None.</p></li>
 </ul>
 </dd>
@@ -818,15 +796,15 @@ pairs:</p>
 <blockquote>
 <div><dl class="simple">
 <dt>“direct”<span class="classifier">numpy.array of floats with shape (122,) or 2D numpy.array of floats with (N, 122)</span></dt><dd><p>Normalized spectrum of direct/beam irradiance. The shape of the output
-depends on the shape of the inputs. If ‘apzen’ is a single value,
-Gb_normalized_spectrum will have shape (122,). Else, it will have shape
-(N, 122) where N is the length of ‘apzen’. The 122 makes reference to
+depends on the shape of the inputs. If <em>apzen</em> is a single value,
+<em>res[“direct”]</em> will have shape (122,). Else, it will have shape
+(N, 122) where N is the length of <em>apzen</em>. The 122 makes reference to
 the number of wavelengths at which the results are given.</p>
 </dd>
 <dt>”diffuse”<span class="classifier">numpy.array of floats with shape (122,) or 2D numpy.array of floats with (N, 122)</span></dt><dd><p>Normalized spectrum of diffuse irradiance. The shape of the output
-depends on the shape of the inputs. If ‘apzen’ is a single value,
-Gd_normalized_spectrum will have shape (122,). Else, it will have shape
-(N, 122) where N is the length of ‘apzen’. The 122 makes reference to
+depends on the shape of the inputs. If <em>apzen</em> is a single value,
+<em>res[“diffuse”]</em> will have shape (122,). Else, it will have shape
+(N, 122) where N is the length of <em>apzen</em>. The 122 makes reference to
 the number of wavelengths at which the results are given.</p>
 </dd>
 <dt>”wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers, at which the normalized spectra are
@@ -841,13 +819,13 @@ given.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>1</strong><strong>) </strong><strong>TypeError :</strong> – The following TypeError was raised: ‘loop of ufunc does not support argument 0 of type
-    float which has no callable exp method’. This usually happens when ‘single_scattering_albedo’
-    is not an numpy.array of floats. Attempt to pass ‘numpy.array(single_scattering_albedo).astype(float)’ instead.”</p>
+    float which has no callable exp method’. This usually happens when <em>single_scattering_albedo</em>
+    is not an numpy.array of floats. Attempt to pass <code class="docutils literal notranslate"><span class="pre">numpy.array(single_scattering_albedo).astype(float)</span></code> instead.”</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
 <ol class="arabic simple">
-<li><p>“mean_surface_tilt” variable really only affects the computation of
+<li><p>The <em>mean_surface_tilt</em> argument really only affects the computation of
 the spectral distribution of diffuse radiance. It has no effect on
 the actual value.</p></li>
 </ol>

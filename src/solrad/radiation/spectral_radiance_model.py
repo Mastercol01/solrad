@@ -2,11 +2,11 @@
 
 """
 This module contains all functions related to the computation of the 
-spatial and pectral distribution of direct and diffuse irradiance, also called
-spectral radiance. This is accomplished by a combination of various models.
+spatial and spectral distribution of direct and diffuse irradiance, also called
+spectral radiance. This is accomplished by the combination of various models.
 More specifically, one model for the spatial distribution of the diffuse component,
 one model for the spatial distribution of the direct component and one model
-for the spectral distribution of both.
+for the spectral distribution of both components.
 
 """
 
@@ -38,23 +38,24 @@ def compute_spectral_radiance(Az, El, dAz, dEl,
     
     Parameters
     ----------
-    Az : numpy.array of floats with shape (E,A)
-       Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-       the azimuth (in degrees) of each sky element to be considered in 
-       the calculation of spectral sky radiance. The values of 'Az' should vary 
-       along axis 1. Values should be between 0 and 360.
+
+    Parameters
+    ----------
+    Az : float or numpy.array of floats with shape (E,A)
+        Grid of azimuth coordinates (in degrees) of the sky elements for which the 
+        spectral radiance is to be calculated. Its values should vary along axis 1.
+        In any case, all values should be between 0 and 360 (inclusive). 
     
-    El : numpy.array of floats with shape (E,A)
-       Elevation array of meshgrid of Azimuth, Elevation values. It contains
-       the elevation (in degrees) of each sky element to be considered in 
-       the calculation of spectral sky radiance. The values of 'El' should vary 
-       along axis 0. Values should be between 0 and 90.
+    El : float or numpy.array of floats with shape (E,A)
+        Grid of elevation coordinates (in degrees) of the sky elements for which the
+        spectral radiance is to be calculated. Its values should vary along axis 0.
+        In any case, all values should be between 0 and 90 (inclusive). 
        
     dAz : float
-        Angular resolution of 'Az' in degrees.
+        Angular resolution of *Az* in degrees.
         
     dEl : float
-        Angular resolution of 'El' in degrees.
+        Angular resolution of *El* in degrees.
         
     DatetimeIndex_obj : pandas.DatetimeIndex object with shape (T,) 
         An index of Timestamp values detailing the times at which each of the
@@ -82,14 +83,14 @@ def compute_spectral_radiance(Az, El, dAz, dEl,
        non-negative array of numbers. 
     
     Gdh : numpy.array of floats with shape (T,) 
-        Diffuse horizontal irradiance[W/m^2] across time. Must be a
+        Diffuse horizontal irradiance [W/m^2] across time. Must be a
         non-negative array of numbers.
     
     SP : numpy.array of floats with shape (T,) 
         Surface Pressure [Pa] across time.
         
     rel_airmass : numpy.array of floats with shape (T,) 
-        Relative airmass [unitless] acorss time.
+        Relative airmass [unitless] across time.
         
     H2O : numpy.array of floats with shape (T,) 
         Atmospheric water vapor content [cm] across time.
@@ -108,16 +109,16 @@ def compute_spectral_radiance(Az, El, dAz, dEl,
         factor (mean cosine of scattering angle) [unitless], across time. 
         
     single_scattering_albedo : numpy.array of floats with shape (T,122)
-        Aerosol single scattering albedo at multiple wavelengths. It is matrix 
+        Aerosol single scattering albedo at multiple wavelengths. It is a matrix 
         of size Tx122 where the second dimension spans the wavelength range and
         the first one spans the number of simulations (i.e, length of 
-        'DatetimeIndex_obj') [unitless]. 
+        *DatetimeIndex_obj*) [unitless]. 
         
     ground_albedo : float or numpy.array of floats with shape (T,122), optional
         Albedo [0-1] of the ground surface. Can be provided as a scalar value
         if albedo is not spectrally-dependent, or as a Tx122 matrix where
         the second dimension spans the wavelength range and the first one spans
-        the number of simulations (i.e, length of 'DatetimeIndex_obj').
+        the number of simulations (i.e, length of *DatetimeIndex_obj*).
         [unitless]. Default is 0.
         
     mean_surface_tilt : float or numpy.array of floats with shape (T,), optional
@@ -147,7 +148,7 @@ def compute_spectral_radiance(Az, El, dAz, dEl,
             "wavelengths" : numpy.array of floats with shape (122,)
                 Wavelengths in nanometers.
                 
-            "DatetimeIndex_obj" : pandas.Series of pandas.Timestamp objects.
+            "DatetimeIndex_obj" : pandas.Series of pandas.Timestamp objects with shape (T,)
                 Series of Timestamp values detailing the times at which each of the
                 samples of the time-dependent variables were taken. We denote its 
                 length as T.
@@ -155,13 +156,13 @@ def compute_spectral_radiance(Az, El, dAz, dEl,
             "direct" : List with length T of numpy.arrays of floats with shape (E,A,122)
                 Direct component of spectral radiance across time.
                 
-            "dffuse" : List with length T of numpy.arrays of floats with shape (E,A,122)
+            "diffuse" : List with length T of numpy.arrays of floats with shape (E,A,122)
                 Diffuse component of sepctral radiance across time.
                 
                 
     Notes
     -----
-    1) "mean_surface_tilt" variable really only affects the computation of
+    1) *mean_surface_tilt* variable really only affects the computation of
        the spectral distribution of diffuse radiance. It has no effect on 
        the actual value. 
     """

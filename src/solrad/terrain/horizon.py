@@ -35,10 +35,10 @@ def horizon_arrays_from_pvgis(latitude, longitude, timeout=30):
 
     Returns
     -------
-    azimuth : numpy.array
+    azimuth : numpy.array of floats
         Array of azimuth angle values in degrees.
 
-    elevation : numpy.array
+    elevation : numpy.array of floats
         Array of elevation angle values in degrees.
 
     Note
@@ -49,7 +49,7 @@ def horizon_arrays_from_pvgis(latitude, longitude, timeout=30):
 
     Examples
     --------
-    >>> from terrain.horizon import horizon_arrays_from_pvgis
+    >>> from solrad.terrain.horizon import horizon_arrays_from_pvgis
     >>> azimuth, elevation = horizon_arrays_from_pvgis(latitude  =  6.25184,
     >>>                                                longitude = -75.56359)
 
@@ -182,7 +182,7 @@ def horizon_func_from_arrays(azimuth, elevation, interp_method = 'linear'):
   Examples
   --------
   >>> import numpy as np
-  >>> from terrain.horizon import horizon_func_from_arrays
+  >>> from solrad.terrain.horizon import horizon_func_from_arrays
   >>>
   >>> azimuth = np.linspace(0, 360, 100)
   >>> elevation = np.sin(azimuth*np.pi/180)**2
@@ -206,7 +206,7 @@ def plot_horizon(y, azimuth, config=None):
 
     Parameters
     ----------
-    y : (npoints, ) array_like or callable
+    y : array_like (npoints,) or callable
         Elevation data in degrees or a callable function that takes azimuth values and returns elevation values.
 
     azimuth : array_like
@@ -231,12 +231,12 @@ def plot_horizon(y, azimuth, config=None):
             "title" : str
                 Title of the plot. Default is 'Horizon Profile'.
 
-             "facecolor" : str
-                 Background color of the Horizon Height part of the plot.
-                 Must be equal to str(x), where x is a float between 0 and 1.
-                 0 means that the background color is black. 1 means that it
-                 is white. Any value in between represents a shade of gray.
-                 Default is "0.5".
+            "facecolor" : str
+                Background color of the Horizon Height part of the plot.
+                Must be equal to str(x), where x is a float between 0 and 1.
+                0 means that the background color is black. 1 means that it
+                is white. Any value in between represents a shade of gray.
+                Default is "0.5".
 
             "figsize" : tuple of float
                 Figure size of the plot.
@@ -256,17 +256,17 @@ def plot_horizon(y, azimuth, config=None):
 
     >>> from terrain.horizon import , plot_horizon
     >>>
+    >>> # Plots the horizon profile based on the provided data.
     >>> azimuth_data   = np.linspace(0, 360, 100)
     >>> elevation_data = 10*np.sin(np.deg2rad(azimuth_data))**2
     >>> plot_horizon(elevation_data, azimuth_data)
-    # Plots the horizon profile based on the provided data.
-    
+    >>> # Plots the horizon profile based on the provided data.
     >>>
+    >>> # Plots the horizon profile using a custom function and customized configuration.
     >>> azimuth_data   = np.linspace(0, 360, 100)
     >>> def custom_function(azimuth):
     >>>     return 30*np.sin(np.deg2rad(azimuth)) + 45
     >>> plot_horizon(custom_function, azimuth_data, config={"projection": "cartesian"})
-    # Plots the horizon profile using a custom function and customized configuration.
     """
 
     try:
@@ -346,12 +346,12 @@ def clear_horizon_func(azimuth):
 
     Parameters
     ----------
-    azimuth : float or (npoints, ) array_like
+    azimuth : float or array_like (npoints,)
         Single value or array of azimuth angle values.
 
     Returns
     -------
-    elevation : float or (npoints, ) ndarray
+    elevation : float or numpy.array (npoints,)
         Single value or array of elevation values, initialized with zeros.
     """
 
@@ -396,16 +396,16 @@ def compute_fraction_of_unblocked_sky_patch_by_horizon(horizon_func, el0, el1, a
 
     Raises
     ------
-    1) Exception : 
+    1) Exception 
         az0 must be strictly greater than az1.
 
-    2) Exception : 
+    2) Exception 
         el0 must be strictly greater than el1.
 
     Notes
     -----
     This function calculates the fraction of the sky patch that is unblocked by the horizon,
-    given a function `horizon_func` that provides the elevation angles of the horizon for a given
+    given a function *horizon_func* that provides the elevation angles of the horizon for a given
     array of azimuth angles. The computation is performed by discretizing the azimuth and elevation
     angles, and then integrating over the unblocked region.
 

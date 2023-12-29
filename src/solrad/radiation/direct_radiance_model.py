@@ -20,20 +20,18 @@ def compute_direct_radiance(Az, El, Gbn, sun_az, sun_apel):
     
     """
     Compute direct sky radiance by modelling it as dirac delta function.
-    
+
     Parameters
     ----------
-    Az : numpy.array of floats with shape (E,A,1)
-       Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-       the azimuth (in degrees) of each sky element to be considered in 
-       the calculation of diffuse sky radiance. The values of 'Az' should vary 
-       along axis 1. Values should be between 0 and 360.
+    Az : float or numpy.array of floats with shape (E,A,1)
+        Grid of azimuth coordinates (in degrees) of the sky elements for which the 
+        direct radiance is to be calculated. Its values should vary along axis 1.
+        In any case, all values should be between 0 and 360 (inclusive). 
     
-    El : numpy.array of floats with shape (E,A,1)
-       Elevation array of meshgrid of Azimuth, Elevation values. It contains
-       the elevation (in degrees) of each sky element to be considered in 
-       the calculation of diffuse sky radiance. The values of 'El' should vary 
-       along axis 0. Values should be between 0 and 90.
+    El : float or numpy.array of floats with shape (E,A,1)
+        Grid of elevation coordinates (in degrees) of the sky elements for which the
+        direct radiance is to be calculated. Its values should vary along axis 0.
+        In any case, all values should be between 0 and 90 (inclusive). 
        
     Gbn : numpy.array of floats with shape (1,1,T)  
        Direct normal irradiance [W/m^2] across time. Must be a
