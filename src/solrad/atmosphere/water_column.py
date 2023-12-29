@@ -296,7 +296,7 @@ def process_CDS_water_column_data(path, percentile = 0.5, interp_method = "linea
     :func:`~solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace` functions) stored at the directory 
     specified by *path* and then computes multiple useful quantities.
     
-    Parameteres
+    Parameters
     -----------
     path : path-str
         Path of the folder where the water column raw.ny and filled_NaNs.npy files 
@@ -418,9 +418,9 @@ def process_CDS_water_column_data(path, percentile = 0.5, interp_method = "linea
                         that the function interpolates. It takes as input a value
                         of latitude and longitude and returns the water-column value 
                         expected at that location.
-                        
+
     Raises
-    ------
+    ------    
     1) Exception 
         "Local water column database is empty. No water column raw.npy nor filled_NaNs.npy files to retrieve were found."
 
@@ -463,8 +463,6 @@ def process_CDS_water_column_data(path, percentile = 0.5, interp_method = "linea
     4) A negative longitude correspondes to a point west of the greenwhich 
     meridian, while a positive longitude means it is east of the greenwhich 
     meridian.
-       
-    
     """
     
 

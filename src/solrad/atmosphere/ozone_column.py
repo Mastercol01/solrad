@@ -342,7 +342,7 @@ def process_CDS_ozone_column_data(path, percentile = 0.5, interp_method = "linea
     ozone-column files (files which were obtained via the :func:`~solrad.atmosphere.ozone_column.get_CDS_ozone_column_data` function)
     stored at the directory specified by *path* and then computes multiple useful quantities.
     
-    Parameteres
+    Parameters
     -----------
     path : path-str
         Path of the folder where the water column raw.ny and filled_NaNs.npy files 

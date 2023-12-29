@@ -722,24 +722,26 @@ See <a class="reference external" href="https://cds.climate.copernicus.eu/api-ho
 <dd><p>Process ozone data located in the local ozone database. This function reads the raw.npy
 ozone-column files (files which were obtained via the <a class="reference internal" href="#solrad.atmosphere.ozone_column.get_CDS_ozone_column_data" title="solrad.atmosphere.ozone_column.get_CDS_ozone_column_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_CDS_ozone_column_data()</span></code></a> function)
 stored at the directory specified by <em>path</em> and then computes multiple useful quantities.</p>
-<section id="parameteres">
-<h3>Parameteres<a class="headerlink" href="#parameteres" title="Permalink to this heading">#</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>path-str</em>) – Path of the folder where the water column raw.ny and filled_NaNs.npy files
+are stored. That is, the path to the local water column database.</p></li>
+<li><p><strong>percentile</strong> (<em>float</em>) – Percentile for computing the ‘percentile_data’ and ‘percentile_data_funcs’
+dictionaries. Must be a number between 0 and 1. Default is 0.5.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="simple">
-<dt>path<span class="classifier">path-str</span></dt><dd><p>Path of the folder where the water column raw.ny and filled_NaNs.npy files
-are stored. That is, the path to the local water column database.</p>
-</dd>
-<dt>percentile<span class="classifier">float</span></dt><dd><p>Percentile for computing the ‘percentile_data’ and ‘percentile_data_funcs’
-dictionaries. Must be a number between 0 and 1. Default is 0.5.</p>
-</dd>
 <dt>interp_method<span class="classifier">{‘linear’, ‘nearest’, ‘slinear’, ‘cubic’, ‘quintic’}</span></dt><dd><p>The method of interpolation to perform when computing the
 res[‘raw_data_funcs’], res[‘avg_data_funcs’] and res[‘percentile_data_funcs’]
 dictionaries. Supported methods are the same as supported by scipy’s
 RegularGridInterpolator. Default is “linear”.</p>
 </dd>
 </dl>
-<dl class="field-list">
-<dt class="field-odd">returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>res</strong> – Dictionary of computed quantities. It has the following key-value
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p><strong>res</strong> – Dictionary of computed quantities. It has the following key-value
 pairs:</p>
 <blockquote>
 <div><dl>
@@ -747,11 +749,11 @@ pairs:</p>
 files to specify the locations at which the water column data is
 reported.</p>
 </dd>
-<dt>“longitude”<span class="classifier">numpy.array of floats (mpoints,)</span></dt><dd><p>Array of longitude values (in degrees) used by the raw.npy and filled_NaNs.npy
+<dt>”longitude”<span class="classifier">numpy.array of floats (mpoints,)</span></dt><dd><p>Array of longitude values (in degrees) used by the raw.npy and filled_NaNs.npy
 files to specify the locations at which the water column data is
 reported.</p>
 </dd>
-<dt>“raw_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the raw data of ozone-column values stored by the
+<dt>”raw_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the raw data of ozone-column values stored by the
 raw.npy files in the local water column database. It has the following
 key-value pair format:</p>
 <blockquote>
@@ -762,7 +764,7 @@ time period for the array of data (with units atm-cm).</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“raw_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the raw
+<dt>”raw_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the raw
 data of ozone-column values stored in the local ozone database.
 It has the following key-value pair format:</p>
 <blockquote>
@@ -776,7 +778,7 @@ expected at that location.</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“avg_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise averaged data of ozone-column
+<dt>”avg_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise averaged data of ozone-column
 values stored in the local ozone database, for each month. It has
 the following key-value pair format:</p>
 <blockquote>
@@ -787,7 +789,7 @@ time period for the array of data (with units atm-cm).</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“avg_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the year-wise
+<dt>”avg_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the year-wise
 averaged data of ozone-column values stored in the local ozone database,
 for each month. It has the following key-value pair format:</p>
 <blockquote>
@@ -801,7 +803,7 @@ expected at that location.</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“percentile_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise ‘percentile’-th percentile
+<dt>”percentile_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise ‘percentile’-th percentile
 of the ozone-column data values stored in the local ozone
 database, for each month. It has the following key-value pair format:</p>
 <blockquote>
@@ -812,7 +814,7 @@ time period for the array of data (with units atm-cm).</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“percentile_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the year-wise
+<dt>”percentile_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the year-wise
 ‘percentile’-th percentile of the ozone-column data values stored in
 the local ozone database, for each month. It has the following
 key-value pair format:</p>
@@ -829,18 +831,17 @@ expected at that location.</p>
 </dd>
 </dl>
 </div></blockquote>
+</p>
 </dd>
-<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
-<dt class="field-odd">raises 1) Exception<span class="colon">:</span></dt>
-<dd class="field-odd"><p>“Local ozone column database is empty. No ozone column raw.npy nor filled_NaNs.npy files to retrieve were found.”</p>
-</dd>
-<dt class="field-even">raises 2) Exception<span class="colon">:</span></dt>
-<dd class="field-even"><p>“Latitude data could not be recovered. No latitude.npy files are present in the database.”</p>
-</dd>
-<dt class="field-odd">raises 3) Exception<span class="colon">:</span></dt>
-<dd class="field-odd"><p>“Longitude data could not be recovered. No longitude.npy files are present in the database.”</p>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>1</strong><strong>) </strong><strong>Exception</strong> – “Local ozone column database is empty. No ozone column raw.npy nor filled_NaNs.npy files to retrieve were found.”</p></li>
+<li><p><strong>2</strong><strong>) </strong><strong>Exception</strong> – “Latitude data could not be recovered. No latitude.npy files are present in the database.”</p></li>
+<li><p><strong>3</strong><strong>) </strong><strong>Exception</strong> – “Longitude data could not be recovered. No longitude.npy files are present in the database.”</p></li>
+</ul>
 </dd>
 <dt class="field-even">Warns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>1) Warning</strong> – “WARNING: Local ozone column database lacks raw.npy data files for all 12 months of the year.”</p>
@@ -857,7 +858,6 @@ latitude of 90° corresponds to the geographic North Pole.</p></li>
 meridian, while a positive longitude means it is east of the greenwhich
 meridian.</p></li>
 </ol>
-</section>
 </dd></dl>
 
 </section>
@@ -1054,24 +1054,21 @@ This function reads all the raw.ny and filled_NaNs.npy water column files (files
 were obtained via the <a class="reference internal" href="#solrad.atmosphere.water_column.get_CDS_water_column_data" title="solrad.atmosphere.water_column.get_CDS_water_column_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_CDS_water_column_data()</span></code></a> function) and
 <a class="reference internal" href="solrad.html#solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace" title="solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace"><code class="xref py py-func docutils literal notranslate"><span class="pre">fill_CDS_globe_nans_using_laplace()</span></code></a> functions) stored at the directory
 specified by <em>path</em> and then computes multiple useful quantities.</p>
-<section id="parameteres">
-<h3>Parameteres<a class="headerlink" href="#parameteres" title="Permalink to this heading">#</a></h3>
-<dl class="simple">
-<dt>path<span class="classifier">path-str</span></dt><dd><p>Path of the folder where the water column raw.ny and filled_NaNs.npy files
-are stored. That is, the path to the local water column database.</p>
-</dd>
-<dt>percentile<span class="classifier">float</span></dt><dd><p>Percentile for computing the ‘percentile_data’ and ‘percentile_data_funcs’
-dictionaries. Must be a number between 0 and 1. Default is 0.5.</p>
-</dd>
-<dt>interp_method<span class="classifier">{‘linear’, ‘nearest’, ‘slinear’, ‘cubic’, ‘quintic’}</span></dt><dd><p>The method of interpolation to perform when computing the
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>path-str</em>) – Path of the folder where the water column raw.ny and filled_NaNs.npy files
+are stored. That is, the path to the local water column database.</p></li>
+<li><p><strong>percentile</strong> (<em>float</em>) – Percentile for computing the ‘percentile_data’ and ‘percentile_data_funcs’
+dictionaries. Must be a number between 0 and 1. Default is 0.5.</p></li>
+<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'slinear'</em><em>, </em><em>'cubic'</em><em>, </em><em>'quintic'}</em>) – The method of interpolation to perform when computing the
 res[‘filled_nans_data_funcs’], res[‘avg_data_funcs’] and res[‘percentile_data_funcs’]
 dictionaries. Supported methods are the same as supported by scipy’s
-RegularGridInterpolator. Default is “linear”.</p>
+RegularGridInterpolator. Default is “linear”.</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="field-list">
-<dt class="field-odd">returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>res</strong> – Dictionary of computed quantities. It has the following key-value
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>res</strong> – Dictionary of computed quantities. It has the following key-value
 pairs:</p>
 <blockquote>
 <div><dl>
@@ -1079,11 +1076,11 @@ pairs:</p>
 files to specify the locations at which the water column data is
 reported.</p>
 </dd>
-<dt>“longitude”<span class="classifier">numpy.array of floats (mpoints,)</span></dt><dd><p>Array of longitude values (in degrees) used by the raw.npy and filled_NaNs.npy
+<dt>”longitude”<span class="classifier">numpy.array of floats (mpoints,)</span></dt><dd><p>Array of longitude values (in degrees) used by the raw.npy and filled_NaNs.npy
 files to specify the locations at which the water column data is
 reported.</p>
 </dd>
-<dt>“raw_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the raw data of water-column values stored by the
+<dt>”raw_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the raw data of water-column values stored by the
 raw.npy files in the local water column database. It has the following
 key-value pair format:</p>
 <blockquote>
@@ -1094,7 +1091,7 @@ time period for the array of data (with units atm-cm).</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“filled_nan_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the filled-NaN data of water-column values stored by the
+<dt>”filled_nan_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the filled-NaN data of water-column values stored by the
 filled_NaNs.npy files in the local water column database. It has the
 following key-value pair format:</p>
 <blockquote>
@@ -1105,7 +1102,7 @@ time period for the array of data (with units atm-cm).</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“filled_nan_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the
+<dt>”filled_nan_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the
 filled-NaN data of water-column values stored in the local
 water column database. It has the following key-value pair format:</p>
 <blockquote>
@@ -1119,7 +1116,7 @@ expected at that location.</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“avg_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise averaged data of filled-NaN
+<dt>”avg_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise averaged data of filled-NaN
 water-column values stored in the local water database, for each
 month. It has the following key-value pair format:</p>
 <blockquote>
@@ -1130,7 +1127,7 @@ time period for the array of data (with units atm-cm).</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“avg_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the year-wise
+<dt>”avg_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the year-wise
 averaged data of filled-NaN water-column values stored in the local
 water database, for each month. It has the following key-value pair
 format:</p>
@@ -1145,7 +1142,7 @@ expected at that location.</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“percentile_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise ‘percentile’-th percentile
+<dt>”percentile_data”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the year-wise ‘percentile’-th percentile
 of the filled-NaN water-column data values stored in the local
 water database, for each month. It has the following key-value
 pair format:</p>
@@ -1157,7 +1154,7 @@ time period for the array of data (with units atm-cm).</p>
 </dl>
 </div></blockquote>
 </dd>
-<dt>“percentile_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the filled-NaN
+<dt>”percentile_data_funcs”<span class="classifier">dict</span></dt><dd><p>Dictionary containing the interpolating functions of the filled-NaN
 year-wise ‘percentile’-th percentile data of water-column
 values stored in the local water column database. It has the
 following key-value pair format:</p>
@@ -1174,21 +1171,20 @@ expected at that location.</p>
 </dd>
 </dl>
 </div></blockquote>
+</p>
 </dd>
-<dt class="field-even">rtype<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
 </dd>
-<dt class="field-odd">raises 1) Exception<span class="colon">:</span></dt>
-<dd class="field-odd"><p>“Local water column database is empty. No water column raw.npy nor filled_NaNs.npy files to retrieve were found.”</p>
-</dd>
-<dt class="field-even">raises 2) Exception<span class="colon">:</span></dt>
-<dd class="field-even"><p>“Latitude data could not be recovered. No latitude.npy files are present in the database.”</p>
-</dd>
-<dt class="field-odd">raises 3) Exception<span class="colon">:</span></dt>
-<dd class="field-odd"><p>“Longitude data could not be recovered. No longitude.npy files are present in the database.”</p>
-</dd>
-<dt class="field-even">Warns<span class="colon">:</span></dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
+<li><p><strong>1</strong><strong>) </strong><strong>Exception</strong> – “Local water column database is empty. No water column raw.npy nor filled_NaNs.npy files to retrieve were found.”</p></li>
+<li><p><strong>2</strong><strong>) </strong><strong>Exception</strong> – “Latitude data could not be recovered. No latitude.npy files are present in the database.”</p></li>
+<li><p><strong>3</strong><strong>) </strong><strong>Exception</strong> – “Longitude data could not be recovered. No longitude.npy files are present in the database.”</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Warns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
 <li><p><strong>1) Warning</strong> – “Local water column database is empty of filled_NaNs.npy files. No column water filled_NaNs.npy files to retrieve were found.”</p></li>
 <li><p><strong>2) Warning</strong> – “Local water column database is empty of raw.npy files. No column water raw.npy files to retrieve were found.”</p></li>
 <li><p><strong>3) Warning</strong> – “Not all raw.npy files have an associated filled_NaNs.npy file in the database, and viceversa. Therefore, not all information will be available for all files.”</p></li>
@@ -1209,7 +1205,6 @@ latitude of 90° corresponds to the geographic North Pole.</p>
 <p>4) A negative longitude correspondes to a point west of the greenwhich
 meridian, while a positive longitude means it is east of the greenwhich
 meridian.</p>
-</section>
 </dd></dl>
 
 </section>
