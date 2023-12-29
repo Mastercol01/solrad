@@ -225,15 +225,19 @@ pandas.DatetimeIndex object containing the time series of the date for which the
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>climate_data</strong> – A dictionary containing climate data for each specific year, month, and day.
-The keys are the same as for ‘time_data’. The corresping values are pandas.DataFrames whose
-index are the pandas.DatetimeIndex objects contained in ‘time_data’ and whose columns
-contain the climate variables from ‘tmy_data’, interpolated and evaluated at each
+The keys are the same as for <em>time_data</em>. The corresponding values are pandas.DataFrames whose
+index are the pandas.DatetimeIndex objects contained in <em>time_data</em> and whose columns
+contain the climate variables from <em>tmy_data</em>, interpolated and evaluated at each
 time step.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#solrad.climate.pvgis_tmy.get_pvgis_tmy_dataframe" title="solrad.climate.pvgis_tmy.get_pvgis_tmy_dataframe"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_pvgis_tmy_dataframe()</span></code></a></p>
+</div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">solrad.geotime</span> <span class="k">as</span> <span class="nn">tm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">solrad.climate.pvgis_tmy</span> <span class="kn">import</span> <span class="n">get_pvgis_tmy_dataframe</span>
@@ -273,8 +277,8 @@ time step.</p>
 <li><p><strong>startyear</strong> (<em>int</em><em> or </em><em>None</em>) – First year to calculate TMY.</p></li>
 <li><p><strong>endyear</strong> (<em>int</em><em> or </em><em>None</em>) – Last year to calculate TMY, must be at least 10 years from first year.</p></li>
 <li><p><strong>usehorizon</strong> (<em>bool</em><em>, </em><em>optional</em>) – Wether to include effects of horizon. Default is False.</p></li>
-<li><p><strong>userhorizon</strong> (<em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Optional user specified elevation of horizon in degrees, at equally spaced azimuth clockwise
-from north, only valid if usehorizon is true, if usehorizon is true but userhorizon is None then
+<li><p><strong>userhorizon</strong> (<em>list</em><em> of </em><em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Optional user specified elevation of horizon in degrees, at equally spaced azimuth values, clockwise
+from north. It is only valid if usehorizon is true. If usehorizon is true but userhorizon is None then
 PVGIS will calculate the horizon.</p></li>
 </ul>
 </dd>

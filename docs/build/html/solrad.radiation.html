@@ -209,8 +209,8 @@
 <section id="module-solrad.radiation.diffuse_radiance_model">
 <span id="solrad-radiation-diffuse-radiance-model-module"></span><h2>solrad.radiation.diffuse_radiance_model module<a class="headerlink" href="#module-solrad.radiation.diffuse_radiance_model" title="Permalink to this heading">#</a></h2>
 <p>This module contains all functions related to the computation of the
-spatial distribution of diffuse irradiance, also called radiance. This is
-accomplished by the radiance model developed by Iagawa et al.
+spatial distribution of diffuse irradiance, also called diffuse radiance. This is
+accomplished by implementing the model developed by Iagawa et al.
 in their 2004 and 2014 papers (see references). The implementation here is mainly based off the
 2014 paper, but making use of some expressions that only appeared in the 2004
 paper.</p>
@@ -229,26 +229,28 @@ elements on the sky.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float it is the azimuth (in degrees) of the sky element for which
-its angular distance to the sun is to be calculated. Else, it is an
-Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-the azimuth (in degrees) of each sky element to be considered in
-the calculation of ‘Zeta’. The values of ‘Az’ should vary along axis 1.
-Values of ‘Az’ must lie between 0 and 360 (inclusive).</p></li>
-<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float it is the elevation (in degrees) of the sky element for which
-its angular distance to the sun is to be calculated. Else, it is an
-Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of ‘Zeta’. The values of ‘El’ should vary along axis 0.
-Values of ‘El’ must lie between 0 and 90 (inclusive).</p></li>
-<li><p><strong>sun_az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Azimuth coordinate elevation of the sun (in degrees) across time.
+<li><p><strong>Az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float, it should be the azimuth coordinate (in degrees) of the sky element for which
+the angular distance to the sun is to be calculated. Else, it should be equal to
+<code class="docutils literal notranslate"><span class="pre">numpy.meshgrid(azimuths,</span> <span class="pre">elevations)[0]</span></code>, where <code class="docutils literal notranslate"><span class="pre">azimuths</span></code> and <code class="docutils literal notranslate"><span class="pre">elevations</span></code>
+are numpy.arrays with shape (A,) and (E,), respectively, that contain the
+azimuth and elevation coordinates (in degrees) of the sky elements for which the angular
+distances are to be calculated. In any case, values should always
+lie between 0 and 360 (inclusive).</p></li>
+<li><p><strong>El</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>E</em><em>,</em><em>A</em><em>,</em><em>1</em><em>)</em>) – If float, it should be the elevation coordinate (in degrees) of the sky element for which
+the angular distance to the sun is to be calculated. Else, it should be equal to
+<code class="docutils literal notranslate"><span class="pre">numpy.meshgrid(azimuths,</span> <span class="pre">elevations)[1]</span></code>, where <code class="docutils literal notranslate"><span class="pre">azimuths</span></code> and <code class="docutils literal notranslate"><span class="pre">elevations</span></code>
+are numpy.arrays with shape (A,) and (E,), respectively, that contain the
+azimuth and elevation coordinates (in degrees) of the sky elements for which the angular
+distances are to be calculated. In any case, values should always
+lie between 0 and 90 (inclusive).</p></li>
+<li><p><strong>sun_az</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Azimuth coordinate of the sun (in degrees) across time.
 Values of must lie between 0 and 360 (inclusive).</p></li>
-<li><p><strong>sun_apel</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Apparent elevation coordinate of the sun (in degrees) acorss time.
+<li><p><strong>sun_apel</strong> (<em>float</em><em> or </em><em>numpy.array</em><em> of </em><em>floats with shape</em><em> (</em><em>1</em><em>,</em><em>1</em><em>,</em><em>T</em><em>)</em>) – Apparent elevation coordinate of the sun (in degrees) across time.
 Values of must lie between 0 and 90 (inclusive).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Zeta</strong> – Angular distance between the sun and all sky element(s) (in degrees)
+<dd class="field-even"><p><strong>Zeta</strong> – Angular distance between the sun and a/all sky element(s) (in degrees)
 at a time or across multiple times.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>

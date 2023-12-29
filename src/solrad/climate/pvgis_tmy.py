@@ -32,8 +32,8 @@ def get_pvgis_tmy_dataframe(latitude, longitude, tz, startyear, endyear, usehori
     Wether to include effects of horizon. Default is False.
 
   userhorizon : list of float or None, optional
-    Optional user specified elevation of horizon in degrees, at equally spaced azimuth clockwise 
-    from north, only valid if usehorizon is true, if usehorizon is true but userhorizon is None then 
+    Optional user specified elevation of horizon in degrees, at equally spaced azimuth values, clockwise 
+    from north. It is only valid if usehorizon is true. If usehorizon is true but userhorizon is None then 
     PVGIS will calculate the horizon.
       
   Returns
@@ -188,10 +188,14 @@ def climate_data_from_pvgis_tmy_dataframe(time_data, tmy_data, interp_method = "
   -------
   climate_data : dict
       A dictionary containing climate data for each specific year, month, and day.
-      The keys are the same as for 'time_data'. The corresping values are pandas.DataFrames whose
-      index are the pandas.DatetimeIndex objects contained in 'time_data' and whose columns
-      contain the climate variables from 'tmy_data', interpolated and evaluated at each
+      The keys are the same as for *time_data*. The corresponding values are pandas.DataFrames whose
+      index are the pandas.DatetimeIndex objects contained in *time_data* and whose columns
+      contain the climate variables from *tmy_data*, interpolated and evaluated at each
       time step.
+
+  See Also
+  --------
+  :func:`~solrad.climate.pvgis_tmy.get_pvgis_tmy_dataframe`
 
   Examples
   --------

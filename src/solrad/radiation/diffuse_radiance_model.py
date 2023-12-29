@@ -2,8 +2,8 @@
 
 """
 This module contains all functions related to the computation of the 
-spatial distribution of diffuse irradiance, also called radiance. This is 
-accomplished by the radiance model developed by Iagawa et al. 
+spatial distribution of diffuse irradiance, also called diffuse radiance. This is 
+accomplished by implementing the model developed by Iagawa et al. 
 in their 2004 and 2014 papers (see references). The implementation here is mainly based off the
 2014 paper, but making use of some expressions that only appeared in the 2004 
 paper.
@@ -25,6 +25,7 @@ Solar Energy, Volume 77, Issue 2,2004, Pages 137-157, ISSN 0038-092X, https://do
 #%%                    IMPORTATION OF LIBRARIES
 import numpy as np
 import pandas as pd
+from typing import Union
 import solrad.auxiliary_funcs as aux
 
 #%%              DEFINITION OF IMPROVED ALL SKY MODEL CONSTANTS
@@ -166,7 +167,7 @@ def compute_standard_cloud_ratio_Ces(sun_apel):
     Ces += 0.3818*np.exp(-3.2899*sun_apel_)
 
     not_array = False
-    if isinstance(Ces, int|float):
+    if isinstance(Ces, int) or isinstance(Ces, float):
         Ces = np.array([Ces])
         not_array = True
 
@@ -209,7 +210,7 @@ def compute_cloudless_index_Cle(Ce, Ces):
     Cle = (1 - Ce)/(1 - Ces)
 
     not_array = False
-    if isinstance(Cle, int|float):
+    if isinstance(Cle, int) or isinstance(Cle, float):
         Cle = np.array([Cle])
         not_array = True
 
@@ -286,7 +287,7 @@ def compute_clear_sky_index_Kc(Gh, Ghs):
     Kc = Gh/Ghs
 
     not_array = False
-    if isinstance(Kc, int|float):
+    if isinstance(Kc, int) or isinstance(Kc, float):
         Kc = np.array([Kc])
         not_array = True
 
@@ -556,27 +557,29 @@ def compute_angular_distance_between_sun_and_sky_element_Zeta(Az, El, sun_az, su
     Parameters
     ----------
     Az : float or numpy.array of floats with shape (E,A,1)
-       If float it is the azimuth (in degrees) of the sky element for which
-       its angular distance to the sun is to be calculated. Else, it is an
-       Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-       the azimuth (in degrees) of each sky element to be considered in 
-       the calculation of 'Zeta'. The values of 'Az' should vary along axis 1.
-       Values of 'Az' must lie between 0 and 360 (inclusive).
+       If float, it should be the azimuth coordinate (in degrees) of the sky element for which
+       the angular distance to the sun is to be calculated. Else, it should be equal to
+       ``numpy.meshgrid(azimuths, elevations)[0]``, where ``azimuths`` and ``elevations`` 
+       are numpy.arrays with shape (A,) and (E,), respectively, that contain the 
+       azimuth and elevation coordinates (in degrees) of the sky elements for which the angular 
+       distances are to be calculated. In any case, values should always 
+       lie between 0 and 360 (inclusive).
     
     El : float or numpy.array of floats with shape (E,A,1)
-       If float it is the elevation (in degrees) of the sky element for which
-       its angular distance to the sun is to be calculated. Else, it is an
-       Elevation array of meshgrid of Azimuth, Elevation values. It contains
-       the elevation (in degrees) of each sky element to be considered in 
-       the calculation of 'Zeta'. The values of 'El' should vary along axis 0.
-       Values of 'El' must lie between 0 and 90 (inclusive).
+       If float, it should be the elevation coordinate (in degrees) of the sky element for which
+       the angular distance to the sun is to be calculated. Else, it should be equal to
+       ``numpy.meshgrid(azimuths, elevations)[1]``, where ``azimuths`` and ``elevations`` 
+       are numpy.arrays with shape (A,) and (E,), respectively, that contain the 
+       azimuth and elevation coordinates (in degrees) of the sky elements for which the angular 
+       distances are to be calculated. In any case, values should always 
+       lie between 0 and 90 (inclusive).
       
     sun_az : float or numpy.array of floats with shape (1,1,T)
-        Azimuth coordinate elevation of the sun (in degrees) across time.
+        Azimuth coordinate of the sun (in degrees) across time.
         Values of must lie between 0 and 360 (inclusive).
     
     sun_apel : float or numpy.array of floats with shape (1,1,T)
-        Apparent elevation coordinate of the sun (in degrees) acorss time.
+        Apparent elevation coordinate of the sun (in degrees) across time.
         Values of must lie between 0 and 90 (inclusive).
     
 
@@ -584,7 +587,7 @@ def compute_angular_distance_between_sun_and_sky_element_Zeta(Az, El, sun_az, su
     Returns
     -------
     Zeta : float or numpy.array of floats with shape (E,A,T)
-        Angular distance between the sun and all sky element(s) (in degrees)
+        Angular distance between the sun and a/all sky element(s) (in degrees)
         at a time or across multiple times.
         
     """
@@ -798,7 +801,7 @@ def compute_diffuse_radiance(Az, El, dAz, dEl, Gh, Gdh, extra_Gbn, sun_az, sun_a
     Le  = gradation_function(El, a, b)
     Le *= diffusion_indicatrix_function(Zeta, c, d, e)
     
-    if isinstance(Le, int|float):
+    if isinstance(Le, int) or isinstance(Le, float):
         Le /= gradation_function(90, a, b)
         Le /= diffusion_indicatrix_function(90 - sun_apel, c, d, e)
     else:

@@ -241,7 +241,7 @@ def get_CDS_ozone_column_data(path, year, month=None, file_format = "numpy"):
     Notes
     -----
     1) For this function to work, the user must have a Climate Data Store 
-       account and be currently logged in. Furtheremore, the user's key and the
+       account and be currently logged in. Furthermore, the user's key and the
        API website link should be stored in a place, recognisable by the system being used. 
        See https://youtu.be/DIdgltyoIYg?si=q7Ylu2p0IDFT9UGm for a quick Youtube tutorial about it.
        See https://cds.climate.copernicus.eu/api-how-to for the official documentation.
