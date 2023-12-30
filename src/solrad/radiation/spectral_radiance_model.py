@@ -161,7 +161,6 @@ def compute_spectral_radiance(Az, El, dAz, dEl,
                 Diffuse component of sepctral radiance across time. It has units
                 of W/m^2/sr.
                 
-                
     Notes
     -----
     1) *mean_surface_tilt* variable really only affects the computation of
