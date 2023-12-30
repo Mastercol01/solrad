@@ -331,34 +331,24 @@ metheorological data.</p>
 model, as detailed in [1].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>interp_method</strong> (<em>str</em>) – Method of interpolation to use on the data. Supported are “linear”,
-“nearest” and “cubic”. Default is “linear”.</p>
+<dd class="field-odd"><p><strong>interp_method</strong> (<em>{&quot;linear&quot;</em><em>, </em><em>&quot;nearest&quot;</em><em>, </em><em>&quot;cubic&quot;}</em>) – Method of interpolation to use on the data. Default is “linear”.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Filled ‘self.aerosol_assymetry_factor’ attribute. More specifically, it</em></p></li>
-<li><p><em>fills completely all the DataFrames contained by the</em></p></li>
-<li><p><em>’self.aerosol_assymetry_factor’ dict.</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Filled <em>self.aerosol_assymetry_factor</em> attribute. More specifically, it
+fills completely all the DataFrames contained by the
+<em>self.aerosol_assymetry_factor</em> dict.</p>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>Uses the “RH” column in the dataframes stored by the
-‘self.climate_and_air_data’ attribute for the calculation.</p></li>
-</ol>
-<dl class="field-list">
+<p>1) Uses the “RH” column in the dataframes stored by the
+<em>self.climate_and_air_data</em> attribute for the calculation.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Warns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>1) Warning</strong> –</p>
-<dl class="simple">
-<dt>f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].</dt><dd><p>NaN input values will produce NaN output values.
+<dd class="field-odd"><p><strong>1) Warning</strong> – f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].
+NaN input values will produce NaN output values.
 None input values will raise Exceptions.”</p>
-</dd>
-</dl>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -372,28 +362,23 @@ Properties. Environ. Res.. 94.</p>
 <span class="sig-name descname"><span class="pre">compute_angstrom_turbidity_exponent_500nm_using_SF_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.compute_angstrom_turbidity_exponent_500nm_using_SF_model" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the Ansgtrom turbidity exponent at 500nm for the site using the
 Shettel and Fenn model, as detailed in [1].</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_an_air_data’ attribute. Specifically,</em></p></li>
-<li><p><em>it fills the “alpha_500nm” column of all DataFrames contained by</em></p></li>
-<li><p><em>the ‘self.climate_and_air_data’ dict.</em></p></li>
-</ul>
-</p>
-</dd>
-<dt class="field-odd">Warns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>1) Warning</strong> –</p>
-<dl class="simple">
-<dt>f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].</dt><dd><p>NaN input values will produce NaN output values.
-None input values will raise Exceptions.”</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_an_air_data</em> attribute. Specifically,
+it fills the “alpha_500nm” column of all DataFrames contained by
+the <em>self.climate_and_air_data</em> dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Warns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>1) Warning</strong> – f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].
+NaN input values will produce NaN output values.
+None input values will raise Exceptions.”</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -408,85 +393,68 @@ Copernicus Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/
 <dd><p>Computes the monthly year-wise average or ‘percentile’-th percentile of Aerosol
 Optical Depth at 500nm (aod_500nm) for the site. The raw data used for the calculation
 is extracted from the database referenced in [1].</p>
-<section id="parameteres">
-<h3>Parameteres<a class="headerlink" href="#parameteres" title="Permalink to this heading">#</a></h3>
-<dl class="simple">
-<dt>path<span class="classifier">path-str</span></dt><dd><p>Path of the folder where the aod_500nm raw.ny and filled_NaNs.npy files
-are stored. That is, the path to the local aod_550nm database.</p>
-</dd>
-<dt>percentile<span class="classifier">float or None, optional</span></dt><dd><p>If float, it computes the monthly year-wise ‘percentile’-th percentile of aod_500nm.
-If NONE,  it computes the monthly year-wise average of aod_500nm.
-Default is 0.5.</p>
-</dd>
-<dt>interp_method<span class="classifier">{‘linear’, ‘nearest’, ‘slinear’, ‘cubic’, ‘quintic’}, optional</span></dt><dd><p>The method of interpolation to perform when computing the
-res[‘filled_nans_data_funcs’], res[‘avg_data_funcs’] and res[‘percentile_data_funcs’]
-dictionaries. Supported methods are the same as supported by scipy’s
-RegularGridInterpolator. Default is “linear”.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
-<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_and_air_data’ attribute. Specifically, it</em></p></li>
-<li><p><em>fills the “aod_500nm” column of all the DataFrames contained by the</em></p></li>
-<li><p><em>‘self.climate_and_air_data’ dict.</em></p></li>
+<li><p><strong>path</strong> (<em>path-str</em>) – Path of the folder where the aod_500nm raw.ny and filled_NaNs.npy files
+are stored. That is, the path to the local aod_550nm database.</p></li>
+<li><p><strong>percentile</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – If float, it computes the monthly year-wise ‘percentile’-th percentile of aod_500nm.
+If NONE,  it computes the monthly year-wise average of aod_500nm.
+Default is 0.5.</p></li>
+<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'slinear'</em><em>, </em><em>'cubic'</em><em>, </em><em>'quintic'}</em><em>, </em><em>optional</em>) – The method of interpolation to perform when computing the
+<em>res[“filled_nans_data_funcs”]</em>, <em>res[“avg_data_funcs”]</em> and <em>res[“percentile_data_funcs”]</em>
+dictionaries. Supported methods are the same as supported by scipy’s
+RegularGridInterpolator. Default is “linear”.</p></li>
 </ul>
 </dd>
-</dl>
-<p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>Uses the “alpha_500nm” column in the dataframes stored by the
-‘self.climate_and_air_data’ attribute for the calculation.</p></li>
-</ol>
-<dl class="field-list">
-<dt class="field-odd">Warns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>1) Warning</strong> –</p>
-<dl class="simple">
-<dt>f”NaN/None values detected in self.climate_and_air_df[{date}][‘alpha_500nm’].</dt><dd><p>NaN input values will produce NaN output values.
-None input values will raise Exceptions.”</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. Specifically, it
+fills the “aod_500nm” column of all the DataFrames contained by the
+<em>self.climate_and_air_data</em> dict.</p>
+<p class="rubric">Notes</p>
+<p>1) Uses the “alpha_500nm” column in the dataframes stored by the
+<em>self.climate_and_air_data</em> attribute for the calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Warns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>1) Warning</strong> – f”NaN/None values detected in self.climate_and_air_df[{date}][‘alpha_500nm’].
+NaN input values will produce NaN output values.
+None input values will raise Exceptions.”</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <p>[1] Copernicus Climate Change Service, Climate Data Store, (2019): Aerosol
 properties gridded data from 1995 to present derived from satellite observation.
 Copernicus Climate Change Service (C3S) Climate Data Store (CDS). DOI: 10.24381/cds.239d815c</p>
-</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="solrad.Site.Site.compute_cummulative_time_integral_of_irradiances">
 <span class="sig-name descname"><span class="pre">compute_cummulative_time_integral_of_irradiances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.compute_cummulative_time_integral_of_irradiances" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the cummulative time integral of the cols {“G(h)”, “Gb(n)”, “Gd(h)”}
-in ‘self.climate_and_air_data[date]’, for all dates.</p>
-<dl class="field-list">
+in <em>self.climate_and_air_data[date]</em>, for all dates.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_and_air_data’ attribute. Specifically, it adds</em></p></li>
-<li><p><em>the columns {“int G(h)”, “int Gb(n)”, “int Gd(h)”} to each dataframe of the dict</em></p></li>
-<li><p><em>’self.climate_and_air_data’; containing the cummulative time integral of</em></p></li>
-<li><p><em>the columns {“G(h)”, “Gb(n)” and “Gd(h)”}, respectively. Units of this new columns</em></p></li>
-<li><p><em>are Wh/m^2.</em></p></li>
-</ul>
-</p>
-</dd>
-<dt class="field-odd">Warns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>1) Warning</strong> –</p>
-<dl class="simple">
-<dt>f”NaN/None values detected in self.climate_and_air_df[{date}][{col}].</dt><dd><p>NaN input values will produce NaN output values.
-None input values will raise Exceptions.”</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. Specifically, it adds
+the columns {“int G(h)”, “int Gb(n)”, “int Gd(h)”} to each dataframe of the dict
+<em>self.climate_and_air_data</em>; containing the cummulative time integral of
+the columns {“G(h)”, “Gb(n)” and “Gd(h)”}, respectively. Units of this new columns
+are Wh/m^2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Warns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>1) Warning</strong> – f”NaN/None values detected in self.climate_and_air_df[{date}][{col}].
+NaN input values will produce NaN output values.
+None input values will raise Exceptions.”</p>
 </dd>
 </dl>
 </dd></dl>
@@ -495,24 +463,20 @@ None input values will raise Exceptions.”</p>
 <dt class="sig sig-object py" id="solrad.Site.Site.compute_extraterrestrial_normal_irradiance">
 <span class="sig-name descname"><span class="pre">compute_extraterrestrial_normal_irradiance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nrel'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.compute_extraterrestrial_normal_irradiance" title="Permalink to this definition">#</a></dt>
 <dd><p>Determines extraterrestrial radiation from day of year, using pvlib’s
-‘get_extra_radiation’ function.</p>
+<code class="docutils literal notranslate"><span class="pre">get_extra_radiation</span></code> function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>method</strong> (<em>{&quot;pyephem&quot;</em><em>, </em><em>&quot;spencer&quot;</em><em>, </em><em>&quot;asce&quot;</em><em>, </em><em>&quot;nrel&quot;}</em><em>, </em><em>opional</em>) – The method by which the extraterrestrial radiation should be
 calculated. The default is “nrel”.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None.</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_and_air_data’ attribute. Specifically, it</em></p></li>
-<li><p><em>fills the “extra_Gbn” column of all the DataFrames contained by the</em></p></li>
-<li><p><em>’self.climate_and_air_data’ dict.</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. Specifically, it
+fills the “extra_Gbn” column of all the DataFrames contained by the
+<em>self.climate_and_air_data</em> dict.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -520,65 +484,52 @@ calculated. The default is “nrel”.</p>
 <span class="sig-name descname"><span class="pre">compute_ozone_column_using_satelite_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.compute_ozone_column_using_satelite_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the monthly year-wise average or ‘percentile’-th percentile of atmospheric ozone column
 for the site. The raw data used for the calculation is extracted from the database referenced in [1].</p>
-<section id="id1">
-<h3>Parameteres<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<dl class="simple">
-<dt>path<span class="classifier">path-str</span></dt><dd><p>Path of the folder where the ozone column raw.ny and filled_NaNs.npy files
-are stored. That is, the path to the local ozone column database.</p>
-</dd>
-<dt>percentile<span class="classifier">float or None, optional</span></dt><dd><p>If float, it computes the monthly year-wise ‘percentile’-th percentile of ozone column.
-If NONE,  it computes the monthly year-wise average of ozone column.
-Default is 0.5.</p>
-</dd>
-<dt>interp_method<span class="classifier">{‘linear’, ‘nearest’, ‘slinear’, ‘cubic’, ‘quintic’}, optional</span></dt><dd><p>The method of interpolation to perform when computing the
-res[‘filled_nans_data_funcs’], res[‘avg_data_funcs’] and res[‘percentile_data_funcs’]
-dictionaries. Supported methods are the same as supported by scipy’s
-RegularGridInterpolator. Default is “linear”.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
-<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_and_air_data’ attribute. Specifically, it</em></p></li>
-<li><p><em>fills the “O3” column of all the DataFrames contained by the</em></p></li>
-<li><p><em>‘self.climate_and_air_data’ dict.</em></p></li>
+<li><p><strong>path</strong> (<em>path-str</em>) – Path of the folder where the ozone column raw.ny and filled_NaNs.npy files
+are stored. That is, the path to the local ozone column database.</p></li>
+<li><p><strong>percentile</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – If float, it computes the monthly year-wise ‘percentile’-th percentile of ozone column.
+If NONE,  it computes the monthly year-wise average of ozone column.
+Default is 0.5.</p></li>
+<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'slinear'</em><em>, </em><em>'cubic'</em><em>, </em><em>'quintic'}</em><em>, </em><em>optional</em>) – The method of interpolation to perform when computing the
+<em>res[“filled_nans_data_funcs”]</em>, <em>res[“avg_data_funcs”]</em> and <em>res[“percentile_data_funcs”]</em>
+dictionaries. Supported methods are the same as supported by scipy’s
+RegularGridInterpolator. Default is “linear”.</p></li>
 </ul>
 </dd>
-</dl>
-<p class="rubric">References</p>
-<dl class="simple">
-<dt>[1] Copernicus Climate Change Service, Climate Data Store, (2020):</dt><dd><p>Ozone monthly gridded data from 1970 to present derived from satellite
-observations. Copernicus Climate Change Service (C3S) Climate Data Store
-(CDS). DOI: 10.24381/cds.4ebfe4eb</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
-</section>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. Specifically, it
+fills the “O3” column of all the DataFrames contained by the
+<em>self.climate_and_air_data</em> dict.</p>
+<p class="rubric">References</p>
+<p>[1] Copernicus Climate Change Service, Climate Data Store, (2020):
+Ozone monthly gridded data from 1970 to present derived from satellite
+observations. Copernicus Climate Change Service (C3S) Climate Data Store
+(CDS). DOI: 10.24381/cds.4ebfe4eb</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="solrad.Site.Site.compute_ozone_column_using_van_Heuklon_model">
 <span class="sig-name descname"><span class="pre">compute_ozone_column_using_van_Heuklon_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.compute_ozone_column_using_van_Heuklon_model" title="Permalink to this definition">#</a></dt>
-<dd><p>Computes the Ozone Column values (in atm-cm) for the site, using a
+<dd><p>Computes the ozone column values (in atm-cm) for the site, using
 van Heuklon’s Ozone model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_and_air_data’ attribute. Specifically, it</em></p></li>
-<li><p><em>fills the “O3” column of all the DataFrames contained by the</em></p></li>
-<li><p><em>’self.climate_and_air_data’ dict.</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. Specifically, it
+fills the “O3” column of all the DataFrames contained by the
+<em>self.climate_and_air_data</em> dict.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -589,34 +540,24 @@ van Heuklon’s Ozone model.</p>
 model, as detailed in [1].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>interp_method</strong> (<em>str</em>) – Method of interpolation to use on the data. Supported are “linear”,
-“nearest” and “cubic”. Default is “linear”.</p>
+<dd class="field-odd"><p><strong>interp_method</strong> (<em>{&quot;linear&quot;</em><em>, </em><em>&quot;nearest&quot;</em><em>, </em><em>&quot;cubic&quot;}</em>) – Method of interpolation to use on the data. Default is “linear”.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Filled ‘self.single_scattering_albedo’ attribute. More specifically, it</em></p></li>
-<li><p><em>fills completely all the DataFrames contained by the</em></p></li>
-<li><p><em>’self.single_scattering_albedo’ dict.</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Filled <em>self.single_scattering_albedo</em> attribute. More specifically, it
+fills completely all the DataFrames contained by the
+<em>self.single_scattering_albedo</em> dict.</p>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>Uses the “RH” column in the dataframes stored by the
-‘self.climate_and_air_data’ attribute for the calculation.</p></li>
-</ol>
-<dl class="field-list">
+<p>1) Uses the “RH” column in the dataframes stored by the
+<em>self.climate_and_air_data</em> attribute for the calculation.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Warns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>1) Warning</strong> –</p>
-<dl class="simple">
-<dt>f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].</dt><dd><p>NaN input values will produce NaN output values.
+<dd class="field-odd"><p><strong>1) Warning</strong> – f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].
+NaN input values will produce NaN output values.
 None input values will raise Exceptions.”</p>
-</dd>
-</dl>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -630,32 +571,28 @@ Properties. Environ. Res.. 94.</p>
 <span class="sig-name descname"><span class="pre">compute_spectrally_averaged_aerosol_asymmetry_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectral_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(300,</span> <span class="pre">4000)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.compute_spectrally_averaged_aerosol_asymmetry_factor" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the spectral average of the aerosol asymmetry factor,
 for the interval of wavelengths specified.</p>
-<p>We take the ‘self.aerosol_asymmetry_factor’ attribute, loop over all
+<p>We take the <em>self.aerosol_asymmetry_factor</em> attribute, loop over all
 the DataFrames stored in it and compute the row-wise mean of the
-values for the interval of wavelengths specified by ‘spectral range’.
+values for the interval of wavelengths specified by <em>spectral range</em>.
 We then use the the computed values to fill the “spectrally_averaged_aaf”
-column in all dataframes of the ‘self.climate_and_air_data’ attribute.</p>
+column in all dataframes of the <em>self.climate_and_air_data</em> attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>spectral_range</strong> (<em>2-tuple</em><em> of </em><em>float</em>) – Tuple containing the lower and upper bounds of wavelengths
 (in nm) that make up the spectral range meant for averaging the
 aerosol asymmetry factor.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_an_air_data’ attribute. Specifically,</em></p></li>
-<li><p><em>it fills the “spectrally_averaged_aaf” column of all DataFrames</em></p></li>
-<li><p><em>contained by the ‘self.climate_and_air_data’ dict.</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_an_air_data</em> attribute. Specifically,
+it fills the “spectrally_averaged_aaf” column of all DataFrames
+contained by the <em>self.climate_and_air_data</em> dict.</p>
 <p class="rubric">Notes</p>
 <ol class="arabic simple">
-<li><p>Uses the ‘self.aerosol_asymmtry_factor’ attribute for the calculation.</p></li>
+<li><p>Uses the <em>self.aerosol_asymmtry_factor</em> attribute for the calculation.</p></li>
 </ol>
 </dd></dl>
 
@@ -665,29 +602,26 @@ aerosol asymmetry factor.</p>
 <dd><p>Compute solar position data and related parameters for a specific location and time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>NaN_handling</strong> (<em>{&quot;strict&quot;</em><em>, </em><em>&quot;loose&quot;</em><em>, </em><em>&quot;null&quot;}</em><em>, </em><em>optional</em>) – How to handle NaN and None values when present in ‘SP’ and ‘T2m’ columns of the DataFrames stored in “self.climate_and_air_data”
+<dd class="field-odd"><p><strong>NaN_handling</strong> (<em>{&quot;strict&quot;</em><em>, </em><em>&quot;loose&quot;</em><em>, </em><em>&quot;null&quot;}</em><em>, </em><em>optional</em>) – How to handle NaN and None values when present in “SP” and “T2m” columns of the DataFrames stored in <em>self.climate_and_air_data</em>
 If “strict” an Exception is raised.
 If “loose”, default values are used instead (see notes for more info).
 If “null”, nothing is done about it and NaN/None values are directly passed onto the calculation, which may
 produce NaN results or raise another Exception.
 Default is “strict”.</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
 </dl>
-<section id="returns">
-<h3>Returns:<a class="headerlink" href="#returns" title="Permalink to this heading">#</a></h3>
-<p>None</p>
-</section>
-<section id="produces">
-<h3>Produces<a class="headerlink" href="#produces" title="Permalink to this heading">#</a></h3>
-<p>Filled ‘self.sun_data’ attribute.</p>
+<p class="rubric">Produces</p>
+<p>Filled <em>self.sun_data</em> attribute.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pvlib.solarposition.get_solarposition</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pvlib.solarposition.get_solarposition</span></code></p>
 </div>
 <p class="rubric">Notes</p>
 <p>1) In case that NaN_handling is “loose”, the default value of temperature used is 15°C and the default
-value of pressure is computed from altitude using the function ‘pvlib.atmosphere.alt2pres’.</p>
-</section>
+value of pressure is computed from altitude using the function <code class="docutils literal notranslate"><span class="pre">pvlib.atmosphere.alt2pres</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -699,40 +633,26 @@ using pvlib’s implementation of the gueymard94 model.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_and_air_data’ attribute. More specifically, it</em></p></li>
-<li><p><em>fills the “H2O” column of all the DataFrames contained by the</em></p></li>
-<li><p><em>’self.climate_and_air_data’ dict.</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. More specifically, it
+fills the “H2O” column of all the DataFrames contained by the
+<em>self.climate_and_air_data</em> dict.</p>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>Uses the “RH” and “T2m” columns in the dataframes stored by the
-‘self.climate_and_air_data’ attribute for the calculation.</p></li>
-</ol>
-<dl class="field-list">
+<p>1) Uses the “RH” and “T2m” columns in the dataframes stored by the
+<em>self.climate_and_air_data</em> attribute for the calculation.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Warns<span class="colon">:</span></dt>
-<dd class="field-odd"><ul>
-<li><p><strong>1) Warning</strong> –</p>
-<dl class="simple">
-<dt>f”NaN/None values detected in self.climate_and_air_df[{date}][‘T2m’].</dt><dd><p>NaN input values will produce NaN output values.
-None input values will raise Exceptions.”</p>
-</dd>
-</dl>
-</li>
-<li><p><strong>2) Warning</strong> –</p>
-<dl class="simple">
-<dt>f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].</dt><dd><p>NaN input values will produce NaN output values.
-None input values will raise Exceptions.”</p>
-</dd>
-</dl>
-</li>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>1) Warning</strong> – f”NaN/None values detected in self.climate_and_air_df[{date}][‘T2m’].
+NaN input values will produce NaN output values.
+None input values will raise Exceptions.”</p></li>
+<li><p><strong>2) Warning</strong> – f”NaN/None values detected in self.climate_and_air_df[{date}][‘RH’].
+NaN input values will produce NaN output values.
+None input values will raise Exceptions.”</p></li>
 </ul>
 </dd>
 </dl>
@@ -743,42 +663,33 @@ None input values will raise Exceptions.”</p>
 <span class="sig-name descname"><span class="pre">compute_water_column_using_satelite_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.compute_water_column_using_satelite_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the monthly year-wise average or ‘percentile’-th percentile of atmospheric water column
 for the site. The raw data used for the calculation is extracted from the database referenced in [1].</p>
-<section id="id2">
-<h3>Parameteres<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<dl class="simple">
-<dt>path<span class="classifier">path-str</span></dt><dd><p>Path of the folder where the water column raw.ny and filled_NaNs.npy files
-are stored. That is, the path to the local water column database.</p>
-</dd>
-<dt>percentile<span class="classifier">float or None, optional</span></dt><dd><p>If float, it computes the monthly year-wise ‘percentile’-th percentile of water_column.
-If NONE,  it computes the monthly year-wise average of water_column.
-Default is 0.5.</p>
-</dd>
-<dt>interp_method<span class="classifier">{‘linear’, ‘nearest’, ‘slinear’, ‘cubic’, ‘quintic’}, optional</span></dt><dd><p>The method of interpolation to perform when computing the
-res[‘filled_nans_data_funcs’], res[‘avg_data_funcs’] and res[‘percentile_data_funcs’]
-dictionaries. Supported methods are the same as supported by scipy’s
-RegularGridInterpolator. Default is “linear”.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
-<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>Partially filled ‘self.climate_and_air_data’ attribute. Specifically, it</em></p></li>
-<li><p><em>fills the “H2O” column of all the DataFrames contained by the</em></p></li>
-<li><p><em>‘self.climate_and_air_data’ dict.</em></p></li>
+<li><p><strong>path</strong> (<em>path-str</em>) – Path of the folder where the water column raw.ny and filled_NaNs.npy files
+are stored. That is, the path to the local water column database.</p></li>
+<li><p><strong>percentile</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – If float, it computes the monthly year-wise ‘percentile’-th percentile of water_column.
+If NONE,  it computes the monthly year-wise average of water_column.
+Default is 0.5.</p></li>
+<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'slinear'</em><em>, </em><em>'cubic'</em><em>, </em><em>'quintic'}</em><em>, </em><em>optional</em>) – The method of interpolation to perform when computing the
+<em>res[“filled_nans_data_funcs”]</em>, <em>res[“avg_data_funcs”]</em> and <em>res[“percentile_data_funcs”]</em>
+dictionaries. Supported methods are the same as supported by scipy’s
+RegularGridInterpolator. Default is “linear”.</p></li>
 </ul>
 </dd>
-</dl>
-<p class="rubric">References</p>
-<dl class="simple">
-<dt>[1] Preusker, R., El Kassar, R. (2022): Monthly total column water vapour</dt><dd><p>over land and ocean from 2002 to 2012 derived from satellite observation.
-Copernicus Climate Change Service (C3S) Climate Data Store (CDS).
-DOI: 10.24381/cds.8e0e4724</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
-</section>
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. Specifically, it
+fills the “H2O” column of all the DataFrames contained by the
+<em>self.climate_and_air_data</em> dict.</p>
+<p class="rubric">References</p>
+<p>[1] Preusker, R., El Kassar, R. (2022): Monthly total column water vapour
+over land and ocean from 2002 to 2012 derived from satellite observation.
+Copernicus Climate Change Service (C3S) Climate Data Store (CDS).
+DOI: 10.24381/cds.8e0e4724</p>
 </dd></dl>
 
 <dl class="py method">
@@ -795,77 +706,70 @@ with optional filtering for each day based on user input or sunrise and sunset t
 <li><p><strong>freq</strong> (<em>str</em>) – The frequency at which the date range should be generated.
 Any frequency accepted by pandas.date_range is valid for geo_date_range.</p></li>
 <li><p><strong>min_hms</strong> (<em>str</em><em> or </em><em>None</em>) – A string representing the minimum hour-minute-second (HH:MM:SS) value for a Timestamp within each day’s time series.
-If the hms values are below this threshold, they are removed. It can also be set to ‘None’ to ignore this condition,
-or to “sunrise” to use the computed sunrise time for the location as the value for ‘min_hms’.</p></li>
+If the hms values are below this threshold, they are removed. It can also be set to None to ignore this condition,
+or to “sunrise” to use the computed sunrise time for the location as the value for <em>min_hms</em>.</p></li>
 <li><p><strong>max_hms</strong> (<em>str</em><em> or </em><em>None</em>) – A string representing the maximum hour-minute-second (HH:MM:SS) value for a Timestamp within each day’s time series.
 If the hms values are above this threshold, they are removed. It can also be set to None to ignore this condition,
-or to “sunset” to use the computed sunset time for the location as the value for max_hms.</p></li>
+or to “sunset” to use the computed sunset time for the location as the value for <em>max_hms</em>.</p></li>
 <li><p><strong>inclusive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to forcibly include the end_time in the generated date range, in case it’s left out. Defaults to False.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——-</em></p></li>
-<li><p><strong>self.simulation_time_data</strong> (<em>dict</em>) – A dictionary containing the filtered date ranges/time series, separated by day, based on the specified parameters.
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl class="simple">
+<dt>self.simulation_time_data<span class="classifier">dict</span></dt><dd><p>A dictionary containing the filtered date ranges/time series, separated by day, based on the specified parameters.
 Its strucure is as follows: Each key is a 3-tuple of (year : int, month : int, day :int) and each corresponding value is a
-pandas.DatetimeIndex object containing the time series associated to that date.</p></li>
-</ul>
-</p>
+pandas.DatetimeIndex object containing the time series associated to that date.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>This function also initializes other attributes such as: self.climate_and_air_data,
-self.sun_data, self.single_scattering_albedo, self.aerosol_asymmetry_factor.</p></li>
-</ol>
+<p>1) This function also initializes other attributes such as: <em>self.climate_and_air_data</em>,
+<em>self.sun_data</em>, <em>self.single_scattering_albedo</em>, <em>self.aerosol_asymmetry_factor</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="solrad.Site.Site.plot_data">
 <span class="sig-name descname"><span class="pre">plot_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">years</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">months</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(16,</span> <span class="pre">12)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.plot_data" title="Permalink to this definition">#</a></dt>
-<dd><p>Plot site variable specified by ‘col’, for the period of time specified,
+<dd><p>Plot site variable specified by <em>col</em>, for the period of time specified,
 and using the mode selected.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>col</strong> (<em>&quot;str&quot;</em>) – Name of the variable to be plotted. Must be one of the keys of
-‘self.variables_info[“descriptions”]’.</p></li>
+<li><p><strong>col</strong> (<em>str</em>) – Name of the variable to be plotted. Must be one of the keys of
+<em>self.variables_info[“descriptions”]</em>.</p></li>
 <li><p><strong>years</strong> (<em>list</em><em> or </em><em>None</em>) – If list, it must be a list of 2 elements, containing the lower and
-upper bounds of the years to plot. The first element of ‘years’
+upper bounds of the years to plot. The first element of <em>years</em>
 would be the lower bound, while the second element would be the
-upper bound. If None, the lower and upper bounds for the ‘years’
+upper bound. If None, the lower and upper bounds for the <em>years</em>
 variable are automatically selected by the program so that all
 avialable years are included.</p></li>
 <li><p><strong>months</strong> (<em>list</em><em> or </em><em>None</em>) – If list, it must be a list of 2 elements, containing the lower and
-upper bounds of the months to plot. The first element of ‘months’
+upper bounds of the months to plot. The first element of <em>months</em>
 would be the lower bound, while the second element would be the
-upper bound. If None, the lower and upper bounds for the ‘months’
+upper bound. If None, the lower and upper bounds for the <em>months</em>
 variable are automatically selected by the program so that all
 avialable months are included.</p></li>
 <li><p><strong>days</strong> (<em>list</em><em> or </em><em>None</em>) – If list, it must be a list of 2 elements, containing the lower and
-upper bounds of the days to plot. The first element of ‘days’
+upper bounds of the days to plot. The first element of <em>days</em>
 would be the lower bound, while the second element would be the
 upper bound. If None, the lower and upper bounds for the ‘days’
 variable are automatically selected by the program so that all
 avialable days are included.</p></li>
 <li><p><strong>hours</strong> (<em>list</em><em> of </em><em>hours</em>) – If list, it must be a list of 2 elements, containing the lower and
-upper bounds of the hours to plot. The first element of ‘hours’
+upper bounds of the hours to plot. The first element of <em>hours</em>
 would be the lower bound, while the second element would be the
 upper bound.</p></li>
-<li><p><strong>mode</strong> (<em>int</em><em>, </em><em>optional</em>) – <dl class="simple">
-<dt>Mode of plotting. There are 3 options:</dt><dd><ol class="arabic simple">
+<li><p><strong>mode</strong> (<em>int</em><em>, </em><em>optional</em>) – <p>Mode of plotting. There are 3 options:</p>
+<blockquote>
+<div><ol class="arabic simple">
 <li><p>mode=1 : Plot all variable curves for all times.</p></li>
-<li><dl class="simple">
-<dt>mode=2<span class="classifier">Plot all variable curves for all times +</span></dt><dd><p>Plot average and 25th, 50th, 75th percentiles.</p>
-</dd>
-</dl>
-</li>
+<li><p>mode=2 : Plot all variable curves for all times + Plot average and 25th, 50th, 75th percentiles.</p></li>
 <li><p>mode=3 : Plot average and 25th, 50th, 75th percentiles.</p></li>
 </ol>
-</dd>
-</dl>
+</div></blockquote>
 <p>Default is mode=2.</p>
 </p></li>
 </ul>
@@ -874,7 +778,7 @@ upper bound.</p></li>
 <dl class="simple">
 <dt>interp_method<span class="classifier">{‘linear’, ‘nearest’, ‘cubic’}, optional</span></dt><dd><p>Method to use for the interpolation of data before plotting.
 The methods supported are the same ones as those supported by
-scipy.interpolate.griddata fucntion. Default is “linear”.</p>
+<code class="docutils literal notranslate"><span class="pre">scipy.interpolate.griddata</span></code> function. Default is “linear”.</p>
 </dd>
 <dt>figsize<span class="classifier">2-tuple of int, optional</span></dt><dd><p>Figure size of plot. Default is (16, 12).</p>
 </dd>
@@ -928,70 +832,60 @@ Default is “0.5”.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><strong>self.horizon attribute</strong> (<em>dict</em>)</p></li>
-<li><p><em>Dictionary with information about the horizon. It has the following</em></p></li>
-<li><dl class="simple">
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<p>self.horizon attribute : dict
+Dictionary with information about the horizon. It has the following
+key-value pairs:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>‘func’<span class="classifier">Callable</span></dt><dd><p>Horizon function. Its input is an array of azimuth values (in degrees)
 and its output is an array of horizon elevation angle values (in degrees).</p>
 </dd>
-<dt>’is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
+<dt>‘is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
 </dd>
-<dt>’is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
+<dt>‘is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
 </dd>
-<dt>’was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
+<dt>‘was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
 climate data.</p>
 </dd>
 </dl>
-</li>
-</ul>
-</p>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+</div></blockquote>
+<p class="rubric">Notes</p>
 <p>1) Horizon height is the angle between the local horizontal plane and the
 horizon. In other words, the Horizon height is equal to the horizon’s
 elevation angle.</p>
-</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="solrad.Site.Site.set_climate_data_from_pvgis_tmy_data">
 <span class="sig-name descname"><span class="pre">set_climate_data_from_pvgis_tmy_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startyear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endyear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_site_horizon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Site.Site.set_climate_data_from_pvgis_tmy_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Use the Typical Meteorological Year (TMY) data from PVGIS to partially
-fill the ‘self.climate_and_air_data’.</p>
-<section id="parameters">
-<h3>Parameters:<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h3>
-<dl class="simple">
-<dt>startyear: int or None</dt><dd><p>First year to calculate TMY.</p>
+fill the <em>self.climate_and_air_data</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>startyear</strong> (<em>int</em><em> or </em><em>None</em>) – First year to calculate TMY.</p></li>
+<li><p><strong>endyear</strong> (<em>int</em><em> or </em><em>None</em>) – Last year to calculate TMY, must be at least 10 years from first year.</p></li>
+<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em><em>, </em><em>optional</em>) – The interpolation method to be used. Defaults is ‘linear’.</p></li>
+<li><p><strong>use_site_horizon</strong> (<em>bool</em><em>, </em><em>optional</em>) – Wether to include effects of the site’s horizon. Default is False.</p></li>
+</ul>
 </dd>
-<dt>endyear<span class="classifier">int or None</span></dt><dd><p>Last year to calculate TMY, must be at least 10 years from first year.</p>
-</dd>
-<dt>interp_method<span class="classifier">{‘linear’, ‘quadratic’, ‘cubic’}, optional</span></dt><dd><p>The interpolation method to be used. Defaults is ‘linear’.</p>
-</dd>
-<dt>use_site_horizon<span class="classifier">bool, optional</span></dt><dd><p>Wether to include effects of the site’s horizon. Default is False.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
-</section>
-<section id="id3">
-<h3>Returns:<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>None</p>
-</section>
-<section id="id4">
-<h3>Produces<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>Partially filled ‘self.climate_and_air_data’ attribute. Specifically, it
+<p class="rubric">Produces</p>
+<p>Partially filled <em>self.climate_and_air_data</em> attribute. Specifically, it
 fills the “G(h)”, “Gb(n)”, “Gd(h)”, “T2m”, “SP”, “RH” columns of all the
-DataFrames contained by the ‘self.climate_and_air_data’ dict.</p>
+DataFrames contained by the <em>self.climate_and_air_data</em> dict.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pvlib.iotools.get_pvgis_tmy</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pvlib.iotools.get_pvgis_tmy</span></code></p>
 </div>
-</section>
 </dd></dl>
 
 <dl class="py method">
@@ -1001,42 +895,40 @@ DataFrames contained by the ‘self.climate_and_air_data’ dict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>azimuth</strong> (<em>(</em><em>npoints</em><em>, </em><em>) </em><em>array_like</em>) – Array of azimuth angle values in degrees, from 0 to 360. Must be monotonic-increasing.</p></li>
-<li><p><strong>elevation</strong> (<em>(</em><em>npoints</em><em>, </em><em>) </em><em>array_like</em>) – Array of horizon elevation angle values in degrees. Elevation values must
+<li><p><strong>azimuth</strong> (<em>array_like</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Array of azimuth angle values in degrees, from 0 to 360. Must be monotonic-increasing.</p></li>
+<li><p><strong>elevation</strong> (<em>array_like</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Array of horizon elevation angle values in degrees. Elevation values must
 lie between 0 and 90.</p></li>
-<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em><em>, </em><em>optional</em>) – Order of the spline interpolator to use. Default is ‘linear’.</p></li>
+<li><p><strong>interp_method</strong> (<em>{&quot;linear&quot;</em><em>, </em><em>&quot;quadratic&quot;</em><em>, </em><em>&quot;cubic&quot;}</em><em>, </em><em>optional</em>) – Order of the spline interpolator to use. Default is ‘linear’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><strong>self.horizon attribute</strong> (<em>dict</em>)</p></li>
-<li><p><em>Dictionary with information about the horizon. It has the following</em></p></li>
-<li><dl class="simple">
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl>
+<dt>self.horizon attribute<span class="classifier">dict</span></dt><dd><p>Dictionary with information about the horizon. It has the following
+key-value pairs:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>‘func’<span class="classifier">Callable</span></dt><dd><p>Horizon function. Its input is an array of azimuth values (in degrees)
 and its output is an array of horizon elevation angle values (in degrees).</p>
 </dd>
-<dt>’is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
+<dt>‘is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
 </dd>
-<dt>’is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
+<dt>‘is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
 </dd>
-<dt>’was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
+<dt>‘was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
 climate data.</p>
 </dd>
 </dl>
-</li>
-</ul>
-</p>
+</div></blockquote>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<p class="rubric">Notes</p>
 <p>1) Horizon height is the angle between the local horizontal plane and the
 horizon. In other words, the Horizon height is equal to the horizon’s
 elevation angle.</p>
-</div>
 </dd></dl>
 
 <dl class="py method">
@@ -1048,36 +940,34 @@ elevation angle.</p>
 <dd class="field-odd"><p><strong>func</strong> (<em>callable</em>) – Horizon profile function. It should take in an array of azimuth values
 (in degrees) and return an array of elevation angle values (in degrees).</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><strong>self.horizon attribute</strong> (<em>dict</em>)</p></li>
-<li><p><em>Dictionary with information about the horizon. It has the following</em></p></li>
-<li><dl class="simple">
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl>
+<dt>self.horizon attribute<span class="classifier">dict</span></dt><dd><p>Dictionary with information about the horizon. It has the following
+key-value pairs:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>‘func’<span class="classifier">Callable</span></dt><dd><p>Horizon function. Its input is an array of azimuth values (in degrees)
 and its output is an array of horizon elevation angle values (in degrees).</p>
 </dd>
-<dt>’is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
+<dt>‘is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
 </dd>
-<dt>’is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
+<dt>‘is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
 </dd>
-<dt>’was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
+<dt>‘was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
 climate data.</p>
 </dd>
 </dl>
-</li>
-</ul>
-</p>
+</div></blockquote>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<p class="rubric">Notes</p>
 <p>1) Horizon height is the angle between the local horizontal plane and the
 horizon. In other words, the Horizon height is equal to the horizon’s
 elevation angle.</p>
-</div>
 </dd></dl>
 
 <dl class="py method">
@@ -1094,36 +984,34 @@ receive a response in the specified number of seconds, it will raise a
 Timeout error.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><strong>self.horizon</strong> (<em>dict</em>)</p></li>
-<li><p><em>Dictionary with information about the horizon. It has the following</em></p></li>
-<li><dl class="simple">
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl>
+<dt>self.horizon<span class="classifier">dict</span></dt><dd><p>Dictionary with information about the horizon. It has the following
+key-value pairs:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>‘func’<span class="classifier">Callable</span></dt><dd><p>Horizon function. Its input is an array of azimuth values (in degrees)
 and its output is an array of horizon elevation angle values (in degrees).</p>
 </dd>
-<dt>’is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
+<dt>‘is_clear’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon is clear or not (i.e, null elevation everywhere).</p>
 </dd>
-<dt>’is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
+<dt>‘is_pvgis’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was obtained from pvgis.</p>
 </dd>
-<dt>’was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
+<dt>‘was_used_for_climate_data’<span class="classifier">bool</span></dt><dd><p>Whether the current horizon was used for the computation of
 climate data.</p>
 </dd>
 </dl>
-</li>
-</ul>
-</p>
+</div></blockquote>
 </dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<p class="rubric">Notes</p>
 <p>1) Horizon height is the angle between the local horizontal plane and the
 horizon. In other words, the Horizon height is equal to the horizon’s
 elevation angle.</p>
-</div>
 </dd></dl>
 
 <dl class="py method">
@@ -1134,14 +1022,14 @@ elevation angle.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>col</strong> (<em>str</em>) – Name of the variable to be plotted. Must be one of the keys of
-‘self.variables_info[“descriptions”]’.</p></li>
+<em>self.variables_info[“descriptions”]</em>.</p></li>
 <li><p><strong>year</strong> (<em>int</em>) – Year at which the variable is defined.</p></li>
 <li><p><strong>month</strong> (<em>int</em>) – Month at which the variable is defined.</p></li>
 <li><p><strong>day</strong> (<em>int</em>) – Day at which the variable is defined.</p></li>
 <li><p><strong>new_hms_float</strong> (<em>array-like</em><em> of </em><em>floats</em><em> (</em><em>npoints</em><em>,</em><em>)</em>) – Fractional hours at which to evaluate the interpolated variable.
-The range of ‘new_hms_float’ must be the same as the the variable’s
+The range of <em>new_hms_float</em> must be the same as the the variable’s
 original hms_float.</p></li>
-<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'slinear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em><em>, </em><em>optional</em>) – Interpolation method. Any str supported by the scipy.interpolate.interp1d
+<li><p><strong>interp_method</strong> (<em>{'linear'</em><em>, </em><em>'slinear'</em><em>, </em><em>'quadratic'</em><em>, </em><em>'cubic'}</em><em>, </em><em>optional</em>) – Interpolation method. Any str supported by the <code class="docutils literal notranslate"><span class="pre">scipy.interpolate.interp1d</span></code>
 function is accepted. Default is “linear”.</p></li>
 </ul>
 </dd>
@@ -1475,12 +1363,13 @@ computed) spectral radiance over the wavelength axis.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul>
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——-</em></p></li>
-<li><p><strong>self.radiances</strong> (<em>dict</em>) – Dictionary containing result variables. It has the following Key-Value
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl>
+<dt>self.radiances<span class="classifier">dict</span></dt><dd><p>Dictionary containing result variables. It has the following Key-Value
 pairs:</p>
 <blockquote>
 <div><dl class="simple">
@@ -1489,40 +1378,37 @@ the azimuth (in degrees) of each sky element to be considered in
 the calculation of spectral sky radiance. The values of ‘Az’ varies
 along axis 1. Values are between 0 and 360.</p>
 </dd>
-<dt>”El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
+<dt>“El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
 the elevation (in degrees) of each sky element to be considered in
 the calculation of spectral sky radiance. The values of ‘El’ varies
 along axis 0. Values are between 0 and 90.</p>
 </dd>
-<dt>”Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
+<dt>“Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
 </dd>
-<dt>”Kc”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Clear Sky Index’ parameter across time.</p>
+<dt>“Kc”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Clear Sky Index’ parameter across time.</p>
 </dd>
-<dt>”Cle”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Cloudless Index’ parameter across time.</p>
+<dt>“Cle”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Cloudless Index’ parameter across time.</p>
 </dd>
-<dt>”wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers.</p>
+<dt>“wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers.</p>
 </dd>
-<dt>”DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects.</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
+<dt>“DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects.</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
 samples of the time-dependent variables were taken. We denote its
 length as nt.</p>
 </dd>
-<dt>”spectral_direct”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Direct component of spectral radiance across time. It has
+<dt>“spectral_direct”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Direct component of spectral radiance across time. It has
 units of W/m^2/sr/nm.</p>
 </dd>
-<dt>”spectral_diffuse”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Diffuse component of spectral radiance across time. It has
+<dt>“spectral_diffuse”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Diffuse component of spectral radiance across time. It has
 units of W/m^2/sr/nm.</p>
 </dd>
-<dt>”direct”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Direct component of radiance across time. It has units
+<dt>“direct”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Direct component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
-<dt>”dffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
+<dt>“dffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
 </dl>
 </div></blockquote>
-</li>
-</ul>
-</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -1555,12 +1441,13 @@ the azimuth coordinate. Default is 181.</p></li>
 <li><p><strong>use_site_horizon</strong> (<em>bool</em>) – Include horizon effects. Default is False.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul>
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——-</em></p></li>
-<li><p><strong>self.radiances</strong> (<em>dict</em>) – Dictionary containing result variables. It has the following Key-Value
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl>
+<dt>self.radiances<span class="classifier">dict</span></dt><dd><p>Dictionary containing result variables. It has the following Key-Value
 pairs:</p>
 <blockquote>
 <div><dl class="simple">
@@ -1569,40 +1456,37 @@ the azimuth (in degrees) of each sky element to be considered in
 the calculation of spectral sky radiance. The values of ‘Az’ varies
 along axis 1. Values are between 0 and 360.</p>
 </dd>
-<dt>”El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
+<dt>“El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
 the elevation (in degrees) of each sky element to be considered in
 the calculation of spectral sky radiance. The values of ‘El’ varies
 along axis 0. Values are between 0 and 90.</p>
 </dd>
-<dt>”Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
+<dt>“Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
 </dd>
-<dt>”Kc”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Clear Sky Index’ parameter across time.</p>
+<dt>“Kc”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Clear Sky Index’ parameter across time.</p>
 </dd>
-<dt>”Cle”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Cloudless Index’ parameter across time.</p>
+<dt>“Cle”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Cloudless Index’ parameter across time.</p>
 </dd>
-<dt>”wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers.</p>
+<dt>“wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers.</p>
 </dd>
-<dt>”DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects.</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
+<dt>“DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects.</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
 samples of the time-dependent variables were taken. We denote its
 length as nt.</p>
 </dd>
-<dt>”spectral_direct”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Direct component of spectral radiance across time. It has
+<dt>“spectral_direct”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Direct component of spectral radiance across time. It has
 units of W/m^2/sr/nm.</p>
 </dd>
-<dt>”spectral_diffuse”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Diffuse component of spectral radiance across time. It has
+<dt>“spectral_diffuse”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Diffuse component of spectral radiance across time. It has
 units of W/m^2/sr/nm.</p>
 </dd>
-<dt>”direct”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Direct component of radiance across time. It has units
+<dt>“direct”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Direct component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
-<dt>”dffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
+<dt>“dffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
 </dl>
 </div></blockquote>
-</li>
-</ul>
-</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1629,12 +1513,13 @@ the azimuth coordinate. Default is 181.</p></li>
 <li><p><strong>use_site_horizon</strong> (<em>bool</em>) – Include horizon effects. Default is False.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul>
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——-</em></p></li>
-<li><p><strong>self.radiances</strong> (<em>dict</em>) – Dictionary containing result variables. It has the following Key-Value
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl>
+<dt>self.radiances<span class="classifier">dict</span></dt><dd><p>Dictionary containing result variables. It has the following Key-Value
 pairs:</p>
 <blockquote>
 <div><dl class="simple">
@@ -1643,34 +1528,31 @@ the azimuth (in degrees) of each sky element to be considered in
 the calculation of spectral sky radiance. The values of ‘Az’ varies
 along axis 1. Values are between 0 and 360.</p>
 </dd>
-<dt>”El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
+<dt>“El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
 the elevation (in degrees) of each sky element to be considered in
 the calculation of spectral sky radiance. The values of ‘El’ varies
 along axis 0. Values are between 0 and 90.</p>
 </dd>
-<dt>”Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
+<dt>“Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
 </dd>
-<dt>”Kc”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Clear Sky Index’ parameter across time.</p>
+<dt>“Kc”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Clear Sky Index’ parameter across time.</p>
 </dd>
-<dt>”Cle”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Cloudless Index’ parameter across time.</p>
+<dt>“Cle”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Cloudless Index’ parameter across time.</p>
 </dd>
-<dt>”wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers.</p>
+<dt>“wavelengths”<span class="classifier">numpy.array of floats with shape (122,)</span></dt><dd><p>Wavelengths in nanometers.</p>
 </dd>
-<dt>”DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects.</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
+<dt>“DatetimeIndex_obj”<span class="classifier">pandas.Series of pandas.Timestamp objects.</span></dt><dd><p>Series of Timestamp values detailing the times at which each of the
 samples of the time-dependent variables were taken. We denote its
 length as nt.</p>
 </dd>
-<dt>”spectral_direct”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Direct component of spectral radiance across time. It has
+<dt>“spectral_direct”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Direct component of spectral radiance across time. It has
 units of W/m^2/sr/nm.</p>
 </dd>
-<dt>”spectral_diffuse”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Diffuse component of spectral radiance across time. It has
+<dt>“spectral_diffuse”<span class="classifier">List with length nt of numpy.arrays of floats with shape (nel,naz,122)</span></dt><dd><p>Diffuse component of spectral radiance across time. It has
 units of W/m^2/sr/nm.</p>
 </dd>
 </dl>
 </div></blockquote>
-</li>
-</ul>
-</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -1700,12 +1582,13 @@ general rule for disk and hemisphere partition into equal-area cells”
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>num_divisions</strong> (<em>int</em>) – Number of patches into which the Sky Vault will be discretised.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul>
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><strong>self.zone_data</strong> (<em>dict of dicts</em>) – Dictionary containing information about the discretization zones.
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Produces</p>
+<dl>
+<dt>self.zone_data<span class="classifier">dict of dicts</span></dt><dd><p>Dictionary containing information about the discretization zones.
 Each key of ‘self.zone_data’ corresponds to a unique zone number.
 The component dictionaries (stored at ‘self.zone_data[zone_num]’)
 have the following Key-Value pairs:</p>
@@ -1713,34 +1596,29 @@ have the following Key-Value pairs:</p>
 <div><dl class="simple">
 <dt>“num_patches”<span class="classifier">int</span></dt><dd><p>Number of sky patches contained inside the sky zone.</p>
 </dd>
-<dt>”inf_zen”<span class="classifier">float</span></dt><dd><p>Inferior zenith angle bound delimiting the sky zone,
+<dt>“inf_zen”<span class="classifier">float</span></dt><dd><p>Inferior zenith angle bound delimiting the sky zone,
 in degrees.</p>
 </dd>
-<dt>”sup_zen”<span class="classifier">float</span></dt><dd><p>Superior zenith angle bound delimiting the sky zone,
+<dt>“sup_zen”<span class="classifier">float</span></dt><dd><p>Superior zenith angle bound delimiting the sky zone,
 in degrees.</p>
 </dd>
-<dt>”inf_rad”<span class="classifier">float</span></dt><dd><p>Inferior radius bound delimiting the sky zone’s plane
+<dt>“inf_rad”<span class="classifier">float</span></dt><dd><p>Inferior radius bound delimiting the sky zone’s plane
 projection [adm].</p>
 </dd>
-<dt>”sup_rad”<span class="classifier">float</span></dt><dd><p>Superior radius bound delimiting the sky zone’s plane
+<dt>“sup_rad”<span class="classifier">float</span></dt><dd><p>Superior radius bound delimiting the sky zone’s plane
 projection [adm].</p>
 </dd>
-<dt>”azimuths”<span class="classifier">numpy.array of floats</span></dt><dd><p>Array containing the azimuth angle intervals delimiting
+<dt>“azimuths”<span class="classifier">numpy.array of floats</span></dt><dd><p>Array containing the azimuth angle intervals delimiting
 each sky patch inside the zone, in degrees.</p>
 </dd>
-<dt>”patch_area”<span class="classifier">float</span></dt><dd><p>Solid angle/area, taken up by each sky patch inside the
+<dt>“patch_area”<span class="classifier">float</span></dt><dd><p>Solid angle/area, taken up by each sky patch inside the
 sky zone, in steradians.</p>
 </dd>
-<dt>”zone_area”<span class="classifier">float</span></dt><dd><p>Total solid angle/area of the whole sky zone, in steradians.</p>
+<dt>“zone_area”<span class="classifier">float</span></dt><dd><p>Total solid angle/area of the whole sky zone, in steradians.</p>
 </dd>
 </dl>
 </div></blockquote>
-</li>
-</ul>
-</p>
 </dd>
-</dl>
-<dl>
 <dt>self.patch_data<span class="classifier">dict of dicts</span></dt><dd><p>Dictionary containing information about the discretization patches.
 Each key of ‘self.patch_data’ is a 2-tuple of ints corresponding to
 the patch (zone number, local patch number). The component dictionaries
@@ -1861,16 +1739,12 @@ only for “sphere” plot. Default is (45, 120).</p>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None</em></p></li>
-<li><p><em>Produces</em></p></li>
-<li><p><em>——–</em></p></li>
-<li><p><em>None</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Produces</p>
+<p>None</p>
 <p class="rubric">Notes</p>
 <ol class="arabic simple">
 <li><p>This method requires that time-integrated irradiances already
@@ -2029,7 +1903,7 @@ if search failed.</p>
 <section id="module-solrad.auxiliary_funcs">
 <span id="solrad-auxiliary-funcs-module"></span><h2>solrad.auxiliary_funcs module<a class="headerlink" href="#module-solrad.auxiliary_funcs" title="Permalink to this heading">#</a></h2>
 <p>Simple module for containing auxiliary functions that are commonly used in
-other modules of the folder Ambience_Modelling or even other folders.</p>
+other modules.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace">
 <span class="sig-prename descclassname"><span class="pre">solrad.auxiliary_funcs.</span></span><span class="sig-name descname"><span class="pre">fill_CDS_globe_nans_using_laplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.auxiliary_funcs.fill_CDS_globe_nans_using_laplace" title="Permalink to this definition">#</a></dt>
@@ -2074,14 +1948,14 @@ should contain values corresponding to the whole globe, with the
 axis 0, accounting for the variation of said values with respect to the
 latitude, while the axis 1 accounts for the variation with respect to
 the longitude. Axes 0 and 1 must have the same constant spacing, meaning
-that axis 1 should be twice the length of axis 0. That is, ‘data’ must
+that axis 1 should be twice the length of axis 0. That is, <em>data</em> must
 be defined over an equally-spaced regular rectangular grid of
 latitude vs longitude. Finally, regarding the coordinate system: let
-‘data’ be a Nx2N numpy.array of floats. Then data[0,:] is the
+<em>data</em> be a Nx2N numpy.array of floats. Then <code class="docutils literal notranslate"><span class="pre">data[0,:]</span></code> is the
 circle of constant latitude equal to -90° (i.e, the geographic south
-pole), data[-1,:] is the circle of constant latitude equal to 90°
-(i.e, the geographic north pole), data[:,0] is the arc of constant
-longitude equal to -180° and data[:,-1] is the arc of constant
+pole), <code class="docutils literal notranslate"><span class="pre">data[-1,:]</span></code> is the circle of constant latitude equal to 90°
+(i.e, the geographic north pole), <code class="docutils literal notranslate"><span class="pre">data[:,0]</span></code> is the arc of constant
+longitude equal to -180° and <code class="docutils literal notranslate"><span class="pre">data[:,-1]</span></code> is the arc of constant
 longitude equal to 180°.</p>
 </dd>
 </dl>
@@ -2092,7 +1966,7 @@ the chance that convergence has been reached. However, the time of
 computation also increases. Default is 20000.</p>
 </dd>
 </dl>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>new_data</strong> – Array of scalar data with the NaN values having been filled with
 numerical values based on the average value of their non-NaN
@@ -2102,14 +1976,11 @@ neighbours, as per the procedure explained above.</p>
 <dd class="field-even"><p>2D numpy.array of floats</p>
 </dd>
 <dt class="field-odd">Warns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>1) Warning</strong> –</p>
-<dl class="simple">
-<dt>“WARNING: Length of axis 1 is not equal to 2 times the length</dt><dd><p>of axis 0. This function requires for the data to
+<dd class="field-odd"><p><strong>1) Warning</strong> – “WARNING: Length of axis 1 is not equal to 2 times the length
+of axis 0. This function requires for the data to
 be equally spaced and encompass the whole earth.
-That is only possible if data.shape[1] = 2*data.shape[0].
+That is only possible if <code class="docutils literal notranslate"><span class="pre">data.shape[1]</span> <span class="pre">==</span> <span class="pre">2*data.shape[0]</span></code>.
 If these conditions are not satisfied, results may be incorrect or misleading.”</p>
-</dd>
-</dl>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -2123,30 +1994,30 @@ particular boundary conditions should be satisfied:</p>
 <blockquote>
 <div><ol class="loweralpha simple">
 <li><p>The values of the array should ‘wrap’ along the longitudinal
-direction. That is, for an infinitely fine mesh: data[i,0] ==
-data[i,-1], for all i.</p></li>
+direction. That is, for an infinitely fine mesh: <code class="docutils literal notranslate"><span class="pre">data[i,0]</span> <span class="pre">==</span>
+<span class="pre">data[i,-1]</span></code>, for all i.</p></li>
 <li><p>The values of the array at the each geographic pole should be
 the same for all longitudes. That is, for an infinitely fine mesh:
-data[0,:] and data[-1,:] are constant arrays.</p></li>
+<code class="docutils literal notranslate"><span class="pre">data[0,:]</span> <span class="pre">and</span> <span class="pre">data[-1,:]</span></code> are constant arrays.</p></li>
 </ol>
 </div></blockquote>
 <p>However, for finitely fine meshes we implement these conditions slightly
 differently. The way it is done is on how we compute the averages. Namely:
-data[i,j] = 0.25*( data[i-1,j] + data[i+1,j] + data[i,j-1] +
-data[i,j+1] ), for most cases. But when:</p>
+<code class="docutils literal notranslate"><span class="pre">data[i,j]</span> <span class="pre">=</span> <span class="pre">0.25*(</span> <span class="pre">data[i-1,j]</span> <span class="pre">+</span> <span class="pre">data[i+1,j]</span> <span class="pre">+</span> <span class="pre">data[i,j-1]</span> <span class="pre">+</span>
+<span class="pre">data[i,j+1]</span> <span class="pre">)</span></code>, for most cases. But when:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>j =  0,  data[i,j-1] equals data[i, -1]</p></li>
-<li><p>j = -1,  data[i,j+1] equals data[i, 0]</p></li>
-<li><p>i = 0,   data[i-1,j] equals data[0, bcj]</p></li>
-<li><p>i = -1,  data[i+1,j] equals data[-1, bcj]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">data[i,j-1]</span></code> equals <code class="docutils literal notranslate"><span class="pre">data[i,</span> <span class="pre">-1]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">-1,</span>&#160; <span class="pre">data[i,j+1]</span></code> equals <code class="docutils literal notranslate"><span class="pre">data[i,</span> <span class="pre">0]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span>&#160;&#160; <span class="pre">data[i-1,j]</span></code> equals <code class="docutils literal notranslate"><span class="pre">data[0,</span> <span class="pre">bcj]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">-1,</span>&#160; <span class="pre">data[i+1,j]</span></code> equals <code class="docutils literal notranslate"><span class="pre">data[-1,</span> <span class="pre">bcj]</span></code></p></li>
 </ol>
 </div></blockquote>
 </li>
 </ol>
-<p>Where bcj is and index such that lon[bcj] == lon[j] + 180,  if lon[j] &lt; 0 and
-lon[bcj] == lon[j] - 180,  if lon[j] &gt;= 0. Where
-lon = numpy.linspace(-180, 180, data.shape[1])</p>
+<p>Where bcj is and index such that <code class="docutils literal notranslate"><span class="pre">lon[bcj]</span> <span class="pre">==</span> <span class="pre">lon[j]</span> <span class="pre">+</span> <span class="pre">180</span></code>,  if <code class="docutils literal notranslate"><span class="pre">lon[j]</span> <span class="pre">&lt;</span> <span class="pre">0</span> <span class="pre">and</span>
+<span class="pre">lon[bcj]</span> <span class="pre">==</span> <span class="pre">lon[j]</span> <span class="pre">-</span> <span class="pre">180</span></code>,  <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">lon[j]</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code>. Where
+<code class="docutils literal notranslate"><span class="pre">lon</span> <span class="pre">=</span> <span class="pre">numpy.linspace(-180,</span> <span class="pre">180,</span> <span class="pre">data.shape[1])</span></code></p>
 </dd></dl>
 
 <dl class="py function">
@@ -2156,22 +2027,22 @@ lon = numpy.linspace(-180, 180, data.shape[1])</p>
 non-NaN neighbours. This procedure is iterative and, as such, the
 function performs the averaging until the specified number of iterations
 is reached.</p>
-<dl class="simple">
-<dt>arr<span class="classifier">numpy.array of floats</span></dt><dd><p>Array of scalar data with NaN values sprinkled throughout.</p>
-</dd>
-<dt>iterations<span class="classifier">int</span></dt><dd><p>Number of iterations that the code should perform before stopping (must
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>numpy.array</em><em> of </em><em>floats</em>) – Array of scalar data with NaN values sprinkled throughout.</p></li>
+<li><p><strong>iterations</strong> (<em>int</em>) – Number of iterations that the code should perform before stopping (must
 be non-negative). The greater the number of iterations, the greater
 the chance that convergence has been reached. However, the time of
-computation also increases. Default is 500.</p>
+computation also increases. Default is 500.</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filled_nans_arr</strong> – Array of scalar data with NaN values having been filled using the
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>filled_nans_arr</strong> – Array of scalar data with NaN values having been filled using the
 the average of their non-NaN neighbours.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>numpy.array of floats</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.array of floats</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -2223,6 +2094,8 @@ mathematically rigorous.</p></li>
 </section>
 <section id="module-solrad.geotime">
 <span id="solrad-geotime-module"></span><h2>solrad.geotime module<a class="headerlink" href="#module-solrad.geotime" title="Permalink to this heading">#</a></h2>
+<p>This is a module containing functions, methods and classes related to the
+computation of time and date quantities.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.geotime.compute_sunrise_sunset">
 <span class="sig-prename descclassname"><span class="pre">solrad.geotime.</span></span><span class="sig-name descname"><span class="pre">compute_sunrise_sunset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.geotime.compute_sunrise_sunset" title="Permalink to this definition">#</a></dt>
@@ -2247,21 +2120,18 @@ and can only be used if ‘start’ is also a string. If None, only the sunrise 
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_sunrise_sunset</span><span class="p">(</span><span class="mf">6.25184</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.56359</span><span class="p">,</span> <span class="s1">&#39;-05:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-10&#39;</span><span class="p">)</span>
-<span class="go"># Returns DataFrame with computed sunrise and sunset times (using local time) from January 1st, 2023, to January 10th, 2023, for the city of Medellín, Colombia</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_sunrise_sunset</span><span class="p">(</span><span class="o">-</span><span class="mf">33.86785</span><span class="p">,</span> <span class="mf">151.20732</span><span class="p">,</span> <span class="s1">&#39;+11:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-06-01&#39;</span><span class="p">)</span>
-<span class="go"># Returns DataFrame with computed sunrise and sunset times (using local time) for June 1st, 2023, for the city of Sydney, Australia.</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">idx</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-02&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-03&#39;</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Return DataFrame with computed sunrise and sunset times (using local time) from January 1st 2023, to January 10th 2023, for the city of Medellín, Colombia</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compute_sunrise_sunset</span><span class="p">(</span><span class="mf">6.25184</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.56359</span><span class="p">,</span> <span class="s1">&#39;-05:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-10&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Return DataFrame with computed sunrise and sunset times (using local time) for June 1st 2023, for the city of Sydney, Australia.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compute_sunrise_sunset</span><span class="p">(</span><span class="o">-</span><span class="mf">33.86785</span><span class="p">,</span> <span class="mf">151.20732</span><span class="p">,</span> <span class="s1">&#39;+11:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-06-01&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Return DataFrame with computed sunrise and sunset times (using local time) for January 1st 2023, January 2nd 2023 and January 3rd 2023, for Medellín, Colombia.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">idx</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-02&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-03&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">compute_sunrise_sunset</span><span class="p">(</span><span class="mf">6.25184</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.56359</span><span class="p">,</span> <span class="s1">&#39;-05:00&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
-<span class="go"># Returns DataFrame with computed sunrise and sunset times (using local time) for January 1st, 2023, January 2nd, 2023 and January 3rd 2023, for Medellín, Colombia.</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_sunrise_sunset</span><span class="p">(</span><span class="o">-</span><span class="mi">82</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.56359</span><span class="p">,</span> <span class="s1">&#39;-05:00&#39;</span><span class="p">,</span> <span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2023-12-31&quot;</span><span class="p">)</span>
-<span class="go"># Returns DataFrame with computed sunrise and sunset times (using local time) for the whole year of 2023 for a place inside the antartic circle.</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Return DataFrame with computed sunrise and sunset times (using local time) for the whole year of 2023 for a place inside the antartic circle.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compute_sunrise_sunset</span><span class="p">(</span><span class="o">-</span><span class="mi">82</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.56359</span><span class="p">,</span> <span class="s1">&#39;-05:00&#39;</span><span class="p">,</span> <span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2023-12-31&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="rubric">Notes</p>
@@ -2303,11 +2173,11 @@ based on user input or sunrise and sunset times.</p>
 <li><p><strong>freq</strong> (<em>str</em>) – The frequency at which the date range should be generated.
 Any frequency accepted by pandas.date_range is valid for geo_date_range.</p></li>
 <li><p><strong>min_hms</strong> (<em>str</em><em> or </em><em>None</em>) – A string representing the minimum hour-minute-second (HH:MM:SS) value for a Timestamp within each day’s time series.
-If the hms values are below this threshold, they are removed. It can also be set to ‘None’ to ignore this condition,
-or to “sunrise” to use the computed sunrise time for the location as the value for ‘min_hms’.</p></li>
+If the hms values are below this threshold, they are removed. It can also be set to None to ignore this condition,
+or to “sunrise” to use the computed sunrise time for the location as the value for <em>min_hms</em>.</p></li>
 <li><p><strong>max_hms</strong> (<em>str</em><em> or </em><em>None</em>) – A string representing the maximum hour-minute-second (HH:MM:SS) value for a Timestamp within each day’s time series.
 If the hms values are above this threshold, they are removed. It can also be set to None to ignore this condition,
-or to “sunset” to use the computed sunset time for the location as the value for max_hms.</p></li>
+or to “sunset” to use the computed sunset time for the location as the value for <em>max_hms</em>.</p></li>
 <li><p><strong>skip_polar_nights</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to skip polar night periods during filtering. Defaults to True.</p></li>
 <li><p><strong>inclusive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to forcibly include the end_time in the generated date range, in case it’s left out. Defaults to False.</p></li>
 </ul>
@@ -2324,7 +2194,9 @@ pandas.DatetimeIndex object containing the time series associated to that date.<
 <p class="rubric">Notes</p>
 <p>This function depends on the ‘compute_sunrise_sunset’ function to compute the sunrise and sunset times if required.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">latitude</span> <span class="o">=</span> <span class="mf">6.230833</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generates a date range from &#39;2023-1-1 00:00:00&#39; to &#39;2023-12-31 23:59:59.999&#39; UTC-5 time, using a frequency of 5 min.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># No filtering of the day hours is carried out.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">latitude</span> <span class="o">=</span> <span class="mf">6.230833</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">longitude</span> <span class="o">=</span> <span class="o">-</span><span class="mf">75.56359</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="s1">&#39;-05:00&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">start_time</span> <span class="o">=</span> <span class="s2">&quot;2023-1-1 00:00:00&quot;</span>
@@ -2335,11 +2207,10 @@ pandas.DatetimeIndex object containing the time series associated to that date.<
 <span class="gp">&gt;&gt;&gt; </span><span class="n">skip_polar_nights</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inclusive</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">geo_date_range</span><span class="p">(</span><span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">tz</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">min_hms</span><span class="p">,</span> <span class="n">max_hms</span><span class="p">,</span> <span class="n">skip_polar_nights</span><span class="p">,</span> <span class="n">inclusive</span><span class="p">)</span>
-<span class="go"># Generates a date range from &#39;2023-1-1 00:00:00&#39; to &#39;2023-12-31 23:59:59.999&#39; UTC-5 time, using a frequency of 5 min.</span>
-<span class="go"># No filtering of the day hours is carried out.</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generates a date range from &#39;2023-1-1 00:00:00&#39; to &#39;2023-12-31 23:59:59.999&#39; UTC-5 time, using a frequency of 5 min.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Filtering of the day hours is carried out using sunrise and sunset times calculated for Medellín, Colombia.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">latitude</span> <span class="o">=</span> <span class="mf">6.230833</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">longitude</span> <span class="o">=</span> <span class="o">-</span><span class="mf">75.56359</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="s1">&#39;-05:00&#39;</span>
@@ -2351,11 +2222,10 @@ pandas.DatetimeIndex object containing the time series associated to that date.<
 <span class="gp">&gt;&gt;&gt; </span><span class="n">skip_polar_nights</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inclusive</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">geo_date_range</span><span class="p">(</span><span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">tz</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">min_hms</span><span class="p">,</span> <span class="n">max_hms</span><span class="p">,</span> <span class="n">skip_polar_nights</span><span class="p">,</span> <span class="n">inclusive</span><span class="p">)</span>
-<span class="go"># Generates a date range from &#39;2023-1-1 00:00:00&#39; to &#39;2023-12-31 23:59:59.999&#39; UTC-5 time, using a frequency of 5 min.</span>
-<span class="go"># Filtering of the day hours is carried out using sunrise and sunset times calculated for Medellín, Colombia.</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generates a date range from &#39;2023-1-1 00:00:00&#39; to &#39;2023-12-31 23:59:59.999&#39; UTC-5 time, using a frequency of 5 min.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Filtering of the day hours is carried out using the range specified by the user.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">latitude</span> <span class="o">=</span> <span class="mf">6.230833</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">longitude</span> <span class="o">=</span> <span class="o">-</span><span class="mf">75.56359</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tz</span> <span class="o">=</span> <span class="s1">&#39;-05:00&#39;</span>
@@ -2367,8 +2237,6 @@ pandas.DatetimeIndex object containing the time series associated to that date.<
 <span class="gp">&gt;&gt;&gt; </span><span class="n">skip_polar_nights</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inclusive</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">geo_date_range</span><span class="p">(</span><span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">tz</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">min_hms</span><span class="p">,</span> <span class="n">max_hms</span><span class="p">,</span> <span class="n">skip_polar_nights</span><span class="p">,</span> <span class="n">inclusive</span><span class="p">)</span>
-<span class="go"># Generates a date range from &#39;2023-1-1 00:00:00&#39; to &#39;2023-12-31 23:59:59.999&#39; UTC-5 time, using a frequency of 5 min.</span>
-<span class="go"># Filtering of the day hours is carried out using the range specified by the user.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2376,8 +2244,8 @@ pandas.DatetimeIndex object containing the time series associated to that date.<
 <dl class="py function">
 <dt class="sig sig-object py" id="solrad.geotime.timestamp_hms_to_float">
 <span class="sig-prename descclassname"><span class="pre">solrad.geotime.</span></span><span class="sig-name descname"><span class="pre">timestamp_hms_to_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'h'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.geotime.timestamp_hms_to_float" title="Permalink to this definition">#</a></dt>
-<dd><p>Convert Timestamp Hour:Minutes:Seconds information to float.
-Example: timestamp_hms_to_float(timestamp, unit = “h”), where
+<dd><p>Convert Timestamp Hour:Minutes:Seconds information to float.</p>
+<p>Example: timestamp_hms_to_float(timestamp, unit = “h”), where
 timestamp = pd.Timestamp(“2023-03-08 14:25:36”) returns 14.426667. That is,
 it turns the 14h 25min 36s of the timestamp to an equivalent number
 of hours. Had we used timestamp_hms_to_float(timestamp, unit = “s”),

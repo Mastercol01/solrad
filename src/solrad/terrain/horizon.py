@@ -1,3 +1,9 @@
+#%%                MODULE DESCRIPTION AND/OR INFO
+"""
+This module contains all functions, methods and classes related to the
+computation of a site's horizon and related quantities.
+"""
+
 #%%                 IMPORTATION OF LIBRARIES
 import requests
 import numpy as np

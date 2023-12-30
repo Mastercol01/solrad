@@ -22,6 +22,7 @@ extensions = [
     "sphinx.ext.autodoc"
 ]
 
+napoleon_custom_sections = ['Produces']
 templates_path = ['_templates']
 exclude_patterns = []
 

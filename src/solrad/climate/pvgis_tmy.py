@@ -1,3 +1,10 @@
+#%%                MODULE DESCRIPTION AND/OR INFO
+"""
+This module contains all functions, methods and classes related to the
+computation and manipulation of Typical-Metheorological-Year (TMY) data
+obtained from PVGIS.
+"""
+
 #%%                       IMPORTATION OF LIBRARIES
 import numpy as np
 import pvlib as pv

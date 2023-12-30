@@ -1,3 +1,9 @@
+#%%                MODULE DESCRIPTION AND/OR INFO
+"""
+This module contains all functions, methods and classes related to the
+computation and manipulation of solar position data and related parameters.
+"""
+
 #%%                       IMPORTATION OF LIBRARIES
 import warnings
 import numpy as np

@@ -253,27 +253,27 @@ class Site:
         Produces
         --------
         self.horizon : dict
-        Dictionary with information about the horizon. It has the following 
-        key-value pairs:
+            Dictionary with information about the horizon. It has the following 
+            key-value pairs:
         
-            Key-Values
-            ----------
-            'func' : Callable
-                Horizon function. Its input is an array of azimuth values (in degrees) 
-                and its output is an array of horizon elevation angle values (in degrees).
+                Key-Values
+                ----------
+                'func' : Callable
+                    Horizon function. Its input is an array of azimuth values (in degrees) 
+                    and its output is an array of horizon elevation angle values (in degrees).
 
-            'is_clear' : bool
-                Whether the current horizon is clear or not (i.e, null elevation everywhere).
+                'is_clear' : bool
+                    Whether the current horizon is clear or not (i.e, null elevation everywhere).
 
-            'is_pvgis' : bool
-                Whether the current horizon was obtained from pvgis.
+                'is_pvgis' : bool
+                    Whether the current horizon was obtained from pvgis.
 
-            'was_used_for_climate_data' : bool
-                Whether the current horizon was used for the computation of 
-                climate data.
+                'was_used_for_climate_data' : bool
+                    Whether the current horizon was used for the computation of 
+                    climate data.
 
-        Note
-        ----
+        Notes
+        -----
         1) Horizon height is the angle between the local horizontal plane and the
         horizon. In other words, the Horizon height is equal to the horizon's
         elevation angle.
@@ -303,14 +303,14 @@ class Site:
 
         Parameters
         ----------
-        azimuth : (npoints, ) array_like
+        azimuth : array_like (npoints,) 
             Array of azimuth angle values in degrees, from 0 to 360. Must be monotonic-increasing.
 
-        elevation : (npoints, ) array_like
+        elevation : array_like (npoints,) 
             Array of horizon elevation angle values in degrees. Elevation values must
             lie between 0 and 90.
 
-        interp_method : {'linear', 'quadratic', 'cubic'}, optional
+        interp_method : {"linear", "quadratic", "cubic"}, optional
             Order of the spline interpolator to use. Default is 'linear'.
 
         Returns
@@ -320,27 +320,27 @@ class Site:
         Produces
         --------
         self.horizon attribute : dict
-        Dictionary with information about the horizon. It has the following 
-        key-value pairs:
+            Dictionary with information about the horizon. It has the following 
+            key-value pairs:
         
-            Key-Values
-            ----------
-            'func' : Callable
-                Horizon function. Its input is an array of azimuth values (in degrees) 
-                and its output is an array of horizon elevation angle values (in degrees).
+                Key-Values
+                ----------
+                'func' : Callable
+                    Horizon function. Its input is an array of azimuth values (in degrees) 
+                    and its output is an array of horizon elevation angle values (in degrees).
 
-            'is_clear' : bool
-                Whether the current horizon is clear or not (i.e, null elevation everywhere).
+                'is_clear' : bool
+                    Whether the current horizon is clear or not (i.e, null elevation everywhere).
 
-            'is_pvgis' : bool
-                Whether the current horizon was obtained from pvgis.
+                'is_pvgis' : bool
+                    Whether the current horizon was obtained from pvgis.
 
-            'was_used_for_climate_data' : bool
-                Whether the current horizon was used for the computation of 
-                climate data.
+                'was_used_for_climate_data' : bool
+                    Whether the current horizon was used for the computation of 
+                    climate data.
 
-        Note
-        ----
+        Notes
+        -----
         1) Horizon height is the angle between the local horizontal plane and the
         horizon. In other words, the Horizon height is equal to the horizon's
         elevation angle.
@@ -375,27 +375,27 @@ class Site:
         Produces
         --------
         self.horizon attribute : dict
-        Dictionary with information about the horizon. It has the following 
-        key-value pairs:
+            Dictionary with information about the horizon. It has the following 
+            key-value pairs:
         
-            Key-Values
-            ----------
-            'func' : Callable
-                Horizon function. Its input is an array of azimuth values (in degrees) 
-                and its output is an array of horizon elevation angle values (in degrees).
+                Key-Values
+                ----------
+                'func' : Callable
+                    Horizon function. Its input is an array of azimuth values (in degrees) 
+                    and its output is an array of horizon elevation angle values (in degrees).
 
-            'is_clear' : bool
-                Whether the current horizon is clear or not (i.e, null elevation everywhere).
+                'is_clear' : bool
+                    Whether the current horizon is clear or not (i.e, null elevation everywhere).
 
-            'is_pvgis' : bool
-                Whether the current horizon was obtained from pvgis.
+                'is_pvgis' : bool
+                    Whether the current horizon was obtained from pvgis.
 
-            'was_used_for_climate_data' : bool
-                Whether the current horizon was used for the computation of 
-                climate data.
+                'was_used_for_climate_data' : bool
+                    Whether the current horizon was used for the computation of 
+                    climate data.
 
-        Note
-        ----
+        Notes
+        -----
         1) Horizon height is the angle between the local horizontal plane and the
         horizon. In other words, the Horizon height is equal to the horizon's
         elevation angle.
@@ -405,7 +405,7 @@ class Site:
         for az in azimuth:
             try:
                 elevation = func(az)
-                if isinstance(elevation, int|float):
+                if isinstance(elevation, int) or isinstance(elevation, float):
                     msg = "int/float input values still have to produce"
                     msg = f"{msg} numpy.array output values."
                     raise Exception(msg)
@@ -461,8 +461,8 @@ class Site:
                 Whether the current horizon was used for the computation of 
                 climate data.
 
-        Note
-        ----
+        Notes
+        -----
         1) Horizon height is the angle between the local horizontal plane and the
         horizon. In other words, the Horizon height is equal to the horizon's
         elevation angle.
@@ -488,6 +488,7 @@ class Site:
             the default) the default plot settings are used. When not equal to None,
             it must be a dict containing some or all of the following key-value
             pairs:
+
                 Keys-Values
                 -----------
                 "projection" : "polar" or "cartesian"
@@ -511,7 +512,6 @@ class Site:
 
                 "figsize" : tuple of float
                     Figure size of the plot.
-
 
         Returns
         -------
@@ -552,13 +552,13 @@ class Site:
 
         min_hms : str or None
             A string representing the minimum hour-minute-second (HH:MM:SS) value for a Timestamp within each day's time series.
-            If the hms values are below this threshold, they are removed. It can also be set to 'None' to ignore this condition,
-            or to "sunrise" to use the computed sunrise time for the location as the value for 'min_hms'.
+            If the hms values are below this threshold, they are removed. It can also be set to None to ignore this condition,
+            or to "sunrise" to use the computed sunrise time for the location as the value for *min_hms*.
 
         max_hms: str or None
             A string representing the maximum hour-minute-second (HH:MM:SS) value for a Timestamp within each day's time series.
             If the hms values are above this threshold, they are removed. It can also be set to None to ignore this condition,
-            or to "sunset" to use the computed sunset time for the location as the value for max_hms.
+            or to "sunset" to use the computed sunset time for the location as the value for *max_hms*.
 
         inclusive : bool, optional
             Whether to forcibly include the end_time in the generated date range, in case it's left out. Defaults to False.
@@ -576,8 +576,8 @@ class Site:
 
         Notes
         -----
-        1) This function also initializes other attributes such as: self.climate_and_air_data,
-           self.sun_data, self.single_scattering_albedo, self.aerosol_asymmetry_factor. 
+        1) This function also initializes other attributes such as: *self.climate_and_air_data*,
+        *self.sun_data*, *self.single_scattering_albedo*, *self.aerosol_asymmetry_factor*. 
         
         """
 
@@ -606,9 +606,9 @@ class Site:
 
         """
         Use the Typical Meteorological Year (TMY) data from PVGIS to partially
-        fill the 'self.climate_and_air_data'. 
+        fill the *self.climate_and_air_data*. 
 
-        Parameters:
+        Parameters
         -----------
         startyear: int or None
             First year to calculate TMY.
@@ -622,21 +622,19 @@ class Site:
         use_site_horizon : bool, optional
             Wether to include effects of the site's horizon. Default is False.
 
-        
-
-        Returns:
+        Returns
         --------
         None
 
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. Specifically, it
+        Partially filled *self.climate_and_air_data* attribute. Specifically, it
         fills the "G(h)", "Gb(n)", "Gd(h)", "T2m", "SP", "RH" columns of all the 
-        DataFrames contained by the 'self.climate_and_air_data' dict.
+        DataFrames contained by the *self.climate_and_air_data* dict.
 
         See Also
         --------
-        pvlib.iotools.get_pvgis_tmy
+        ``pvlib.iotools.get_pvgis_tmy``
 
         """
 
@@ -682,9 +680,8 @@ class Site:
 
         """
         Determines extraterrestrial radiation from day of year, using pvlib's
-        'get_extra_radiation' function.
+        ``get_extra_radiation`` function.
         
-
         Parameters
         ----------
         method : {"pyephem", "spencer", "asce", "nrel"}, opional
@@ -697,9 +694,9 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. Specifically, it
+        Partially filled *self.climate_and_air_data* attribute. Specifically, it
         fills the "extra_Gbn" column of all the DataFrames contained by the
-        'self.climate_and_air_data' dict.
+        *self.climate_and_air_data* dict.
 
         """
 
@@ -715,7 +712,7 @@ class Site:
 
         """
         Computes the cummulative time integral of the cols {"G(h)", "Gb(n)", "Gd(h)"}
-        in 'self.climate_and_air_data[date]', for all dates. 
+        in *self.climate_and_air_data[date]*, for all dates. 
         
         Parameters
         ----------
@@ -727,9 +724,9 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. Specifically, it adds
+        Partially filled *self.climate_and_air_data* attribute. Specifically, it adds
         the columns {"int G(h)", "int Gb(n)", "int Gd(h)"} to each dataframe of the dict
-        'self.climate_and_air_data'; containing the cummulative time integral of
+        *self.climate_and_air_data*; containing the cummulative time integral of
         the columns {"G(h)", "Gb(n)" and "Gd(h)"}, respectively. Units of this new columns
         are Wh/m^2.
 
@@ -737,8 +734,8 @@ class Site:
         -----
         1) Warning :
             f"NaN/None values detected in self.climate_and_air_df[{date}][{col}].
-              NaN input values will produce NaN output values.
-              None input values will raise Exceptions." 
+            NaN input values will produce NaN output values.
+            None input values will raise Exceptions." 
         """
         
         for date, climate_and_air_df in self.climate_and_air_data.items():
@@ -771,7 +768,7 @@ class Site:
         Parameters
         ----------
         NaN_handling : {"strict", "loose", "null"}, optional
-            How to handle NaN and None values when present in 'SP' and 'T2m' columns of the DataFrames stored in "self.climate_and_air_data"
+            How to handle NaN and None values when present in "SP" and "T2m" columns of the DataFrames stored in *self.climate_and_air_data*
             If "strict" an Exception is raised.
             If "loose", default values are used instead (see notes for more info).
             If "null", nothing is done about it and NaN/None values are directly passed onto the calculation, which may
@@ -779,22 +776,22 @@ class Site:
             Default is "strict".
 
 
-        Returns:
+        Returns
         --------
         None
 
         Produces
         --------
-        Filled 'self.sun_data' attribute. 
+        Filled *self.sun_data* attribute. 
 
         See Also
         --------
-        pvlib.solarposition.get_solarposition
+        ``pvlib.solarposition.get_solarposition``
 
         Notes
         -----
         1) In case that NaN_handling is "loose", the default value of temperature used is 15°C and the default
-        value of pressure is computed from altitude using the function 'pvlib.atmosphere.alt2pres'.
+        value of pressure is computed from altitude using the function ``pvlib.atmosphere.alt2pres``.
 
         """
 
@@ -826,7 +823,7 @@ class Site:
     def compute_ozone_column_using_van_Heuklon_model(self):
 
         """
-        Computes the Ozone Column values (in atm-cm) for the site, using a 
+        Computes the ozone column values (in atm-cm) for the site, using  
         van Heuklon's Ozone model. 
         
         Parameters
@@ -839,9 +836,9 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. Specifically, it
+        Partially filled *self.climate_and_air_data* attribute. Specifically, it
         fills the "O3" column of all the DataFrames contained by the
-        'self.climate_and_air_data' dict.
+        *self.climate_and_air_data* dict.
 
         """
 
@@ -859,13 +856,12 @@ class Site:
         Computes the monthly year-wise average or 'percentile'-th percentile of atmospheric ozone column
         for the site. The raw data used for the calculation is extracted from the database referenced in [1].
         
-        Parameteres
+        Parameters
         -----------
         path : path-str
             Path of the folder where the ozone column raw.ny and filled_NaNs.npy files 
             are stored. That is, the path to the local ozone column database.     
 
-            
         percentile : float or None, optional
             If float, it computes the monthly year-wise 'percentile'-th percentile of ozone column. 
             If NONE,  it computes the monthly year-wise average of ozone column.
@@ -873,7 +869,7 @@ class Site:
             
         interp_method : {'linear', 'nearest', 'slinear', 'cubic', 'quintic'}, optional
             The method of interpolation to perform when computing the 
-            res['filled_nans_data_funcs'], res['avg_data_funcs'] and res['percentile_data_funcs']
+            *res["filled_nans_data_funcs"]*, *res["avg_data_funcs"]* and *res["percentile_data_funcs"]*
             dictionaries. Supported methods are the same as supported by scipy's 
             RegularGridInterpolator. Default is "linear".
 
@@ -883,17 +879,17 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. Specifically, it
+        Partially filled *self.climate_and_air_data* attribute. Specifically, it
         fills the "O3" column of all the DataFrames contained by the
-        'self.climate_and_air_data' dict.
+        *self.climate_and_air_data* dict.
 
 
         References
         ----------
         [1] Copernicus Climate Change Service, Climate Data Store, (2020):
-            Ozone monthly gridded data from 1970 to present derived from satellite
-            observations. Copernicus Climate Change Service (C3S) Climate Data Store 
-            (CDS). DOI: 10.24381/cds.4ebfe4eb 
+        Ozone monthly gridded data from 1970 to present derived from satellite
+        observations. Copernicus Climate Change Service (C3S) Climate Data Store 
+        (CDS). DOI: 10.24381/cds.4ebfe4eb 
         
         """
 
@@ -930,26 +926,26 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. More specifically, it
+        Partially filled *self.climate_and_air_data* attribute. More specifically, it
         fills the "H2O" column of all the DataFrames contained by the
-        'self.climate_and_air_data' dict.
+        *self.climate_and_air_data* dict.
 
         Notes
         -----
         1) Uses the "RH" and "T2m" columns in the dataframes stored by the
-           'self.climate_and_air_data' attribute for the calculation.
+        *self.climate_and_air_data* attribute for the calculation.
 
         Warns
         -----
-        1) Warning :
+        1) Warning 
             f"NaN/None values detected in self.climate_and_air_df[{date}]['T2m'].
-              NaN input values will produce NaN output values.
-              None input values will raise Exceptions." 
+            NaN input values will produce NaN output values.
+            None input values will raise Exceptions." 
 
-        2) Warning :
+        2) Warning 
             f"NaN/None values detected in self.climate_and_air_df[{date}]['RH'].
-              NaN input values will produce NaN output values.
-              None input values will raise Exceptions." 
+            NaN input values will produce NaN output values.
+            None input values will raise Exceptions." 
         
         """
             
@@ -983,13 +979,12 @@ class Site:
         Computes the monthly year-wise average or 'percentile'-th percentile of atmospheric water column
         for the site. The raw data used for the calculation is extracted from the database referenced in [1].
         
-        Parameteres
+        Parameters
         -----------
         path : path-str
             Path of the folder where the water column raw.ny and filled_NaNs.npy files 
             are stored. That is, the path to the local water column database.        
 
-            
         percentile : float or None, optional
             If float, it computes the monthly year-wise 'percentile'-th percentile of water_column. 
             If NONE,  it computes the monthly year-wise average of water_column.
@@ -997,7 +992,7 @@ class Site:
             
         interp_method : {'linear', 'nearest', 'slinear', 'cubic', 'quintic'}, optional
             The method of interpolation to perform when computing the 
-            res['filled_nans_data_funcs'], res['avg_data_funcs'] and res['percentile_data_funcs']
+            *res["filled_nans_data_funcs"]*, *res["avg_data_funcs"]* and *res["percentile_data_funcs"]*
             dictionaries. Supported methods are the same as supported by scipy's 
             RegularGridInterpolator. Default is "linear".
 
@@ -1007,17 +1002,16 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. Specifically, it
+        Partially filled *self.climate_and_air_data* attribute. Specifically, it
         fills the "H2O" column of all the DataFrames contained by the
-        'self.climate_and_air_data' dict.
-
+        *self.climate_and_air_data* dict.
 
         References
         ----------
         [1] Preusker, R., El Kassar, R. (2022): Monthly total column water vapour 
-            over land and ocean from 2002 to 2012 derived from satellite observation.
-            Copernicus Climate Change Service (C3S) Climate Data Store (CDS).
-            DOI: 10.24381/cds.8e0e4724 
+        over land and ocean from 2002 to 2012 derived from satellite observation.
+        Copernicus Climate Change Service (C3S) Climate Data Store (CDS).
+        DOI: 10.24381/cds.8e0e4724 
         
         """
 
@@ -1054,16 +1048,16 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_an_air_data' attribute. Specifically, 
+        Partially filled *self.climate_an_air_data* attribute. Specifically, 
         it fills the "alpha_500nm" column of all DataFrames contained by 
-        the 'self.climate_and_air_data' dict.
+        the *self.climate_and_air_data* dict.
 
         Warns
         -----
-        1) Warning :
+        1) Warning 
             f"NaN/None values detected in self.climate_and_air_df[{date}]['RH'].
-              NaN input values will produce NaN output values.
-              None input values will raise Exceptions." 
+            NaN input values will produce NaN output values.
+            None input values will raise Exceptions." 
 
         References
         ----------
@@ -1098,7 +1092,7 @@ class Site:
         Optical Depth at 500nm (aod_500nm) for the site. The raw data used for the calculation 
         is extracted from the database referenced in [1].
         
-        Parameteres
+        Parameters
         -----------
         path : path-str
             Path of the folder where the aod_500nm raw.ny and filled_NaNs.npy files 
@@ -1111,7 +1105,7 @@ class Site:
             
         interp_method : {'linear', 'nearest', 'slinear', 'cubic', 'quintic'}, optional
             The method of interpolation to perform when computing the 
-            res['filled_nans_data_funcs'], res['avg_data_funcs'] and res['percentile_data_funcs']
+            *res["filled_nans_data_funcs"]*, *res["avg_data_funcs"]* and *res["percentile_data_funcs"]*
             dictionaries. Supported methods are the same as supported by scipy's 
             RegularGridInterpolator. Default is "linear".
 
@@ -1121,21 +1115,21 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_and_air_data' attribute. Specifically, it
+        Partially filled *self.climate_and_air_data* attribute. Specifically, it
         fills the "aod_500nm" column of all the DataFrames contained by the
-        'self.climate_and_air_data' dict.
+        *self.climate_and_air_data* dict.
 
         Notes
         -----
         1) Uses the "alpha_500nm" column in the dataframes stored by the
-           'self.climate_and_air_data' attribute for the calculation.
+        *self.climate_and_air_data* attribute for the calculation.
 
         Warns
         -----
         1) Warning :
             f"NaN/None values detected in self.climate_and_air_df[{date}]['alpha_500nm'].
-              NaN input values will produce NaN output values.
-              None input values will raise Exceptions." 
+            NaN input values will produce NaN output values.
+            None input values will raise Exceptions." 
 
         References
         ----------
@@ -1197,9 +1191,8 @@ class Site:
         
         Parameters
         ----------            
-        interp_method : str
-            Method of interpolation to use on the data. Supported are "linear",
-            "nearest" and "cubic". Default is "linear".
+        interp_method : {"linear", "nearest", "cubic"}
+            Method of interpolation to use on the data. Default is "linear".
             
         Returns
         -------
@@ -1207,21 +1200,21 @@ class Site:
         
         Produces
         --------
-        Filled 'self.single_scattering_albedo' attribute. More specifically, it
+        Filled *self.single_scattering_albedo* attribute. More specifically, it
         fills completely all the DataFrames contained by the 
-        'self.single_scattering_albedo' dict.
+        *self.single_scattering_albedo* dict.
 
         Notes
         -----
         1) Uses the "RH" column in the dataframes stored by the
-           'self.climate_and_air_data' attribute for the calculation.
+        *self.climate_and_air_data* attribute for the calculation.
 
         Warns
         -----
         1) Warning :
             f"NaN/None values detected in self.climate_and_air_df[{date}]['RH'].
-              NaN input values will produce NaN output values.
-              None input values will raise Exceptions." 
+            NaN input values will produce NaN output values.
+            None input values will raise Exceptions." 
 
         References
         ----------
@@ -1271,9 +1264,8 @@ class Site:
         
         Parameters
         ----------            
-        interp_method : str
-            Method of interpolation to use on the data. Supported are "linear",
-            "nearest" and "cubic". Default is "linear".
+        interp_method : {"linear", "nearest", "cubic"}
+            Method of interpolation to use on the data. Default is "linear".
             
         Returns
         -------
@@ -1281,28 +1273,27 @@ class Site:
         
         Produces
         --------
-        Filled 'self.aerosol_assymetry_factor' attribute. More specifically, it
+        Filled *self.aerosol_assymetry_factor* attribute. More specifically, it
         fills completely all the DataFrames contained by the 
-        'self.aerosol_assymetry_factor' dict.
+        *self.aerosol_assymetry_factor* dict.
 
         Notes
         -----
         1) Uses the "RH" column in the dataframes stored by the
-           'self.climate_and_air_data' attribute for the calculation.
+        *self.climate_and_air_data* attribute for the calculation.
 
         Warns
         -----
-        1) Warning :
+        1) Warning 
             f"NaN/None values detected in self.climate_and_air_df[{date}]['RH'].
-              NaN input values will produce NaN output values.
-              None input values will raise Exceptions." 
+            NaN input values will produce NaN output values.
+            None input values will raise Exceptions." 
 
         References
         ----------
         [1] Shettle, Eric & Fenn, Robert. (1979). Models for the Aerosols of the 
         Lower Atmosphere and the Effects of Humidity Variations on their Optical 
         Properties. Environ. Res.. 94. 
-
         """
 
         wavelength = np.array(_SPECTRL2_WAVELENGTHS)
@@ -1343,11 +1334,11 @@ class Site:
         Compute the spectral average of the aerosol asymmetry factor, 
         for the interval of wavelengths specified.
          
-        We take the 'self.aerosol_asymmetry_factor' attribute, loop over all
+        We take the *self.aerosol_asymmetry_factor* attribute, loop over all
         the DataFrames stored in it and compute the row-wise mean of the
-        values for the interval of wavelengths specified by 'spectral range'. 
+        values for the interval of wavelengths specified by *spectral range*. 
         We then use the the computed values to fill the "spectrally_averaged_aaf"
-        column in all dataframes of the 'self.climate_and_air_data' attribute.
+        column in all dataframes of the *self.climate_and_air_data* attribute.
         
         Parameters
         ----------
@@ -1362,13 +1353,13 @@ class Site:
         
         Produces
         --------
-        Partially filled 'self.climate_an_air_data' attribute. Specifically, 
+        Partially filled *self.climate_an_air_data* attribute. Specifically, 
         it fills the "spectrally_averaged_aaf" column of all DataFrames
-        contained by the 'self.climate_and_air_data' dict.
+        contained by the *self.climate_and_air_data* dict.
 
         Notes
         -----
-        1) Uses the 'self.aerosol_asymmtry_factor' attribute for the calculation.
+        1) Uses the *self.aerosol_asymmtry_factor* attribute for the calculation.
         
         """
                 
@@ -1401,34 +1392,34 @@ class Site:
     def plot_data(self, col, years, months, days, hours, mode=2, interp_method = "linear", figsize = (16, 12)):
 
         """
-        Plot site variable specified by 'col', for the period of time specified, 
+        Plot site variable specified by *col*, for the period of time specified, 
         and using the mode selected.
         
         Parameters
         ----------
-        col : "str"
+        col : str
             Name of the variable to be plotted. Must be one of the keys of 
-            'self.variables_info["descriptions"]'. 
+            *self.variables_info["descriptions"]*. 
             
         years : list or None
             If list, it must be a list of 2 elements, containing the lower and
-            upper bounds of the years to plot. The first element of 'years' 
+            upper bounds of the years to plot. The first element of *years*
             would be the lower bound, while the second element would be the 
-            upper bound. If None, the lower and upper bounds for the 'years' 
+            upper bound. If None, the lower and upper bounds for the *years*
             variable are automatically selected by the program so that all 
             avialable years are included.
             
         months : list or None
             If list, it must be a list of 2 elements, containing the lower and
-            upper bounds of the months to plot. The first element of 'months' 
+            upper bounds of the months to plot. The first element of *months*
             would be the lower bound, while the second element would be the 
-            upper bound. If None, the lower and upper bounds for the 'months' 
+            upper bound. If None, the lower and upper bounds for the *months*
             variable are automatically selected by the program so that all 
             avialable months are included.
             
         days : list or None
             If list, it must be a list of 2 elements, containing the lower and
-            upper bounds of the days to plot. The first element of 'days' 
+            upper bounds of the days to plot. The first element of *days* 
             would be the lower bound, while the second element would be the 
             upper bound. If None, the lower and upper bounds for the 'days' 
             variable are automatically selected by the program so that all 
@@ -1436,15 +1427,15 @@ class Site:
             
         hours : list of hours
             If list, it must be a list of 2 elements, containing the lower and
-            upper bounds of the hours to plot. The first element of 'hours' 
+            upper bounds of the hours to plot. The first element of *hours* 
             would be the lower bound, while the second element would be the 
             upper bound. 
             
         mode : int, optional
             Mode of plotting. There are 3 options:
+
                 1) mode=1 : Plot all variable curves for all times.
-                2) mode=2 : Plot all variable curves for all times + 
-                            Plot average and 25th, 50th, 75th percentiles.
+                2) mode=2 : Plot all variable curves for all times + Plot average and 25th, 50th, 75th percentiles.
                 3) mode=3 : Plot average and 25th, 50th, 75th percentiles.
     
             Default is mode=2.
@@ -1453,13 +1444,12 @@ class Site:
         interp_method : {'linear', 'nearest', 'cubic'}, optional
             Method to use for the interpolation of data before plotting.
             The methods supported are the same ones as those supported by 
-            scipy.interpolate.griddata fucntion. Default is "linear".
+            ``scipy.interpolate.griddata`` function. Default is "linear".
             
         figsize : 2-tuple of int, optional
             Figure size of plot. Default is (16, 12).
         
-            
-
+        
         """
         
          # We accomodate the data inot a form which is more suitable for calulations.
@@ -1689,7 +1679,7 @@ class Site:
         ----------
         col : str
             Name of the variable to be plotted. Must be one of the keys of 
-            'self.variables_info["descriptions"]'.  
+            *self.variables_info["descriptions"]*.  
             
         year : int
             Year at which the variable is defined.
@@ -1702,11 +1692,11 @@ class Site:
             
         new_hms_float : array-like of floats (npoints,)
             Fractional hours at which to evaluate the interpolated variable.
-            The range of 'new_hms_float' must be the same as the the variable's
+            The range of *new_hms_float* must be the same as the the variable's
             original hms_float.
             
         interp_method : {'linear', 'slinear', 'quadratic', 'cubic'}, optional
-            Interpolation method. Any str supported by the scipy.interpolate.interp1d 
+            Interpolation method. Any str supported by the ``scipy.interpolate.interp1d`` 
             function is accepted. Default is "linear".
         
             

@@ -2,8 +2,7 @@
 
 """
 Simple module for containing auxiliary functions that are commonly used in 
-other modules of the folder Ambience_Modelling or even other folders.
-  
+other modules.
 """
 #%%             IMPORTATION OF LIBRARIES
 import pickle
@@ -69,6 +68,8 @@ def fill_nans_using_laplace_1D(arr, iterations=500):
     function performs the averaging until the specified number of iterations 
     is reached.
     
+    Parameters
+    ----------
     arr : numpy.array of floats
         Array of scalar data with NaN values sprinkled throughout.
     
@@ -167,14 +168,14 @@ def fill_CDS_globe_nans_using_laplace(data, iterations = 20000):
         axis 0, accounting for the variation of said values with respect to the
         latitude, while the axis 1 accounts for the variation with respect to
         the longitude. Axes 0 and 1 must have the same constant spacing, meaning
-        that axis 1 should be twice the length of axis 0. That is, 'data' must
+        that axis 1 should be twice the length of axis 0. That is, *data* must
         be defined over an equally-spaced regular rectangular grid of 
         latitude vs longitude. Finally, regarding the coordinate system: let 
-        'data' be a Nx2N numpy.array of floats. Then data[0,:] is the
+        *data* be a Nx2N numpy.array of floats. Then ``data[0,:]`` is the
         circle of constant latitude equal to -90° (i.e, the geographic south 
-        pole), data[-1,:] is the circle of constant latitude equal to 90° 
-        (i.e, the geographic north pole), data[:,0] is the arc of constant 
-        longitude equal to -180° and data[:,-1] is the arc of constant
+        pole), ``data[-1,:]`` is the circle of constant latitude equal to 90° 
+        (i.e, the geographic north pole), ``data[:,0]`` is the arc of constant 
+        longitude equal to -180° and ``data[:,-1]`` is the arc of constant
         longitude equal to 180°.
         
     
@@ -194,17 +195,16 @@ def fill_CDS_globe_nans_using_laplace(data, iterations = 20000):
 
     Warns
     -----
-    1) Warning :
-       "WARNING: Length of axis 1 is not equal to 2 times the length
+    1) Warning 
+        "WARNING: Length of axis 1 is not equal to 2 times the length
         of axis 0. This function requires for the data to
         be equally spaced and encompass the whole earth.
-        That is only possible if data.shape[1] = 2*data.shape[0]. 
+        That is only possible if ``data.shape[1] == 2*data.shape[0]``. 
         If these conditions are not satisfied, results may be incorrect or misleading."
 
         
     Notes
     -----
-    
     1) This function is equivalent to discretely solving laplace's equation on 
        the surface of a sphere. In this case, the domain of solution are the 
        NaN filled elements, while the boundary conditions are given by all
@@ -214,26 +214,26 @@ def fill_CDS_globe_nans_using_laplace(data, iterations = 20000):
        particular boundary conditions should be satisfied:
            
            a) The values of the array should 'wrap' along the longitudinal 
-              direction. That is, for an infinitely fine mesh: data[i,0] == 
-              data[i,-1], for all i.
+              direction. That is, for an infinitely fine mesh: ``data[i,0] == 
+              data[i,-1]``, for all i.
               
            b) The values of the array at the each geographic pole should be 
               the same for all longitudes. That is, for an infinitely fine mesh: 
-              data[0,:] and data[-1,:] are constant arrays.
+              ``data[0,:] and data[-1,:]`` are constant arrays.
               
        However, for finitely fine meshes we implement these conditions slightly
        differently. The way it is done is on how we compute the averages. Namely:
-       data[i,j] = 0.25*( data[i-1,j] + data[i+1,j] + data[i,j-1] +
-       data[i,j+1] ), for most cases. But when:
+       ``data[i,j] = 0.25*( data[i-1,j] + data[i+1,j] + data[i,j-1] +
+       data[i,j+1] )``, for most cases. But when:
            
-           1) j =  0,  data[i,j-1] equals data[i, -1]
-           2) j = -1,  data[i,j+1] equals data[i, 0]
-           3) i = 0,   data[i-1,j] equals data[0, bcj]
-           4) i = -1,  data[i+1,j] equals data[-1, bcj]
+           1) ``j =  0,  data[i,j-1]`` equals ``data[i, -1]``
+           2) ``j = -1,  data[i,j+1]`` equals ``data[i, 0]``
+           3) ``i = 0,   data[i-1,j]`` equals ``data[0, bcj]``
+           4) ``i = -1,  data[i+1,j]`` equals ``data[-1, bcj]``
     
-    Where bcj is and index such that lon[bcj] == lon[j] + 180,  if lon[j] < 0 and 
-    lon[bcj] == lon[j] - 180,  if lon[j] >= 0. Where
-    lon = numpy.linspace(-180, 180, data.shape[1])
+    Where bcj is and index such that ``lon[bcj] == lon[j] + 180``,  if ``lon[j] < 0 and 
+    lon[bcj] == lon[j] - 180``,  ``if lon[j] >= 0``. Where
+    ``lon = numpy.linspace(-180, 180, data.shape[1])``
         
     """
 

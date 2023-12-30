@@ -1,3 +1,9 @@
+#%%                MODULE DESCRIPTION AND/OR INFO
+"""
+This is a module containing functions, methods and classes related to the
+computation of time and date quantities.
+"""
+
 #%%                                   IMPORTATION OF LIBRARIES
 import warnings
 import numpy as np
@@ -57,6 +63,7 @@ def timestamp_hms_to_float(timestamp, unit = "h"):
 
     """
     Convert Timestamp Hour:Minutes:Seconds information to float.
+
     Example: timestamp_hms_to_float(timestamp, unit = "h"), where
     timestamp = pd.Timestamp("2023-03-08 14:25:36") returns 14.426667. That is,
     it turns the 14h 25min 36s of the timestamp to an equivalent number
@@ -130,18 +137,19 @@ def compute_sunrise_sunset(latitude, longitude, tz, start, end = None):
 
     Examples
     --------
+    >>> # Return DataFrame with computed sunrise and sunset times (using local time) from January 1st 2023, to January 10th 2023, for the city of Medellín, Colombia
     >>> compute_sunrise_sunset(6.25184, -75.56359, '-05:00', '2023-01-01', '2023-01-10')
-    # Returns DataFrame with computed sunrise and sunset times (using local time) from January 1st, 2023, to January 10th, 2023, for the city of Medellín, Colombia
-
+    >>>
+    >>> # Return DataFrame with computed sunrise and sunset times (using local time) for June 1st 2023, for the city of Sydney, Australia.
     >>> compute_sunrise_sunset(-33.86785, 151.20732, '+11:00', '2023-06-01')
-    # Returns DataFrame with computed sunrise and sunset times (using local time) for June 1st, 2023, for the city of Sydney, Australia.
-
+    >>>
+    >>> # Return DataFrame with computed sunrise and sunset times (using local time) for January 1st 2023, January 2nd 2023 and January 3rd 2023, for Medellín, Colombia.
     >>> idx = pandas.DatetimeIndex(['2023-01-01', '2023-01-02', '2023-01-03'])
     >>> compute_sunrise_sunset(6.25184, -75.56359, '-05:00', idx)
-    # Returns DataFrame with computed sunrise and sunset times (using local time) for January 1st, 2023, January 2nd, 2023 and January 3rd 2023, for Medellín, Colombia.
-
+    >>>
+    >>> # Return DataFrame with computed sunrise and sunset times (using local time) for the whole year of 2023 for a place inside the antartic circle.
     >>> compute_sunrise_sunset(-82, -75.56359, '-05:00', "2023-01-01", "2023-12-31")
-    # Returns DataFrame with computed sunrise and sunset times (using local time) for the whole year of 2023 for a place inside the antartic circle.
+    
 
     Notes
     -----
@@ -299,13 +307,13 @@ def geo_date_range(latitude, longitude, tz,
 
     min_hms : str or None
         A string representing the minimum hour-minute-second (HH:MM:SS) value for a Timestamp within each day's time series.
-        If the hms values are below this threshold, they are removed. It can also be set to 'None' to ignore this condition,
-        or to "sunrise" to use the computed sunrise time for the location as the value for 'min_hms'.
+        If the hms values are below this threshold, they are removed. It can also be set to None to ignore this condition,
+        or to "sunrise" to use the computed sunrise time for the location as the value for *min_hms*.
 
     max_hms: str or None
         A string representing the maximum hour-minute-second (HH:MM:SS) value for a Timestamp within each day's time series.
         If the hms values are above this threshold, they are removed. It can also be set to None to ignore this condition,
-        or to "sunset" to use the computed sunset time for the location as the value for max_hms.
+        or to "sunset" to use the computed sunset time for the location as the value for *max_hms*.
 
     skip_polar_nights : bool, optional
         Whether to skip polar night periods during filtering. Defaults to True.
@@ -326,7 +334,8 @@ def geo_date_range(latitude, longitude, tz,
 
     Examples
     -------
-
+    >>> # Generates a date range from '2023-1-1 00:00:00' to '2023-12-31 23:59:59.999' UTC-5 time, using a frequency of 5 min.
+    >>> # No filtering of the day hours is carried out.
     >>> latitude = 6.230833
     >>> longitude = -75.56359
     >>> tz = '-05:00'
@@ -338,10 +347,10 @@ def geo_date_range(latitude, longitude, tz,
     >>> skip_polar_nights = True
     >>> inclusive = False
     >>> res = geo_date_range(latitude, longitude, tz, start_time, end_time, freq, min_hms, max_hms, skip_polar_nights, inclusive)
-    # Generates a date range from '2023-1-1 00:00:00' to '2023-12-31 23:59:59.999' UTC-5 time, using a frequency of 5 min.
-    # No filtering of the day hours is carried out.
-    
     >>>
+    >>>
+    >>> # Generates a date range from '2023-1-1 00:00:00' to '2023-12-31 23:59:59.999' UTC-5 time, using a frequency of 5 min.
+    >>> # Filtering of the day hours is carried out using sunrise and sunset times calculated for Medellín, Colombia.
     >>> latitude = 6.230833
     >>> longitude = -75.56359
     >>> tz = '-05:00'
@@ -353,10 +362,10 @@ def geo_date_range(latitude, longitude, tz,
     >>> skip_polar_nights = True
     >>> inclusive = False
     >>> res = geo_date_range(latitude, longitude, tz, start_time, end_time, freq, min_hms, max_hms, skip_polar_nights, inclusive)
-    # Generates a date range from '2023-1-1 00:00:00' to '2023-12-31 23:59:59.999' UTC-5 time, using a frequency of 5 min.
-    # Filtering of the day hours is carried out using sunrise and sunset times calculated for Medellín, Colombia.
-
     >>>
+    >>>
+    >>> # Generates a date range from '2023-1-1 00:00:00' to '2023-12-31 23:59:59.999' UTC-5 time, using a frequency of 5 min.
+    >>> # Filtering of the day hours is carried out using the range specified by the user.
     >>> latitude = 6.230833
     >>> longitude = -75.56359
     >>> tz = '-05:00'
@@ -368,9 +377,6 @@ def geo_date_range(latitude, longitude, tz,
     >>> skip_polar_nights = True
     >>> inclusive = False
     >>> res = geo_date_range(latitude, longitude, tz, start_time, end_time, freq, min_hms, max_hms, skip_polar_nights, inclusive)
-    # Generates a date range from '2023-1-1 00:00:00' to '2023-12-31 23:59:59.999' UTC-5 time, using a frequency of 5 min.
-    # Filtering of the day hours is carried out using the range specified by the user.
-
 
     """
 
