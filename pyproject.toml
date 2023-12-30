@@ -44,7 +44,8 @@ dev = [
   "myst_parser",
   "furo",
   "nbsphinx",
-  "rst-to-myst"
+  "rst-to-myst",
+  "notebook"
 ]
 
 
