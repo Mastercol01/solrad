@@ -1112,55 +1112,53 @@ energy is returned as a scalar value.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="solrad.Sky.Sky.compute_exposure_vectors_for_a_date_interval">
 <span class="sig-name descname"><span class="pre">compute_exposure_vectors_for_a_date_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">46</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">naz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">181</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_site_horizon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_nzen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_naz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Sky.Sky.compute_exposure_vectors_for_a_date_interval" title="Permalink to this definition">#</a></dt>
-<dd><blockquote>
-<div><p>Compute the radiant exposure and spectral radiant exposure vectors
+<dd><p>Compute the radiant exposure and spectral radiant exposure vectors
 of each Sky patch. That is, the time-integrated spectral irradiance
 over each Sky patch (for a given date interval) by integrating the
 time-integrated spectral radiance with respect to the solid angle, over
 each sky patch of the discretised Sky Vault.</p>
-<dl class="simple">
-<dt>start_date<span class="classifier">3-tuple of int or None, optional</span></dt><dd><p>Start date of computation.
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_date</strong> (<em>3-tuple</em><em> of </em><em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Start date of computation.
 If None, the first date in self.Site_obj.simulation_times_data.keys() is chosen.
-Otherwise, it must be a is 3-tuple of (year, month, day) indicating the start date.</p>
-</dd>
-<dt>end_date<span class="classifier">3-tuple of int or None, optional</span></dt><dd><p>End date of computation.
+Otherwise, it must be a is 3-tuple of (year, month, day) indicating the start date.</p></li>
+<li><p><strong>end_date</strong> (<em>3-tuple</em><em> of </em><em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – End date of computation.
 If None, the last date in self.Site_obj.simulation_times_data.keys() is chosen.
-Otherwise, it must be a is 3-tuple of (year, month, day) indicating the end date.</p>
-</dd>
-<dt>nel<span class="classifier">int, optional</span></dt><dd><p>Number of samples for dicretizing the sky vault with regards to
-the elevation coordinate. Default is 46.</p>
-</dd>
-<dt>naz<span class="classifier">int, optional</span></dt><dd><p>Number of samples for dicretizing the sky vault with regards to
-the azimuth coordinate. Default is 181.</p>
-</dd>
-<dt>num_iterations<span class="classifier">int, optional</span></dt><dd><p>Number of iterations to use when filling NaN data. Default is 150.</p>
-</dd>
-<dt>use_site_horizon<span class="classifier">bool</span></dt><dd><p>Include horizon effects. Default is False.</p>
-</dd>
-<dt>int_nzen<span class="classifier">int</span></dt><dd><p>Number of samples for dicretizing each sky patch, with regards to
+Otherwise, it must be a is 3-tuple of (year, month, day) indicating the end date.</p></li>
+<li><p><strong>nel</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of samples for dicretizing the sky vault with regards to
+the elevation coordinate. Default is 46.</p></li>
+<li><p><strong>naz</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of samples for dicretizing the sky vault with regards to
+the azimuth coordinate. Default is 181.</p></li>
+<li><p><strong>num_iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of iterations to use when filling NaN data. Default is 150.</p></li>
+<li><p><strong>use_site_horizon</strong> (<em>bool</em>) – Include horizon effects. Default is False.</p></li>
+<li><p><strong>int_nzen</strong> (<em>int</em>) – Number of samples for dicretizing each sky patch, with regards to
 the zenith coordinate, in order to compute the diffuse spectral
-irradiance via integration. Default is 20.</p>
-</dd>
-<dt>int_naz<span class="classifier">int</span></dt><dd><p>Number of samples for dicretizing each sky patch, with regards to
+irradiance via integration. Default is 20.</p></li>
+<li><p><strong>int_naz</strong> (<em>int</em>) – Number of samples for dicretizing each sky patch, with regards to
 the zenith coordinate, in order to compute the diffuse spectral
-irradiance via integration. Default is 30.</p>
+irradiance via integration. Default is 30.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
-<p>None</p>
+<p class="rubric">Produces</p>
 <dl>
 <dt>self.patch_data[(zone_num, local_patch_num)][“exposure”]<span class="classifier">dict of dicts</span></dt><dd><p>Each sky patch recieves a new key in its database called
 “exposure”. This is a dict with keys: “direct”, “diffuse”, “global”,
-“spectral_direct”, “spectral_diffuse”, “spectral_global”;
-each holding another dictionary that stores some relevant information
-about the direct, diffuse and global radiant and spectral radiant exposure
-(respectively) related to that particular sky patch.</p>
-<p>Now, for keys “spectral_direct”, “spectral_diffuse”, “spectral_global”,
+“spectral_direct”, “spectral_diffuse”, “spectral_global”; and “wavelengths”.
+Aside from “wavelengths”, every other key holds another dictionary that stores
+some relevant information about the direct, diffuse and global radiant and
+spectral radiant exposure (respectively) related to that particular sky patch.</p>
+<p>For keys “spectral_direct”, “spectral_diffuse”, “spectral_global”,
 each of these dicts contains the following key-value pairs:</p>
 <blockquote>
 <div><dl class="simple">
 <dt>“vector”<span class="classifier">np.array of floats with shape (3,122)</span></dt><dd><p>spectral direct/spectral diffuse/spectral global
 (depending on the case) radiant exposure vector.
-‘vector’[0,:], ‘vector’[1,:] and ‘vector’[2,:],
+“vector”[0,:], “vector”[1,:] and “vector”[2,:],
 hold the x, y and z components of the
 spectral radiant exposure vector, respectively,
 for all wavelengths in key “wavelengths”.
@@ -1186,8 +1184,8 @@ each of these dicts contains the following key-value pairs:</p>
 <blockquote>
 <div><dl class="simple">
 <dt>“vector”<span class="classifier">np.array of floats with shape (3,)</span></dt><dd><p>direct/diffuse/global (depending on the case)
-radiant exposure vector. ‘vector’[0], ‘vector’[1]
-and ‘vector’[2], hold the x, y and z components of the
+radiant exposure vector. “vector”[0], “vector”[1]
+and “vector”[2], hold the x, y and z components of the
 radiant exposure vector, respectively, for all
 wavelengths in key “wavelengths”. Each component
 has units of Wh/m^2.</p>
@@ -1206,18 +1204,18 @@ It is adimensional.</p>
 </dd>
 </dl>
 </div></blockquote>
-</dd>
-<dt>self.patch_data[(zone_num, local_patch_num)][“exposure”][“wavelengths]<span class="classifier">np.array of floats with shape (122,)</span></dt><dd><p>Array of wavelengths over which the spectral irradiances
-are defined.</p>
+<p>Finally, in the case of the key “wavelengths”, it does not store any dicts
+but rather a numpy.array of float values:</p>
+<dl class="simple">
+<dt>np.array of floats with shape (122,)</dt><dd><p>Array of wavelengths over which the spectral irradiances are defined.</p>
 </dd>
 </dl>
-</div></blockquote>
-<dl>
-<dt>self.exposure_vectors<span class="classifier">dict of numpy.arrays</span></dt><dd><blockquote>
-<div><p>Dict containing the same info as above, but in another format
+</dd>
+<dt>self.exposure_vectors<span class="classifier">dict of numpy.arrays</span></dt><dd><p>Dict containing the same info as above, but in another format
 that is handier for other things. It has the following
 key-value pairs:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>“spectral_direct”<span class="classifier">numpy.array of floats with shape (self.num_divisions, 3, 122)</span></dt><dd><p>Direct spectral radiant exposure vector for each of the sky patches.
 It has units of Wh/m^2/nm.</p>
 </dd>
@@ -1307,12 +1305,6 @@ are defined.</p>
 </dd>
 </dl>
 </div></blockquote>
-<ol class="arabic simple">
-<li><p>This method requires that time-integrated spectral radiance already
-be calculated. Check the method
-“self.compute_time_integrated_spectral_radiance_for_a_date_interval”
-for more info.</p></li>
-</ol>
 </dd>
 </dl>
 </dd></dl>
@@ -1326,7 +1318,7 @@ for more info.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>min_res</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum angular resolution (in degrees) that wants to be achieved during
 the optimization process. Default is 0.5.</p></li>
-<li><p><strong>naz</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of azimuthal divisions for each ieteration. Default is 13.</p></li>
+<li><p><strong>naz</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of azimuthal divisions for each iteration. Default is 13.</p></li>
 <li><p><strong>nel</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of elevation divisions. Default is 4.</p></li>
 <li><p><strong>absorption_func</strong> (<em>int</em><em>, </em><em>float</em><em>, or </em><em>callable</em><em>, </em><em>optional</em>) – The absorption function. If int or float, a constant absorption coefficient is used.
 If callable, the function should take an array of arguments representing angle of incidence
@@ -1335,14 +1327,20 @@ and wavelength and return the absorption coefficient. Default is 1.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>opti_vals</strong> – A dictionary containing the optimal orientation information:
-- “energy”: Total absorbed incident energy.
-- “az”: Optimal azimuth angle in degrees.
-- “zen”: Optimal zenith angle in degrees.
-- “el”: Optimal elevation angle in degrees.
-- “n_uvec”: Normalized unit vector of the optimal orientation.
-- “az_res”: Azimuth resolution in degrees.
-- “el_res”: Elevation resolution in degrees.</p>
+<dd class="field-even"><p><p><strong>opti_vals</strong> –</p>
+<p>A dictionary containing the optimal orientation information:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>”energy”: Total absorbed incident energy.</p></li>
+<li><p>”az”: Optimal azimuth angle in degrees.</p></li>
+<li><p>”zen”: Optimal zenith angle in degrees.</p></li>
+<li><p>”el”: Optimal elevation angle in degrees.</p></li>
+<li><p>”n_uvec”: Normalized unit vector of the optimal orientation.</p></li>
+<li><p>”az_res”: Azimuth resolution in degrees.</p></li>
+<li><p>”el_res”: Elevation resolution in degrees.</p></li>
+</ul>
+</div></blockquote>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
@@ -1373,15 +1371,13 @@ computed) spectral radiance over the wavelength axis.</p>
 pairs:</p>
 <blockquote>
 <div><dl class="simple">
-<dt>“Az”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-the azimuth (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘Az’ varies
-along axis 1. Values are between 0 and 360.</p>
+<dt>“Az”<span class="classifier">float or numpy.array of floats with shape (nel, naz)</span></dt><dd><p>Grid of azimuth coordinates (in degrees) of the sky elements for which the
+radiances was calculated. Its values should vary along axis 1.
+In any case, all values should be between 0 and 360 (inclusive).</p>
 </dd>
-<dt>“El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘El’ varies
-along axis 0. Values are between 0 and 90.</p>
+<dt>“El”<span class="classifier">float or numpy.array of floats with shape (nel, naz)</span></dt><dd><p>Grid of elevation coordinates (in degrees) of the sky elements for which the
+radiances was calculated. Its values should vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p>
 </dd>
 <dt>“Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
 </dd>
@@ -1404,7 +1400,7 @@ units of W/m^2/sr/nm.</p>
 <dt>“direct”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Direct component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
-<dt>“dffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
+<dt>“diffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
 </dl>
@@ -1413,9 +1409,9 @@ of W/m^2/sr.</p>
 </dl>
 <p class="rubric">Notes</p>
 <ol class="arabic simple">
-<li><p>This method requires the attribute ‘self.radiances’ to
-already be defined.  For this, please check the
-‘self.compute_spectral_radiance_for_a_date’ method.</p></li>
+<li><p>This method requires the attribute <em>self.radiances</em> to
+already be defined. For this, please check out
+<a class="reference internal" href="#solrad.Sky.Sky.compute_spectral_radiance_for_a_date" title="solrad.Sky.Sky.compute_spectral_radiance_for_a_date"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_spectral_radiance_for_a_date()</span></code></a>.</p></li>
 </ol>
 </dd></dl>
 
@@ -1423,7 +1419,7 @@ already be defined.  For this, please check the
 <dt class="sig sig-object py" id="solrad.Sky.Sky.compute_radiances_for_a_date">
 <span class="sig-name descname"><span class="pre">compute_radiances_for_a_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">46</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">naz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">181</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_site_horizon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Sky.Sky.compute_radiances_for_a_date" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute radiance and spectral radiance across time for a complete day on a specific
-date, using the data stored in the ‘self.Site_obj’ attribute.</p>
+date, using the data stored in the <em>self.Site_obj</em> attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1451,15 +1447,13 @@ the azimuth coordinate. Default is 181.</p></li>
 pairs:</p>
 <blockquote>
 <div><dl class="simple">
-<dt>“Az”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-the azimuth (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘Az’ varies
-along axis 1. Values are between 0 and 360.</p>
+<dt>“Az”<span class="classifier">float or numpy.array of floats with shape (nel, naz)</span></dt><dd><p>Grid of azimuth coordinates (in degrees) of the sky elements for which the
+radiances was calculated. Its values should vary along axis 1.
+In any case, all values should be between 0 and 360 (inclusive).</p>
 </dd>
-<dt>“El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘El’ varies
-along axis 0. Values are between 0 and 90.</p>
+<dt>“El”<span class="classifier">float or numpy.array of floats with shape (nel, naz)</span></dt><dd><p>Grid of elevation coordinates (in degrees) of the sky elements for which the
+radiances was calculated. Its values should vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p>
 </dd>
 <dt>“Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
 </dd>
@@ -1482,7 +1476,7 @@ units of W/m^2/sr/nm.</p>
 <dt>“direct”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Direct component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
-<dt>“dffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
+<dt>“diffuse”<span class="classifier">numpy.array of floats with shape (nel,naz,nt)</span></dt><dd><p>Diffuse component of radiance across time. It has units
 of W/m^2/sr.</p>
 </dd>
 </dl>
@@ -1495,7 +1489,7 @@ of W/m^2/sr.</p>
 <dt class="sig sig-object py" id="solrad.Sky.Sky.compute_spectral_radiance_for_a_date">
 <span class="sig-name descname"><span class="pre">compute_spectral_radiance_for_a_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">46</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">naz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">181</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_site_horizon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solrad.Sky.Sky.compute_spectral_radiance_for_a_date" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute spectral radiance across time for a complete day on a specific
-date, using the data stored in the ‘self.Site_obj’ attribute.</p>
+date, using the data stored in the <em>self.Site_obj</em> attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1523,15 +1517,13 @@ the azimuth coordinate. Default is 181.</p></li>
 pairs:</p>
 <blockquote>
 <div><dl class="simple">
-<dt>“Az”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-the azimuth (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘Az’ varies
-along axis 1. Values are between 0 and 360.</p>
+<dt>“Az”<span class="classifier">float or numpy.array of floats with shape (nel, naz)</span></dt><dd><p>Grid of azimuth coordinates (in degrees) of the sky elements for which the
+spectral radiances was calculated. Its values should vary along axis 1.
+In any case, all values should be between 0 and 360 (inclusive).</p>
 </dd>
-<dt>“El”<span class="classifier">numpy.array of floats with shape (nel,naz)</span></dt><dd><p>Elevation array of meshgrid of Azimuth, Elevation values. It contains
-the elevation (in degrees) of each sky element to be considered in
-the calculation of spectral sky radiance. The values of ‘El’ varies
-along axis 0. Values are between 0 and 90.</p>
+<dt>“El”<span class="classifier">float or numpy.array of floats with shape (nel, naz)</span></dt><dd><p>Grid of elevation coordinates (in degrees) of the sky elements for which the
+spectral radiances was calculated. Its values should vary along axis 0.
+In any case, all values should be between 0 and 90 (inclusive).</p>
 </dd>
 <dt>“Siv”<span class="classifier">numpy.array of floats with shape (nt,)</span></dt><dd><p>Igawa’s ‘Sky Index’ parameter across time.</p>
 </dd>
@@ -1556,19 +1548,15 @@ units of W/m^2/sr/nm.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>Initial time and final time of simulation are taken to be
-self.Site_obj_simulation_time_data[(year, month, day)][0] and
-self.Site_obj_simulation_time_data[(year, month, day)][-1] (respectively).</p></li>
-</ol>
-<blockquote>
-<div><ol class="arabic simple" start="2">
+<p>1) Initial time and final time of simulation are taken to be
+<em>self.Site_obj_simulation_time_data[(year, month, day)][0]</em> and
+<em>self.Site_obj_simulation_time_data[(year, month, day)][-1]</em> (respectively).</p>
+<ol class="arabic simple" start="2">
 <li><p>Angular resolution in the Elevation coordinate is equal to 90/(nel - 1).</p></li>
 <li><p>Angular resolution in the Azimuth coordinate is equal to 360/(naz - 1).</p></li>
-<li><p>The time resolution used is the same as that of
-self.Site_obj.simulation_times_data.</p></li>
 </ol>
-</div></blockquote>
+<p>4) The time resolution used is the same as that of
+<em>self.Site_obj.simulation_times_data</em>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1589,8 +1577,8 @@ general rule for disk and hemisphere partition into equal-area cells”
 <p class="rubric">Produces</p>
 <dl>
 <dt>self.zone_data<span class="classifier">dict of dicts</span></dt><dd><p>Dictionary containing information about the discretization zones.
-Each key of ‘self.zone_data’ corresponds to a unique zone number.
-The component dictionaries (stored at ‘self.zone_data[zone_num]’)
+Each key of <em>self.zone_data</em> corresponds to a unique zone number.
+The component dictionaries (stored at <em>self.zone_data[zone_num]</em>)
 have the following Key-Value pairs:</p>
 <blockquote>
 <div><dl class="simple">
@@ -1620,9 +1608,9 @@ sky zone, in steradians.</p>
 </div></blockquote>
 </dd>
 <dt>self.patch_data<span class="classifier">dict of dicts</span></dt><dd><p>Dictionary containing information about the discretization patches.
-Each key of ‘self.patch_data’ is a 2-tuple of ints corresponding to
+Each key of <em>self.patch_data</em> is a 2-tuple of ints corresponding to
 the patch (zone number, local patch number). The component dictionaries
-(stored at ‘self.patch_data[(zone_num, local_patch_num)]’) have the
+(stored at <em>self.patch_data[(zone_num, local_patch_num)]</em>) have the
 following Key-Value pairs:</p>
 <blockquote>
 <div><dl class="simple">
@@ -1654,11 +1642,9 @@ x,y,z component respecitvely.</p>
 <p>Doing calling this method after initialization will also errase all other radiation quantities
 computed up to that point.</p>
 <p class="rubric">References</p>
-<dl class="simple">
-<dt>[1] Benoit Beckers, Pierre Beckers, A general rule for disk and hemisphere partition into equal-area cells,</dt><dd><p>Computational Geometry, Volume 45, Issue 7, 2012, Pages 275-283, ISSN 0925-7721, <a class="reference external" href="https://doi.org/10.1016/j.comgeo.2012.01.011">https://doi.org/10.1016/j.comgeo.2012.01.011</a>.
+<p>[1] Benoit Beckers, Pierre Beckers, A general rule for disk and hemisphere partition into equal-area cells,
+Computational Geometry, Volume 45, Issue 7, 2012, Pages 275-283, ISSN 0925-7721, <a class="reference external" href="https://doi.org/10.1016/j.comgeo.2012.01.011">https://doi.org/10.1016/j.comgeo.2012.01.011</a>.
 (<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0925772112000296">https://www.sciencedirect.com/science/article/pii/S0925772112000296</a>)</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1697,6 +1683,9 @@ if search failed.</p></li>
 <dt>figsize<span class="classifier">2-tuple of int</span></dt><dd><p>Size of figure.</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>1) This method requires that the sky-vault already be discretised
+to be calculated. Check out <a class="reference internal" href="#solrad.Sky.Sky.discretise" title="solrad.Sky.Sky.discretise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">discretise()</span></code></a></p>
 </section>
 </dd></dl>
 
@@ -1706,10 +1695,11 @@ if search failed.</p></li>
 <dd><p>Plot radiant exposures.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>dict</em><em> or </em><em>None</em>) – <dl>
-<dt>Dict of plot configuration options. If None (the default), it uses</dt><dd><p>the default confifuration plot options. If dict, it should include
+<dd class="field-odd"><p><strong>config</strong> (<em>dict</em><em> or </em><em>None</em>) – <p>Dict of plot configuration options. If None (the default), it uses
+the default confifuration plot options. If dict, it should include
 one or more of the following key-value pairs:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>“projection”<span class="classifier">{‘disk’, ‘sphere’}, optional</span></dt><dd><p>Type of plot projection. Supported are: “disk” The
 plots the radiant exposure in a 2D plot,
 while the second uses a 3D plot. Default is “disk”.</p>
@@ -1718,15 +1708,11 @@ while the second uses a 3D plot. Default is “disk”.</p>
 </dd>
 <dt>”figsize”<span class="classifier">2-tuple of int</span></dt><dd><p>Figure size. Default is (13,13).</p>
 </dd>
-</dl>
-</dd>
-<dt>”unit”<span class="classifier">{“Wh/m^2”, “kWh/m^2”, “kJ/m^2”, “MJ/m^2}</span></dt><dd><blockquote>
-<div><p>Units with which to display the radiant exposure.
+<dt>”unit”<span class="classifier">{“Wh/m^2”, “kWh/m^2”, “kJ/m^2”, “MJ/m^2}</span></dt><dd><p>Units with which to display the radiant exposure.
 In order, these mean: ‘Watt-hours per meter squared’,
 ‘kilo Watt-hours per meter squared’, ‘kilo Joules per meter squared’,
 and ‘Mega Joules per meter squared’. Default is “Wh/m^2”.</p>
-</div></blockquote>
-<dl class="simple">
+</dd>
 <dt>”n”<span class="classifier">int</span></dt><dd><p>Number of samples per axis to use for plot. A greater number
 means a more detailed plot (i.e, greater resolution) but it is
 resource intensive. Default is 1000.</p>
@@ -1735,8 +1721,7 @@ resource intensive. Default is 1000.</p>
 only for “sphere” plot. Default is (45, 120).</p>
 </dd>
 </dl>
-</dd>
-</dl>
+</div></blockquote>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1746,12 +1731,8 @@ only for “sphere” plot. Default is (45, 120).</p>
 <p class="rubric">Produces</p>
 <p>None</p>
 <p class="rubric">Notes</p>
-<ol class="arabic simple">
-<li><p>This method requires that time-integrated irradiances already
-be calculated. Check the method
-“self.compute_time_integrated_irradiances_for_a_date_interval”
-for more info.</p></li>
-</ol>
+<p>1) This method requires the radiant exposure vectors
+to be calculated. Check out <a class="reference internal" href="#solrad.Sky.Sky.compute_exposure_vectors_for_a_date_interval" title="solrad.Sky.Sky.compute_exposure_vectors_for_a_date_interval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_exposure_vectors_for_a_date_interval()</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1773,7 +1754,10 @@ for more info.</p></li>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>The method generates plots of radiance for the specified component at the given time.
+<p>1) This method requires the attribute <em>self.radiances</em> to
+already be defined. For this, please check out
+<a class="reference internal" href="#solrad.Sky.Sky.compute_radiances_for_a_date" title="solrad.Sky.Sky.compute_radiances_for_a_date"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_radiances_for_a_date()</span></code></a>.</p>
+<p>2) The method generates plots of radiance for the specified component at the given time.
 It supports two types of projections: “disk” (polar plot) and “sphere” (3D plot).</p>
 </dd></dl>
 
@@ -1803,7 +1787,10 @@ key-value pairs:</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>The method generates polar plots of spectral radiance for the specified component at the given time.
+<p>1) This method requires the attribute <em>self.radiances</em> to
+already be defined. For this, please check out
+<a class="reference internal" href="#solrad.Sky.Sky.compute_radiances_for_a_date" title="solrad.Sky.Sky.compute_radiances_for_a_date"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_radiances_for_a_date()</span></code></a>.</p>
+<p>2) The method generates polar plots of spectral radiance for the specified component at the given time.
 The plots show color-contoured radiance values at different azimuth and elevation angles.</p>
 </dd></dl>
 
@@ -1819,6 +1806,9 @@ The plots show color-contoured radiance values at different azimuth and elevatio
 <dt>axis_view = 2-tuple of int</dt><dd><p>Plot’s elevation, azimuth in degrees.</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>1) This method requires that the sky-vault already be discretised
+to be calculated. Check out <a class="reference internal" href="#solrad.Sky.Sky.discretise" title="solrad.Sky.Sky.discretise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">discretise()</span></code></a></p>
 </section>
 </dd></dl>
 

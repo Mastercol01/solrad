@@ -120,8 +120,8 @@ class Sky:
         --------
         self.zone_data : dict of dicts
             Dictionary containing information about the discretization zones. 
-            Each key of 'self.zone_data' corresponds to a unique zone number.
-            The component dictionaries (stored at 'self.zone_data[zone_num]')
+            Each key of *self.zone_data* corresponds to a unique zone number.
+            The component dictionaries (stored at *self.zone_data[zone_num]*)
             have the following Key-Value pairs:
                 
                 Keys : Values
@@ -159,9 +159,9 @@ class Sky:
                 
         self.patch_data : dict of dicts
             Dictionary containing information about the discretization patches. 
-            Each key of 'self.patch_data' is a 2-tuple of ints corresponding to 
+            Each key of *self.patch_data* is a 2-tuple of ints corresponding to 
             the patch (zone number, local patch number). The component dictionaries
-            (stored at 'self.patch_data[(zone_num, local_patch_num)]') have the
+            (stored at *self.patch_data[(zone_num, local_patch_num)]*) have the
             following Key-Value pairs:
                 
                 Keys : Values
@@ -200,8 +200,8 @@ class Sky:
         References
         ----------
         [1] Benoit Beckers, Pierre Beckers, A general rule for disk and hemisphere partition into equal-area cells,
-            Computational Geometry, Volume 45, Issue 7, 2012, Pages 275-283, ISSN 0925-7721, https://doi.org/10.1016/j.comgeo.2012.01.011.
-            (https://www.sciencedirect.com/science/article/pii/S0925772112000296)
+        Computational Geometry, Volume 45, Issue 7, 2012, Pages 275-283, ISSN 0925-7721, https://doi.org/10.1016/j.comgeo.2012.01.011.
+        (https://www.sciencedirect.com/science/article/pii/S0925772112000296)
 
                     
         """
@@ -554,6 +554,11 @@ class Sky:
         ---------
         figsize : 2-tuple of int
             Size of figure.
+
+        Notes
+        -----
+        1) This method requires that the sky-vault already be discretised
+        to be calculated. Check out :meth:`~solrad.Sky.Sky.discretise`
     
         """
 
@@ -648,6 +653,11 @@ class Sky:
             
         axis_view = 2-tuple of int
             Plot's elevation, azimuth in degrees.
+
+        Notes
+        -----
+        1) This method requires that the sky-vault already be discretised
+        to be calculated. Check out :meth:`~solrad.Sky.Sky.discretise`
     
         """
             
@@ -690,7 +700,7 @@ class Sky:
         
         """
         Compute spectral radiance across time for a complete day on a specific
-        date, using the data stored in the 'self.Site_obj' attribute.
+        date, using the data stored in the *self.Site_obj* attribute.
         
         Parameters
         ----------
@@ -733,17 +743,15 @@ class Sky:
                 
                 Keys : Values
                 -------------
-                "Az" : numpy.array of floats with shape (nel,naz)
-                    Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-                    the azimuth (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'Az' varies
-                    along axis 1. Values are between 0 and 360.
+                "Az" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of azimuth coordinates (in degrees) of the sky elements for which the 
+                    spectral radiances was calculated. Its values should vary along axis 1.
+                    In any case, all values should be between 0 and 360 (inclusive). 
                 
-                "El" : numpy.array of floats with shape (nel,naz)
-                    Elevation array of meshgrid of Azimuth, Elevation values. It contains
-                    the elevation (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'El' varies
-                    along axis 0. Values are between 0 and 90.
+                "El" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of elevation coordinates (in degrees) of the sky elements for which the
+                    spectral radiances was calculated. Its values should vary along axis 0.
+                    In any case, all values should be between 0 and 90 (inclusive). 
                 
                 "Siv" : numpy.array of floats with shape (nt,)   
                     Igawa's 'Sky Index' parameter across time.
@@ -774,15 +782,15 @@ class Sky:
         Notes
         -----
         1) Initial time and final time of simulation are taken to be 
-           self.Site_obj_simulation_time_data[(year, month, day)][0] and 
-           self.Site_obj_simulation_time_data[(year, month, day)][-1] (respectively).
+        *self.Site_obj_simulation_time_data[(year, month, day)][0]* and 
+        *self.Site_obj_simulation_time_data[(year, month, day)][-1]* (respectively).
            
-         2) Angular resolution in the Elevation coordinate is equal to 90/(nel - 1).
-    
-         3) Angular resolution in the Azimuth coordinate is equal to 360/(naz - 1).
-    
-         4) The time resolution used is the same as that of
-            self.Site_obj.simulation_times_data.
+        2) Angular resolution in the Elevation coordinate is equal to 90/(nel - 1).
+
+        3) Angular resolution in the Azimuth coordinate is equal to 360/(naz - 1).
+
+        4) The time resolution used is the same as that of
+        *self.Site_obj.simulation_times_data*.
 
         """
         global mask
@@ -891,17 +899,15 @@ class Sky:
                 
                 Keys : Values
                 -------------
-                "Az" : numpy.array of floats with shape (nel,naz)
-                    Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-                    the azimuth (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'Az' varies
-                    along axis 1. Values are between 0 and 360.
+                "Az" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of azimuth coordinates (in degrees) of the sky elements for which the 
+                    radiances was calculated. Its values should vary along axis 1.
+                    In any case, all values should be between 0 and 360 (inclusive). 
                 
-                "El" : numpy.array of floats with shape (nel,naz)
-                    Elevation array of meshgrid of Azimuth, Elevation values. It contains
-                    the elevation (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'El' varies
-                    along axis 0. Values are between 0 and 90.
+                "El" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of elevation coordinates (in degrees) of the sky elements for which the
+                    radiances was calculated. Its values should vary along axis 0.
+                    In any case, all values should be between 0 and 90 (inclusive). 
                 
                 "Siv" : numpy.array of floats with shape (nt,)   
                     Igawa's 'Sky Index' parameter across time.
@@ -932,15 +938,15 @@ class Sky:
                     Direct component of radiance across time. It has units
                     of W/m^2/sr.
                     
-                "dffuse" : numpy.array of floats with shape (nel,naz,nt)
+                "diffuse" : numpy.array of floats with shape (nel,naz,nt)
                     Diffuse component of radiance across time. It has units
                     of W/m^2/sr.
                     
         Notes
         -----
-        1) This method requires the attribute 'self.radiances' to
-           already be defined.  For this, please check the 
-           'self.compute_spectral_radiance_for_a_date' method.
+        1) This method requires the attribute *self.radiances* to
+           already be defined. For this, please check out 
+           :meth:`~solrad.Sky.Sky.compute_spectral_radiance_for_a_date`.
         """
         
         # Get number of sample points across space and time.
@@ -980,7 +986,7 @@ class Sky:
     def compute_radiances_for_a_date(self, year, month, day, nel = 46, naz = 181, num_iterations = 150, use_site_horizon=False):
         """
         Compute radiance and spectral radiance across time for a complete day on a specific
-        date, using the data stored in the 'self.Site_obj' attribute.
+        date, using the data stored in the *self.Site_obj* attribute.
         
         Parameters
         ----------
@@ -1022,17 +1028,15 @@ class Sky:
                 
                 Keys : Values
                 -------------
-                "Az" : numpy.array of floats with shape (nel,naz)
-                    Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-                    the azimuth (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'Az' varies
-                    along axis 1. Values are between 0 and 360.
+                "Az" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of azimuth coordinates (in degrees) of the sky elements for which the 
+                    radiances was calculated. Its values should vary along axis 1.
+                    In any case, all values should be between 0 and 360 (inclusive). 
                 
-                "El" : numpy.array of floats with shape (nel,naz)
-                    Elevation array of meshgrid of Azimuth, Elevation values. It contains
-                    the elevation (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'El' varies
-                    along axis 0. Values are between 0 and 90.
+                "El" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of elevation coordinates (in degrees) of the sky elements for which the
+                    radiances was calculated. Its values should vary along axis 0.
+                    In any case, all values should be between 0 and 90 (inclusive). 
                 
                 "Siv" : numpy.array of floats with shape (nt,)   
                     Igawa's 'Sky Index' parameter across time.
@@ -1063,7 +1067,7 @@ class Sky:
                     Direct component of radiance across time. It has units
                     of W/m^2/sr.
                     
-                "dffuse" : numpy.array of floats with shape (nel,naz,nt)
+                "diffuse" : numpy.array of floats with shape (nel,naz,nt)
                     Diffuse component of radiance across time. It has units
                     of W/m^2/sr.
         """
@@ -1105,7 +1109,11 @@ class Sky:
 
         Notes
         -----
-        The method generates polar plots of spectral radiance for the specified component at the given time.
+        1) This method requires the attribute *self.radiances* to
+        already be defined. For this, please check out 
+        :meth:`~solrad.Sky.Sky.compute_radiances_for_a_date`.
+
+        2) The method generates polar plots of spectral radiance for the specified component at the given time.
         The plots show color-contoured radiance values at different azimuth and elevation angles.
 
         """
@@ -1200,8 +1208,13 @@ class Sky:
 
         Notes
         -----
-        The method generates plots of radiance for the specified component at the given time.
+        1) This method requires the attribute *self.radiances* to
+        already be defined. For this, please check out 
+        :meth:`~solrad.Sky.Sky.compute_radiances_for_a_date`.
+
+        2) The method generates plots of radiance for the specified component at the given time.
         It supports two types of projections: "disk" (polar plot) and "sphere" (3D plot).
+
 
         """
 
@@ -1312,18 +1325,15 @@ class Sky:
                 
                 Keys : Values
                 -------------
+                "Az" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of azimuth coordinates (in degrees) of the sky elements for which the 
+                    spectral radiance was calculated. Its values should vary along axis 1.
+                    In any case, all values should be between 0 and 360 (inclusive). 
                 
-                "Az" : numpy.array of floats with shape (nel,naz)
-                    Azimuth array of meshgrid of Azimuth, Elevation values. It contains
-                    the azimuth (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'Az' varies
-                    along axis 1. Values are between 0 and 360.
-                
-                "El" : numpy.array of floats with shape (nel,naz)
-                    Elevation array of meshgrid of Azimuth, Elevation values. It contains
-                    the elevation (in degrees) of each sky element to be considered in 
-                    the calculation of spectral sky radiance. The values of 'El' varies
-                    along axis 0. Values are between 0 and 90.
+                "El" : float or numpy.array of floats with shape (nel, naz)
+                    Grid of elevation coordinates (in degrees) of the sky elements for which the
+                    spectral radiance was calculated. Its values should vary along axis 0.
+                    In any case, all values should be between 0 and 90 (inclusive). 
                     
                 "wavelengths" : numpy.array of floats with shape (122,)
                     Wavelengths in nanometers.
@@ -1643,36 +1653,36 @@ class Sky:
         Returns
         -------
         None
-        
+
         Produces
         --------
         self.patch_data[(zone_num, local_patch_num)]["exposure"] : dict of dicts
             Each sky patch recieves a new key in its database called 
             "exposure". This is a dict with keys: "direct", "diffuse", "global",
-            "spectral_direct", "spectral_diffuse", "spectral_global"; 
-            each holding another dictionary that stores some relevant information
-            about the direct, diffuse and global radiant and spectral radiant exposure
-            (respectively) related to that particular sky patch.
+            "spectral_direct", "spectral_diffuse", "spectral_global"; and "wavelengths".
+            Aside from "wavelengths", every other key holds another dictionary that stores 
+            some relevant information about the direct, diffuse and global radiant and 
+            spectral radiant exposure (respectively) related to that particular sky patch.
 
-            Now, for keys "spectral_direct", "spectral_diffuse", "spectral_global",
+            For keys "spectral_direct", "spectral_diffuse", "spectral_global",
             each of these dicts contains the following key-value pairs:
-                
+
                 Keys : Values
                 -------------
                 "vector" : np.array of floats with shape (3,122)
                     spectral direct/spectral diffuse/spectral global
                     (depending on the case) radiant exposure vector. 
-                    'vector'[0,:], 'vector'[1,:] and 'vector'[2,:], 
+                    "vector"[0,:], "vector"[1,:] and "vector"[2,:], 
                     hold the x, y and z components of the 
                     spectral radiant exposure vector, respectively, 
                     for all wavelengths in key "wavelengths". 
                     Each component has units of Wh/m^2/nm.
-                    
+
                 "magnitude" : np.array of floats with shape (122,)
                     Magnitude of the spectral direct/spectral diffuse/spectral global
                     (depending on the case) spectral radiant exposure vector.
                     It has units of Wh/m^2/nm.
-                    
+
                 "spectrally_averaged_unit_vector" : np.array of floats with shape (3,)
                     Average position of irradiance within a sky patch. That is,
                     the unit vector version of the spectrally averageds
@@ -1690,8 +1700,8 @@ class Sky:
                 -------------
                 "vector" : np.array of floats with shape (3,)
                     direct/diffuse/global (depending on the case) 
-                    radiant exposure vector. 'vector'[0], 'vector'[1]
-                    and 'vector'[2], hold the x, y and z components of the 
+                    radiant exposure vector. "vector"[0], "vector"[1]
+                    and "vector"[2], hold the x, y and z components of the 
                     radiant exposure vector, respectively, for all 
                     wavelengths in key "wavelengths". Each component
                     has units of Wh/m^2.
@@ -1710,139 +1720,125 @@ class Sky:
                     pointing to the center of the current sky patch. 
                     It is adimensional.
 
+            Finally, in the case of the key "wavelengths", it does not store any dicts
+            but rather a numpy.array of float values:
+            
+            np.array of floats with shape (122,)
+                Array of wavelengths over which the spectral irradiances are defined.
+        
+        self.exposure_vectors : dict of numpy.arrays
+            Dict containing the same info as above, but in another format
+            that is handier for other things. It has the following
+            key-value pairs:
+
+                Keys : Values
+                -------------
+                "spectral_direct" : numpy.array of floats with shape (self.num_divisions, 3, 122)
+                    Direct spectral radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2/nm.
+    
+                "spectral_direct_mag" : numpy.array of floats with shape (self.num_divisions, 122)
+                    Magnitude of the direct spectral radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2/nm.
+
+                "spectral_direct_unit_savgd" : numpy.array of floats with shape (self.num_divisions, 3)
+                    Average position of radiant exposure within a sky patch. That is,
+                    unit vector version of the spectrally averaged spectral direct
+                    (depending on the case) radiant exposure vector. 
+                    In the case, however, that said Spectral radiant exposure
+                    vector is zero, we default to using the unit vector
+                    pointing to the center of the current sky patch. 
+                    It is adimensional.
                     
-        self.patch_data[(zone_num, local_patch_num)]["exposure"]["wavelengths] : np.array of floats with shape (122,)
+                "spectral_diffuse" : numpy.array of floats with shape (self.num_divisions, 3, 122)
+                    Diffuse spectral radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2/nm.
+    
+                "spectral_diffuse_mag" : numpy.array of floats with shape (self.num_divisions, 122)
+                    Magnitude of the diffuse spectral radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2/nm.
+
+                "spectral_diffuse_unit_savgd" : numpy.array of floats with shape (self.num_divisions, 3)
+                    Average position of radiant exposure within a sky patch. That is,
+                    unit vector version of the spectrally averaged spectral diffuse
+                    (depending on the case) radiant exposure vector. 
+                    In the case, however, that said Spectral radiant exposure
+                    vector is zero, we default to using the unit vector
+                    pointing to the center of the current sky patch. 
+                    It is adimensional.
+                    
+                "spectral_global" : numpy.array of floats with shape (self.num_divisions, 3, 122)
+                    Global spectral radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2/nm.
+    
+                "spectral_global_global" : numpy.array of floats with shape (self.num_divisions, 122)
+                    Magnitude of the global spectral radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2/nm.
+
+                "spectral_global_unit_savgd" : numpy.array of floats with shape (self.num_divisions, 3)
+                    Average position of radiant exposure within a sky patch. That is,
+                    unit vector version of the spectrally averaged spectral diffuse
+                    (depending on the case) radiant exposure vector. 
+                    In the case, however, that said Spectral radiant exposure
+                    vector is zero, we default to using the unit vector
+                    pointing to the center of the current sky patch. 
+                    It is adimensional.
+
+                "direct" : numpy.array of floats with shape (self.num_divisions, 3, 122)
+                    Direct radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2.
+    
+                "direct_mag" : numpy.array of floats with shape (self.num_divisions, 122)
+                    Magnitude of the direct radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2.
+
+                "direct_unit" : numpy.array of floats with shape (self.num_divisions, 3)
+                    Average position of radiant exposure within a sky patch. That is,
+                    unit vector version of the spectrally averaged spectral direct
+                    (depending on the case) radiant exposure vector. 
+                    In the case, however, that said radiant exposure
+                    vector is zero, we default to using the unit vector
+                    pointing to the center of the current sky patch. 
+                    It is adimensional.
+
+                "diffuse" : numpy.array of floats with shape (self.num_divisions, 3, 122)
+                    Diffuse radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2.
+    
+                "diffuse_mag" : numpy.array of floats with shape (self.num_divisions, 122)
+                    Magnitude of the diffuse radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2.
+
+                "diffuse_unit" : numpy.array of floats with shape (self.num_divisions, 3)
+                    Average position of radiant exposure within a sky patch. That is,
+                    unit vector version of the spectrally averaged spectral diffuse
+                    (depending on the case) radiant exposure vector. 
+                    In the case, however, that said radiant exposure
+                    vector is zero, we default to using the unit vector
+                    pointing to the center of the current sky patch. 
+                    It is adimensional.
+                    
+                "global" : numpy.array of floats with shape (self.num_divisions, 3, 122)
+                    Global radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2.
+    
+                "global_mag" : numpy.array of floats with shape (self.num_divisions, 122)
+                    Magnitude of the global radiant exposure vector for each of the sky patches. 
+                    It has units of Wh/m^2.
+
+                "global_unit" : numpy.array of floats with shape (self.num_divisions, 3)
+                    Average position of radiant exposure within a sky patch. That is,
+                    unit vector version of the spectrally averaged spectral global
+                    (depending on the case) radiant exposure vector. 
+                    In the case, however, that said radiant exposure
+                    vector is zero, we default to using the unit vector
+                    pointing to the center of the current sky patch. 
+                    It is adimensional.
+
+                "wavelengths" : np.array of floats with shape (122,)
                     Array of wavelengths over which the spectral irradiances 
                     are defined.
-      
-                    
-       self.exposure_vectors : dict of numpy.arrays
-                    Dict containing the same info as above, but in another format
-                    that is handier for other things. It has the following
-                    key-value pairs:
-                        
-                    Keys : Values
-                    -------------
-                    "spectral_direct" : numpy.array of floats with shape (self.num_divisions, 3, 122)
-                        Direct spectral radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2/nm.
-        
-                    "spectral_direct_mag" : numpy.array of floats with shape (self.num_divisions, 122)
-                        Magnitude of the direct spectral radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2/nm.
-
-                    "spectral_direct_unit_savgd" : numpy.array of floats with shape (self.num_divisions, 3)
-                        Average position of radiant exposure within a sky patch. That is,
-                        unit vector version of the spectrally averaged spectral direct
-                        (depending on the case) radiant exposure vector. 
-                        In the case, however, that said Spectral radiant exposure
-                        vector is zero, we default to using the unit vector
-                        pointing to the center of the current sky patch. 
-                        It is adimensional.
-
-                        
-                    "spectral_diffuse" : numpy.array of floats with shape (self.num_divisions, 3, 122)
-                        Diffuse spectral radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2/nm.
-        
-                    "spectral_diffuse_mag" : numpy.array of floats with shape (self.num_divisions, 122)
-                        Magnitude of the diffuse spectral radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2/nm.
-
-                    "spectral_diffuse_unit_savgd" : numpy.array of floats with shape (self.num_divisions, 3)
-                        Average position of radiant exposure within a sky patch. That is,
-                        unit vector version of the spectrally averaged spectral diffuse
-                        (depending on the case) radiant exposure vector. 
-                        In the case, however, that said Spectral radiant exposure
-                        vector is zero, we default to using the unit vector
-                        pointing to the center of the current sky patch. 
-                        It is adimensional.
-
-                        
-                    "spectral_global" : numpy.array of floats with shape (self.num_divisions, 3, 122)
-                        Global spectral radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2/nm.
-        
-                    "spectral_global_global" : numpy.array of floats with shape (self.num_divisions, 122)
-                        Magnitude of the global spectral radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2/nm.
-
-                    "spectral_global_unit_savgd" : numpy.array of floats with shape (self.num_divisions, 3)
-                        Average position of radiant exposure within a sky patch. That is,
-                        unit vector version of the spectrally averaged spectral diffuse
-                        (depending on the case) radiant exposure vector. 
-                        In the case, however, that said Spectral radiant exposure
-                        vector is zero, we default to using the unit vector
-                        pointing to the center of the current sky patch. 
-                        It is adimensional.
-
-
-                    "direct" : numpy.array of floats with shape (self.num_divisions, 3, 122)
-                        Direct radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2.
-        
-                    "direct_mag" : numpy.array of floats with shape (self.num_divisions, 122)
-                        Magnitude of the direct radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2.
-
-                    "direct_unit" : numpy.array of floats with shape (self.num_divisions, 3)
-                        Average position of radiant exposure within a sky patch. That is,
-                        unit vector version of the spectrally averaged spectral direct
-                        (depending on the case) radiant exposure vector. 
-                        In the case, however, that said radiant exposure
-                        vector is zero, we default to using the unit vector
-                        pointing to the center of the current sky patch. 
-                        It is adimensional.
-
-                        
-                    "diffuse" : numpy.array of floats with shape (self.num_divisions, 3, 122)
-                        Diffuse radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2.
-        
-                    "diffuse_mag" : numpy.array of floats with shape (self.num_divisions, 122)
-                        Magnitude of the diffuse radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2.
-
-                    "diffuse_unit" : numpy.array of floats with shape (self.num_divisions, 3)
-                        Average position of radiant exposure within a sky patch. That is,
-                        unit vector version of the spectrally averaged spectral diffuse
-                        (depending on the case) radiant exposure vector. 
-                        In the case, however, that said radiant exposure
-                        vector is zero, we default to using the unit vector
-                        pointing to the center of the current sky patch. 
-                        It is adimensional.
-
-                        
-                    "global" : numpy.array of floats with shape (self.num_divisions, 3, 122)
-                        Global radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2.
-        
-                    "global_mag" : numpy.array of floats with shape (self.num_divisions, 122)
-                        Magnitude of the global radiant exposure vector for each of the sky patches. 
-                        It has units of Wh/m^2.
-
-                    "global_unit" : numpy.array of floats with shape (self.num_divisions, 3)
-                        Average position of radiant exposure within a sky patch. That is,
-                        unit vector version of the spectrally averaged spectral global
-                        (depending on the case) radiant exposure vector. 
-                        In the case, however, that said radiant exposure
-                        vector is zero, we default to using the unit vector
-                        pointing to the center of the current sky patch. 
-                        It is adimensional.
-
-
-                    "wavelengths" : np.array of floats with shape (122,)
-                        Array of wavelengths over which the spectral irradiances 
-                        are defined.
-                        
-                        
-        Notes
-        -----
-        1) This method requires that time-integrated spectral radiance already 
-           be calculated. Check the method 
-           "self.compute_time_integrated_spectral_radiance_for_a_date_interval"
-           for more info.
-                    
+            
         """
 
         # --- COMPUTE TIME-INTEGRATED SPECTRAL RADIANCE --- 
@@ -2553,39 +2549,38 @@ class Sky:
         
         Parameters
         ----------
-        
         config : dict or None
             Dict of plot configuration options. If None (the default), it uses
             the default confifuration plot options. If dict, it should include
             one or more of the following key-value pairs:
                 
-            Keys : Values
-            -------------
-            "projection" : {'disk', 'sphere'}, optional
-                Type of plot projection. Supported are: "disk" The
-                plots the radiant exposure in a 2D plot, 
-                while the second uses a 3D plot. Default is "disk".
+                Keys : Values
+                -------------
+                "projection" : {'disk', 'sphere'}, optional
+                    Type of plot projection. Supported are: "disk" The
+                    plots the radiant exposure in a 2D plot, 
+                    while the second uses a 3D plot. Default is "disk".
+                    
+                "mode" : {'direct', 'diffuse', 'global'}, optional
+                    Component of radiant exposure to plot. Default is 'global'.
+                    
+                "figsize" : 2-tuple of int
+                    Figure size. Default is (13,13).
                 
-            "mode" : {'direct', 'diffuse', 'global'}, optional
-                Component of radiant exposure to plot. Default is 'global'.
-                
-            "figsize" : 2-tuple of int
-                Figure size. Default is (13,13).
-            
-           "unit" : {"Wh/m^2", "kWh/m^2", "kJ/m^2", "MJ/m^2}
-                Units with which to display the radiant exposure.
-                In order, these mean: 'Watt-hours per meter squared',
-                'kilo Watt-hours per meter squared', 'kilo Joules per meter squared',
-                and 'Mega Joules per meter squared'. Default is "Wh/m^2".
-                
-            "n" : int
-                Number of samples per axis to use for plot. A greater number 
-                means a more detailed plot (i.e, greater resolution) but it is 
-                resource intensive. Default is 1000.
-                
-            "view" : 2-tuple of int
-                Elevation, azimuth of plot camara in degrees. It applies
-                only for "sphere" plot. Default is (45, 120).
+                "unit" : {"Wh/m^2", "kWh/m^2", "kJ/m^2", "MJ/m^2}
+                    Units with which to display the radiant exposure.
+                    In order, these mean: 'Watt-hours per meter squared',
+                    'kilo Watt-hours per meter squared', 'kilo Joules per meter squared',
+                    and 'Mega Joules per meter squared'. Default is "Wh/m^2".
+                    
+                "n" : int
+                    Number of samples per axis to use for plot. A greater number 
+                    means a more detailed plot (i.e, greater resolution) but it is 
+                    resource intensive. Default is 1000.
+                    
+                "view" : 2-tuple of int
+                    Elevation, azimuth of plot camara in degrees. It applies
+                    only for "sphere" plot. Default is (45, 120).
                 
         Returns
         -------
@@ -2595,13 +2590,10 @@ class Sky:
         --------
         None
         
-        
         Notes
         -----
-        1) This method requires that time-integrated irradiances already 
-           be calculated. Check the method 
-           "self.compute_time_integrated_irradiances_for_a_date_interval"
-           for more info.
+        1) This method requires the radiant exposure vectors
+        to be calculated. Check out :meth:`~solrad.Sky.Sky.compute_exposure_vectors_for_a_date_interval`
            
         """
         
@@ -2788,7 +2780,7 @@ class Sky:
                 (1)*n_uvec[2]*spectral_exposure_vec[2, :] 
                 # We multiply by one to remind us that we are ealing with a unit area plane. 
 
-                if isinstance(absorption_func, int|float):
+                if isinstance(absorption_func, int) or isinstance(absorption_func, float):
                     absorbed_incident_energy =\
                     simpson(y = absorption_func*incident_spectral_energy, x = wavelengths)
 
@@ -2824,7 +2816,7 @@ class Sky:
             the optimization process. Default is 0.5.
 
         naz : int, optional
-            Number of azimuthal divisions for each ieteration. Default is 13.
+            Number of azimuthal divisions for each iteration. Default is 13.
 
         nel : int, optional
             Number of elevation divisions. Default is 4.
@@ -2841,13 +2833,14 @@ class Sky:
         -------
         opti_vals : dict
             A dictionary containing the optimal orientation information:
-            - "energy": Total absorbed incident energy.
-            - "az": Optimal azimuth angle in degrees.
-            - "zen": Optimal zenith angle in degrees.
-            - "el": Optimal elevation angle in degrees.
-            - "n_uvec": Normalized unit vector of the optimal orientation.
-            - "az_res": Azimuth resolution in degrees.
-            - "el_res": Elevation resolution in degrees.
+                
+                - "energy": Total absorbed incident energy.
+                - "az": Optimal azimuth angle in degrees.
+                - "zen": Optimal zenith angle in degrees.
+                - "el": Optimal elevation angle in degrees.
+                - "n_uvec": Normalized unit vector of the optimal orientation.
+                - "az_res": Azimuth resolution in degrees.
+                - "el_res": Elevation resolution in degrees.
 
         Notes
         -----

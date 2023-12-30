@@ -154,10 +154,12 @@ def compute_spectral_radiance(Az, El, dAz, dEl,
                 length as T.
                 
             "direct" : List with length T of numpy.arrays of floats with shape (E,A,122)
-                Direct component of spectral radiance across time.
+                Direct component of spectral radiance across time. It has units
+                of W/m^2/sr.
                 
             "diffuse" : List with length T of numpy.arrays of floats with shape (E,A,122)
-                Diffuse component of sepctral radiance across time.
+                Diffuse component of sepctral radiance across time. It has units
+                of W/m^2/sr.
                 
                 
     Notes
