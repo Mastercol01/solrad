@@ -6,4 +6,5 @@
 *.vscode
 *.json
 *.pyc
+*ipynb_checkpoints
 *__pycache__*

@@ -48,7 +48,6 @@ NOTE: As described by the links in 2) and 3), it is necessary to have a CDS
       watching the video tutorial linked in 3), as it is a good explanation on 
       what steps need to be followed in order to work with cdsapi.
 
-
 """
 #%%                     IMPORTATION OF LIBRARIES
 import os
