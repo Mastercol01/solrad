@@ -1,0 +1,941 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="TUTORIAL 3 : The Sky class and computation of radiometric quantities" href="tutorial3_sky.html" /><link rel="prev" title="TUTORIAL 1 : Acquisition and processing of satellite data" href="tutorial1_satellite_databases.html" />
+
+    <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
+        <title>TUTORIAL 2 : The Site class and the computation of site variables - solrad 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">solrad 0.0.2 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">solrad 0.0.2 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial1_satellite_databases.html">TUTORIAL 1 : Acquisition and processing of satellite data</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">TUTORIAL 2 : The <em>Site</em> class and the computation of site variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial3_sky.html">TUTORIAL 3 : The <em>Sky</em> class and computation of radiometric quantities</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../solrad.html">solrad package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of solrad package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../solrad.atmosphere.html">solrad.atmosphere package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solrad.climate.html">solrad.climate package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solrad.radiation.html">solrad.radiation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solrad.sun.html">solrad.sun package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solrad.terrain.html">solrad.terrain package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="TUTORIAL-2-:-The-Site-class-and-the-computation-of-site-variables">
+<h1>TUTORIAL 2 : The <em>Site</em> class and the computation of site variables<a class="headerlink" href="#TUTORIAL-2-:-The-Site-class-and-the-computation-of-site-variables" title="Permalink to this heading">#</a></h1>
+<p>In this tutorial we shall explore the <em>solrad.Site.Site</em> class and see how it can be used to compute relevant variables of a site, related to climate and geography. Doing this is a necessary step to prepare our simulation of solar radiation.</p>
+<section id="IMPORTATION-OF-LIBRARIES">
+<h2>IMPORTATION OF LIBRARIES<a class="headerlink" href="#IMPORTATION-OF-LIBRARIES" title="Permalink to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">solrad</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">solrad.Site</span> <span class="kn">import</span> <span class="n">Site</span>
+<span class="kn">import</span> <span class="nn">solrad.auxiliary_funcs</span> <span class="k">as</span> <span class="nn">aux</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="DEFINITION-DEFAULT-PATH-VARIABLES">
+<h2>DEFINITION DEFAULT PATH VARIABLES<a class="headerlink" href="#DEFINITION-DEFAULT-PATH-VARIABLES" title="Permalink to this heading">#</a></h2>
+<p>Define the directory where the data files for each atmospheric quantity are stored (see tutorial 1). You must replace the value of the paths as they appear below to the ones you actually use for your system. We recommend that you don’t leave the default paths as they are (these are intended for developers).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DATA_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">solrad</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<span class="n">OZONE_DATABASE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span> <span class="s2">&quot;ozone&quot;</span><span class="p">)</span>
+<span class="n">WATER_DATABASE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">)</span>
+<span class="n">AOD_550NM_DATABASE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span> <span class="s2">&quot;aod_550nm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="1)-INITIALIZATION-OF-SITE-OBJECT">
+<h2>1) INITIALIZATION OF SITE OBJECT<a class="headerlink" href="#1)-INITIALIZATION-OF-SITE-OBJECT" title="Permalink to this heading">#</a></h2>
+<p>We shall first initialize an instance of the class <em>Site</em>. <em>Site</em> is the main class used for modelling the variales of a site related to geography and climate. In order to initialize a Site object we require some information about the geographical location that we are tying to simulate. For this example, we’ll use the city of Medellín, Colombia. As a point of reference.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MEDELLIN_LATITUDE</span>      <span class="o">=</span> <span class="mf">6.230833</span>    <span class="c1"># (degrees)</span>
+<span class="n">MEDELLIN_LONGITUDE</span>     <span class="o">=</span> <span class="o">-</span><span class="mf">75.590553</span>  <span class="c1"># (degrees)</span>
+<span class="n">MEDELLIN_ALTITUDE</span>      <span class="o">=</span> <span class="mi">1500</span>        <span class="c1"># (meters)</span>
+<span class="n">MEDELLIN_TIMEZONE</span>      <span class="o">=</span><span class="s1">&#39;-05:00&#39;</span>     <span class="c1"># (GMT-5)</span>
+<span class="n">MEDELLIN_AEROSOL_MODEL</span> <span class="o">=</span> <span class="s2">&quot;Urban&quot;</span>     <span class="c1"># (Urban &#39;Shettel and Fenn&#39; aerosol model)</span>
+
+<span class="n">Site_obj</span> <span class="o">=</span> <span class="n">Site</span><span class="p">(</span><span class="n">latitude</span>  <span class="o">=</span> <span class="n">MEDELLIN_LATITUDE</span><span class="p">,</span>
+                <span class="n">longitude</span> <span class="o">=</span> <span class="n">MEDELLIN_LONGITUDE</span><span class="p">,</span>
+                <span class="n">altitude</span>  <span class="o">=</span> <span class="n">MEDELLIN_ALTITUDE</span><span class="p">,</span>
+                <span class="n">tz</span>        <span class="o">=</span> <span class="n">MEDELLIN_TIMEZONE</span><span class="p">,</span>
+                <span class="n">name</span>      <span class="o">=</span> <span class="s1">&#39;Medellín&#39;</span><span class="p">,</span>
+                <span class="n">SF_model</span>  <span class="o">=</span> <span class="n">MEDELLIN_AEROSOL_MODEL</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="2)-TERRAIN-AND-HORIZON">
+<h2>2) TERRAIN AND HORIZON<a class="headerlink" href="#2)-TERRAIN-AND-HORIZON" title="Permalink to this heading">#</a></h2>
+<p>We can set set, load, reset and plot the horizon profile of the simulation site.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The horizon by default is set to 0 degrees everywhere for the site object.</span>
+<span class="c1"># However, as a user, you can define your own custom horizon profile and plot it:</span>
+<span class="n">azimuths</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">361</span><span class="p">)</span>            <span class="c1">#(degrees)</span>
+<span class="n">elevations</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">azimuths</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>  <span class="c1">#(degrees)</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">set_horizon_from_arrays</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="n">azimuths</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="n">elevations</span><span class="p">)</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">plot_horizon</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="n">azimuths</span><span class="p">)</span>
+
+<span class="c1"># You can also go back to the default horizon settings by restting the horizon profile.</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">reset_horizon</span><span class="p">()</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">plot_horizon</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="n">azimuths</span><span class="p">)</span>
+
+<span class="c1"># Finally, you can let Site_obj set the horizon profile for you. This step</span>
+<span class="c1"># uses pvgis&#39; API horizon profile from their geographical database.</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">set_horizon_from_pvgis</span><span class="p">()</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">plot_horizon</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="n">azimuths</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial2_site_8_0.png" src="../_images/notebooks_tutorial2_site_8_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Figure size 640x480 with 0 Axes&gt;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial2_site_8_2.png" src="../_images/notebooks_tutorial2_site_8_2.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Figure size 640x480 with 0 Axes&gt;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial2_site_8_4.png" src="../_images/notebooks_tutorial2_site_8_4.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Figure size 640x480 with 0 Axes&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="3)-DEFINE-SIMULATION-TIME">
+<h2>3) DEFINE SIMULATION TIME<a class="headerlink" href="#3)-DEFINE-SIMULATION-TIME" title="Permalink to this heading">#</a></h2>
+<p>Next we would like to define the period of time for which the simulation is to be run. For this example, we’d like to simulate the whole month of January of 2023. Hence, we set our start time to be: Jan 1st 2023 at midnight, and our end time to be: Jan 31st 2023 6 seconds before midnight. We would also like that the time data generated have a sample frequency of 5 minutes. Finally, since our end goal with this library is simulating sun radiation, there’s not point in keeping the time data for
+which the sun is not out.Hence, we filter the time data such that hours before sunrise and after sunset are removed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulation_start_time</span> <span class="o">=</span> <span class="s2">&quot;2023-1-1 00:00:00&quot;</span>
+<span class="n">simulation_end_time</span>   <span class="o">=</span> <span class="s2">&quot;2023-1-31 23:59:59.9&quot;</span>
+<span class="n">simulation_time_frequency</span>  <span class="o">=</span> <span class="s2">&quot;5min&quot;</span>
+<span class="n">minimum_hour_minute_second_allowed</span> <span class="o">=</span> <span class="s2">&quot;sunrise&quot;</span>
+<span class="n">maximum_hour_minute_second_allowed</span> <span class="o">=</span> <span class="s2">&quot;sunset&quot;</span>
+
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">define_simulation_time_data</span><span class="p">(</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">simulation_start_time</span><span class="p">,</span>
+                                     <span class="n">end_time</span>   <span class="o">=</span> <span class="n">simulation_end_time</span><span class="p">,</span>
+                                     <span class="n">freq</span>       <span class="o">=</span> <span class="n">simulation_time_frequency</span><span class="p">,</span>
+                                     <span class="n">min_hms</span>    <span class="o">=</span> <span class="n">minimum_hour_minute_second_allowed</span><span class="p">,</span>
+                                     <span class="n">max_hms</span>    <span class="o">=</span> <span class="n">maximum_hour_minute_second_allowed</span><span class="p">)</span>
+
+<span class="c1"># This command generates an attribute called &#39;self.simulation_time_data&#39;.</span>
+<span class="c1"># It is a dict where each key is a date of simulation:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">simulation_time_data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------------------------&quot;</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s check out the contents for Jan 10th 2023:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">simulation_time_data</span><span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([(2023, 1, 1), (2023, 1, 2), (2023, 1, 3), (2023, 1, 4), (2023, 1, 5), (2023, 1, 6), (2023, 1, 7), (2023, 1, 8), (2023, 1, 9), (2023, 1, 10), (2023, 1, 11), (2023, 1, 12), (2023, 1, 13), (2023, 1, 14), (2023, 1, 15), (2023, 1, 16), (2023, 1, 17), (2023, 1, 18), (2023, 1, 19), (2023, 1, 20), (2023, 1, 21), (2023, 1, 22), (2023, 1, 23), (2023, 1, 24), (2023, 1, 25), (2023, 1, 26), (2023, 1, 27), (2023, 1, 28), (2023, 1, 29), (2023, 1, 30), (2023, 1, 31)])
+------------------------------------------
+DatetimeIndex([&#39;2023-01-10 06:20:00-05:00&#39;, &#39;2023-01-10 06:25:00-05:00&#39;,
+               &#39;2023-01-10 06:30:00-05:00&#39;, &#39;2023-01-10 06:35:00-05:00&#39;,
+               &#39;2023-01-10 06:40:00-05:00&#39;, &#39;2023-01-10 06:45:00-05:00&#39;,
+               &#39;2023-01-10 06:50:00-05:00&#39;, &#39;2023-01-10 06:55:00-05:00&#39;,
+               &#39;2023-01-10 07:00:00-05:00&#39;, &#39;2023-01-10 07:05:00-05:00&#39;,
+               ...
+               &#39;2023-01-10 17:15:00-05:00&#39;, &#39;2023-01-10 17:20:00-05:00&#39;,
+               &#39;2023-01-10 17:25:00-05:00&#39;, &#39;2023-01-10 17:30:00-05:00&#39;,
+               &#39;2023-01-10 17:35:00-05:00&#39;, &#39;2023-01-10 17:40:00-05:00&#39;,
+               &#39;2023-01-10 17:45:00-05:00&#39;, &#39;2023-01-10 17:50:00-05:00&#39;,
+               &#39;2023-01-10 17:55:00-05:00&#39;, &#39;2023-01-10 18:00:00-05:00&#39;],
+              dtype=&#39;datetime64[ns, UTC-05:00]&#39;, length=141, freq=&#39;5T&#39;)
+</pre></div></div>
+</div>
+<p>As we can see, we have a DatetimeIndex with a frequency of 5 minutes, which starts on the (approximate) time of sunrise and ends on the (approximate) time of sunset. Finally, the <em>self.define_simulation_time_data</em> method is actually quite flexible and many different time intervals with other conditions can be defined. Please check the documentation if you want to learn more.</p>
+</section>
+<section id="3.5)-PRINCIPAL-ATTRIBUTES-OF-Site_obj">
+<h2>3.5) PRINCIPAL ATTRIBUTES OF <em>Site_obj</em><a class="headerlink" href="#3.5)-PRINCIPAL-ATTRIBUTES-OF-Site_obj" title="Permalink to this heading">#</a></h2>
+<p>After generating the <em>self.simulation_time_data</em> attribute, other important attributes are generated. Namely, the <em>self.climate_and_air_data</em>, <em>self.sun_data</em>, <em>self.single_scattering_albedo</em> and <em>self.aerosol_asymmetry_factor</em>. These are dicts (the same keys as <em>self.simulation_time_data</em>) containing pandas.DataFrames which hold relevant information about the site being modeled at each point in time. In broad terms:</p>
+<ol class="arabic simple">
+<li><p><em>self.climate_and_air_data</em> : Contains information about the site’s climate and air-related quantities.</p></li>
+<li><p><em>self.sun_data</em> : Contains information about the position of the sun and relative airmass.</p></li>
+<li><p><em>self.single_scattering_albedo</em> : Contains information about the single scattering albedo property of aerosols for different wavelengths.</p></li>
+<li><p><em>self.aerosol_asymmetry_factor</em> : Contains information about the aerosol asymmetry factor property of aerosols for different wavelengths.</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s see check out how each attribute looks like for a particular date (Jan 10th 2023):</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------------- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        DATAFRAMES          &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------------- &quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.climate_and_air_data ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">climate_and_air_data</span><span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.sun-data ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">sun_data</span><span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.single_scattering_albedo ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">single_scattering_albedo</span><span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.aerosol_asymmetry_factor ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">aerosol_asymmetry_factor</span><span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+
+
+<span class="c1"># Let&#39;s print the columns in each DataFrame.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------------- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        COLUMNS             &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------------- &quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.climate_and_air_data ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">CLIMATE_AND_AIR_DATA_COLS</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.sun-data ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">SUN_DATA_COLS</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.single_scattering_albedo ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">AEROSOL_COLS</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---- self.aerosol_asymmetry_factor ---- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">AEROSOL_COLS</span><span class="p">)</span>
+
+
+<span class="c1"># And also know their meaning and units.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------------- &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   DESCRIPTIONS AND UNITS   &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------------- &quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">variables_info</span><span class="p">[</span><span class="s2">&quot;descriptions&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Site_obj</span><span class="o">.</span><span class="n">variables_info</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+---------------------------
+        DATAFRAMES
+---------------------------
+---- self.climate_and_air_data ----
+                           hms_float G(h) Gb(n) Gd(h)  T2m   SP   RH   O3  \
+2023-01-10 06:20:00-05:00   6.333333  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:25:00-05:00   6.416667  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:30:00-05:00   6.500000  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:35:00-05:00   6.583333  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:40:00-05:00   6.666667  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+...                              ...  ...   ...   ...  ...  ...  ...  ...
+2023-01-10 17:40:00-05:00  17.666667  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 17:45:00-05:00  17.750000  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 17:50:00-05:00  17.833333  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 17:55:00-05:00  17.916667  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+2023-01-10 18:00:00-05:00  18.000000  NaN   NaN   NaN  NaN  NaN  NaN  NaN
+
+                           H2O alpha_500nm aod_500nm spectrally_averaged_aaf  \
+2023-01-10 06:20:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 06:25:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 06:30:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 06:35:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 06:40:00-05:00  NaN         NaN       NaN                     NaN
+...                        ...         ...       ...                     ...
+2023-01-10 17:40:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 17:45:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 17:50:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 17:55:00-05:00  NaN         NaN       NaN                     NaN
+2023-01-10 18:00:00-05:00  NaN         NaN       NaN                     NaN
+
+                          extra_Gb(n)
+2023-01-10 06:20:00-05:00         NaN
+2023-01-10 06:25:00-05:00         NaN
+2023-01-10 06:30:00-05:00         NaN
+2023-01-10 06:35:00-05:00         NaN
+2023-01-10 06:40:00-05:00         NaN
+...                               ...
+2023-01-10 17:40:00-05:00         NaN
+2023-01-10 17:45:00-05:00         NaN
+2023-01-10 17:50:00-05:00         NaN
+2023-01-10 17:55:00-05:00         NaN
+2023-01-10 18:00:00-05:00         NaN
+
+[141 rows x 13 columns]
+---- self.sun-data ----
+                           hms_float apzen  zen apel   el   az    i    j    k  \
+2023-01-10 06:20:00-05:00   6.333333   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:25:00-05:00   6.416667   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:30:00-05:00   6.500000   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:35:00-05:00   6.583333   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 06:40:00-05:00   6.666667   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+...                              ...   ...  ...  ...  ...  ...  ...  ...  ...
+2023-01-10 17:40:00-05:00  17.666667   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 17:45:00-05:00  17.750000   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 17:50:00-05:00  17.833333   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 17:55:00-05:00  17.916667   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2023-01-10 18:00:00-05:00  18.000000   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+
+                          rel_airmass
+2023-01-10 06:20:00-05:00         NaN
+2023-01-10 06:25:00-05:00         NaN
+2023-01-10 06:30:00-05:00         NaN
+2023-01-10 06:35:00-05:00         NaN
+2023-01-10 06:40:00-05:00         NaN
+...                               ...
+2023-01-10 17:40:00-05:00         NaN
+2023-01-10 17:45:00-05:00         NaN
+2023-01-10 17:50:00-05:00         NaN
+2023-01-10 17:55:00-05:00         NaN
+2023-01-10 18:00:00-05:00         NaN
+
+[141 rows x 10 columns]
+---- self.single_scattering_albedo ----
+                           hms_float 300nm 305nm 310nm 315nm 320nm 325nm  \
+2023-01-10 06:20:00-05:00   6.333333   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:25:00-05:00   6.416667   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:30:00-05:00   6.500000   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:35:00-05:00   6.583333   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:40:00-05:00   6.666667   NaN   NaN   NaN   NaN   NaN   NaN
+...                              ...   ...   ...   ...   ...   ...   ...
+2023-01-10 17:40:00-05:00  17.666667   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 17:45:00-05:00  17.750000   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 17:50:00-05:00  17.833333   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 17:55:00-05:00  17.916667   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 18:00:00-05:00  18.000000   NaN   NaN   NaN   NaN   NaN   NaN
+
+                          330nm 335nm 340nm  ... 3100nm 3200nm 3300nm 3400nm  \
+2023-01-10 06:20:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:25:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:30:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:35:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:40:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+...                         ...   ...   ...  ...    ...    ...    ...    ...
+2023-01-10 17:40:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 17:45:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 17:50:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 17:55:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 18:00:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+
+                          3500nm 3600nm 3700nm 3800nm 3900nm 4000nm
+2023-01-10 06:20:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:25:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:30:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:35:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:40:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+...                          ...    ...    ...    ...    ...    ...
+2023-01-10 17:40:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 17:45:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 17:50:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 17:55:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 18:00:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+
+[141 rows x 123 columns]
+---- self.aerosol_asymmetry_factor ----
+                           hms_float 300nm 305nm 310nm 315nm 320nm 325nm  \
+2023-01-10 06:20:00-05:00   6.333333   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:25:00-05:00   6.416667   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:30:00-05:00   6.500000   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:35:00-05:00   6.583333   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 06:40:00-05:00   6.666667   NaN   NaN   NaN   NaN   NaN   NaN
+...                              ...   ...   ...   ...   ...   ...   ...
+2023-01-10 17:40:00-05:00  17.666667   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 17:45:00-05:00  17.750000   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 17:50:00-05:00  17.833333   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 17:55:00-05:00  17.916667   NaN   NaN   NaN   NaN   NaN   NaN
+2023-01-10 18:00:00-05:00  18.000000   NaN   NaN   NaN   NaN   NaN   NaN
+
+                          330nm 335nm 340nm  ... 3100nm 3200nm 3300nm 3400nm  \
+2023-01-10 06:20:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:25:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:30:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:35:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 06:40:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+...                         ...   ...   ...  ...    ...    ...    ...    ...
+2023-01-10 17:40:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 17:45:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 17:50:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 17:55:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+2023-01-10 18:00:00-05:00   NaN   NaN   NaN  ...    NaN    NaN    NaN    NaN
+
+                          3500nm 3600nm 3700nm 3800nm 3900nm 4000nm
+2023-01-10 06:20:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:25:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:30:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:35:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 06:40:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+...                          ...    ...    ...    ...    ...    ...
+2023-01-10 17:40:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 17:45:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 17:50:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 17:55:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+2023-01-10 18:00:00-05:00    NaN    NaN    NaN    NaN    NaN    NaN
+
+[141 rows x 123 columns]
+---------------------------
+        COLUMNS
+---------------------------
+---- self.climate_and_air_data ----
+[&#39;hms_float&#39;, &#39;G(h)&#39;, &#39;Gb(n)&#39;, &#39;Gd(h)&#39;, &#39;T2m&#39;, &#39;SP&#39;, &#39;RH&#39;, &#39;O3&#39;, &#39;H2O&#39;, &#39;alpha_500nm&#39;, &#39;aod_500nm&#39;, &#39;spectrally_averaged_aaf&#39;, &#39;extra_Gb(n)&#39;]
+---- self.sun-data ----
+[&#39;hms_float&#39;, &#39;apzen&#39;, &#39;zen&#39;, &#39;apel&#39;, &#39;el&#39;, &#39;az&#39;, &#39;i&#39;, &#39;j&#39;, &#39;k&#39;, &#39;rel_airmass&#39;]
+---- self.single_scattering_albedo ----
+[&#39;hms_float&#39;, &#39;300nm&#39;, &#39;305nm&#39;, &#39;310nm&#39;, &#39;315nm&#39;, &#39;320nm&#39;, &#39;325nm&#39;, &#39;330nm&#39;, &#39;335nm&#39;, &#39;340nm&#39;, &#39;345nm&#39;, &#39;350nm&#39;, &#39;360nm&#39;, &#39;370nm&#39;, &#39;380nm&#39;, &#39;390nm&#39;, &#39;400nm&#39;, &#39;410nm&#39;, &#39;420nm&#39;, &#39;430nm&#39;, &#39;440nm&#39;, &#39;450nm&#39;, &#39;460nm&#39;, &#39;470nm&#39;, &#39;480nm&#39;, &#39;490nm&#39;, &#39;500nm&#39;, &#39;510nm&#39;, &#39;520nm&#39;, &#39;530nm&#39;, &#39;540nm&#39;, &#39;550nm&#39;, &#39;570nm&#39;, &#39;593nm&#39;, &#39;610nm&#39;, &#39;630nm&#39;, &#39;656nm&#39;, &#39;667nm&#39;, &#39;690nm&#39;, &#39;710nm&#39;, &#39;718nm&#39;, &#39;724nm&#39;, &#39;740nm&#39;, &#39;752nm&#39;, &#39;757nm&#39;, &#39;762nm&#39;, &#39;767nm&#39;, &#39;780nm&#39;, &#39;800nm&#39;, &#39;816nm&#39;, &#39;823nm&#39;, &#39;831nm&#39;, &#39;840nm&#39;, &#39;860nm&#39;, &#39;880nm&#39;, &#39;905nm&#39;, &#39;915nm&#39;, &#39;925nm&#39;, &#39;930nm&#39;, &#39;937nm&#39;, &#39;948nm&#39;, &#39;965nm&#39;, &#39;980nm&#39;, &#39;993nm&#39;, &#39;1040nm&#39;, &#39;1070nm&#39;, &#39;1100nm&#39;, &#39;1120nm&#39;, &#39;1130nm&#39;, &#39;1145nm&#39;, &#39;1161nm&#39;, &#39;1170nm&#39;, &#39;1200nm&#39;, &#39;1240nm&#39;, &#39;1270nm&#39;, &#39;1290nm&#39;, &#39;1320nm&#39;, &#39;1350nm&#39;, &#39;1395nm&#39;, &#39;1442nm&#39;, &#39;1462nm&#39;, &#39;1477nm&#39;, &#39;1497nm&#39;, &#39;1520nm&#39;, &#39;1539nm&#39;, &#39;1558nm&#39;, &#39;1578nm&#39;, &#39;1592nm&#39;, &#39;1610nm&#39;, &#39;1630nm&#39;, &#39;1646nm&#39;, &#39;1678nm&#39;, &#39;1740nm&#39;, &#39;1800nm&#39;, &#39;1860nm&#39;, &#39;1920nm&#39;, &#39;1960nm&#39;, &#39;1985nm&#39;, &#39;2005nm&#39;, &#39;2035nm&#39;, &#39;2065nm&#39;, &#39;2100nm&#39;, &#39;2148nm&#39;, &#39;2198nm&#39;, &#39;2270nm&#39;, &#39;2360nm&#39;, &#39;2450nm&#39;, &#39;2500nm&#39;, &#39;2600nm&#39;, &#39;2700nm&#39;, &#39;2800nm&#39;, &#39;2900nm&#39;, &#39;3000nm&#39;, &#39;3100nm&#39;, &#39;3200nm&#39;, &#39;3300nm&#39;, &#39;3400nm&#39;, &#39;3500nm&#39;, &#39;3600nm&#39;, &#39;3700nm&#39;, &#39;3800nm&#39;, &#39;3900nm&#39;, &#39;4000nm&#39;]
+---- self.aerosol_asymmetry_factor ----
+[&#39;hms_float&#39;, &#39;300nm&#39;, &#39;305nm&#39;, &#39;310nm&#39;, &#39;315nm&#39;, &#39;320nm&#39;, &#39;325nm&#39;, &#39;330nm&#39;, &#39;335nm&#39;, &#39;340nm&#39;, &#39;345nm&#39;, &#39;350nm&#39;, &#39;360nm&#39;, &#39;370nm&#39;, &#39;380nm&#39;, &#39;390nm&#39;, &#39;400nm&#39;, &#39;410nm&#39;, &#39;420nm&#39;, &#39;430nm&#39;, &#39;440nm&#39;, &#39;450nm&#39;, &#39;460nm&#39;, &#39;470nm&#39;, &#39;480nm&#39;, &#39;490nm&#39;, &#39;500nm&#39;, &#39;510nm&#39;, &#39;520nm&#39;, &#39;530nm&#39;, &#39;540nm&#39;, &#39;550nm&#39;, &#39;570nm&#39;, &#39;593nm&#39;, &#39;610nm&#39;, &#39;630nm&#39;, &#39;656nm&#39;, &#39;667nm&#39;, &#39;690nm&#39;, &#39;710nm&#39;, &#39;718nm&#39;, &#39;724nm&#39;, &#39;740nm&#39;, &#39;752nm&#39;, &#39;757nm&#39;, &#39;762nm&#39;, &#39;767nm&#39;, &#39;780nm&#39;, &#39;800nm&#39;, &#39;816nm&#39;, &#39;823nm&#39;, &#39;831nm&#39;, &#39;840nm&#39;, &#39;860nm&#39;, &#39;880nm&#39;, &#39;905nm&#39;, &#39;915nm&#39;, &#39;925nm&#39;, &#39;930nm&#39;, &#39;937nm&#39;, &#39;948nm&#39;, &#39;965nm&#39;, &#39;980nm&#39;, &#39;993nm&#39;, &#39;1040nm&#39;, &#39;1070nm&#39;, &#39;1100nm&#39;, &#39;1120nm&#39;, &#39;1130nm&#39;, &#39;1145nm&#39;, &#39;1161nm&#39;, &#39;1170nm&#39;, &#39;1200nm&#39;, &#39;1240nm&#39;, &#39;1270nm&#39;, &#39;1290nm&#39;, &#39;1320nm&#39;, &#39;1350nm&#39;, &#39;1395nm&#39;, &#39;1442nm&#39;, &#39;1462nm&#39;, &#39;1477nm&#39;, &#39;1497nm&#39;, &#39;1520nm&#39;, &#39;1539nm&#39;, &#39;1558nm&#39;, &#39;1578nm&#39;, &#39;1592nm&#39;, &#39;1610nm&#39;, &#39;1630nm&#39;, &#39;1646nm&#39;, &#39;1678nm&#39;, &#39;1740nm&#39;, &#39;1800nm&#39;, &#39;1860nm&#39;, &#39;1920nm&#39;, &#39;1960nm&#39;, &#39;1985nm&#39;, &#39;2005nm&#39;, &#39;2035nm&#39;, &#39;2065nm&#39;, &#39;2100nm&#39;, &#39;2148nm&#39;, &#39;2198nm&#39;, &#39;2270nm&#39;, &#39;2360nm&#39;, &#39;2450nm&#39;, &#39;2500nm&#39;, &#39;2600nm&#39;, &#39;2700nm&#39;, &#39;2800nm&#39;, &#39;2900nm&#39;, &#39;3000nm&#39;, &#39;3100nm&#39;, &#39;3200nm&#39;, &#39;3300nm&#39;, &#39;3400nm&#39;, &#39;3500nm&#39;, &#39;3600nm&#39;, &#39;3700nm&#39;, &#39;3800nm&#39;, &#39;3900nm&#39;, &#39;4000nm&#39;]
+---------------------------
+   DESCRIPTIONS AND UNITS
+---------------------------
+{&#39;T2m&#39;: &#39;Air temperature at 2m above ground&#39;, &#39;RH&#39;: &#39;Relative humidity&#39;, &#39;G(h)&#39;: &#39;Global horizontal irradiance&#39;, &#39;Gb(n)&#39;: &#39;Beam (direct) normal irradiance&#39;, &#39;Gd(h)&#39;: &#39;Diffuse horizontal irradiance&#39;, &#39;SP&#39;: &#39;Surface Pressure&#39;, &#39;int G(h)&#39;: &#39;Time integral of global horizontal irradiance&#39;, &#39;int Gb(n)&#39;: &#39;Time integral of beam (direct) normal irradiance&#39;, &#39;int Gd(h)&#39;: &#39;Time integral of diffuse horizontal irradiance&#39;, &#39;H2O&#39;: &#39;Precipitable water column&#39;, &#39;O3&#39;: &#39;Atmospheric ozone column&#39;, &#39;alpha_500nm&#39;: &#39;Angstrom turbidity exponent at 500nm&#39;, &#39;aod_500nm&#39;: &#39;Aerosol optical depth at 500nm&#39;, &#39;spectrally_averaged_aaf&#39;: &#39;Aerosol Asymmetry Factor averaged over specified spectral range&#39;, &#39;apzen&#39;: &#39;apparent zenith angle of the Sun&#39;, &#39;zen&#39;: &#39;zenith angle of the Sun&#39;, &#39;apel&#39;: &#39;apparent elevation angle of the Sun&#39;, &#39;el&#39;: &#39;elevation angle of the Sun&#39;, &#39;az&#39;: &#39;azimuth angle of the Sun&#39;, &#39;rel_airmass&#39;: &#39;Relative Airmass&#39;, &#39;single_scattering_albedo&#39;: &#39;Single Scattering Albedo&#39;, &#39;aerosol_asymmetry_factor&#39;: &#39;Aerosol Asymmetry Factor&#39;, &#39;extra_Gb(n)&#39;: &#39;Extraterrestrial Irradiance&#39;}
+{&#39;T2m&#39;: &#39;[°C]&#39;, &#39;RH&#39;: &#39;[%]&#39;, &#39;G(h)&#39;: &#39;[W/m^2]&#39;, &#39;Gb(n)&#39;: &#39;[W/m^2]&#39;, &#39;Gd(h)&#39;: &#39;[W/m^2]&#39;, &#39;SP&#39;: &#39;[Pa]&#39;, &#39;int G(h)&#39;: &#39;[Wh/m^2]&#39;, &#39;int Gb(n)&#39;: &#39;[Wh/m^2]&#39;, &#39;int Gd(h)&#39;: &#39;[Wh/m^2]&#39;, &#39;H2O&#39;: &#39;[cm]&#39;, &#39;O3&#39;: &#39;[atm-cm]&#39;, &#39;alpha_500nm&#39;: &#39;[-]&#39;, &#39;aod_500nm&#39;: &#39;[-]&#39;, &#39;spectrally_averaged_aaf&#39;: &#39;[-]&#39;, &#39;apzen&#39;: &#39;[°]&#39;, &#39;zen&#39;: &#39;[°]&#39;, &#39;apel&#39;: &#39;[°]&#39;, &#39;el&#39;: &#39;[°]&#39;, &#39;az&#39;: &#39;[°]&#39;, &#39;rel_airmass&#39;: &#39;[-]&#39;, &#39;single_scattering_albedo&#39;: &#39;[-]&#39;, &#39;aerosol_asymmetry_factor&#39;: &#39;[-]&#39;, &#39;extra_Gb(n)&#39;: &#39;[W/m^2]&#39;}
+</pre></div></div>
+</div>
+</section>
+<section id="4)-FILLING-THE-MAIN-ATTRIBUTES-OF-Site_obj">
+<h2>4) FILLING THE MAIN ATTRIBUTES OF <em>Site_obj</em><a class="headerlink" href="#4)-FILLING-THE-MAIN-ATTRIBUTES-OF-Site_obj" title="Permalink to this heading">#</a></h2>
+<p>In order to perform a simulation, the data for each of Site_obj’s main attributes must be provided. You can do this manually, if you have your own data that you’d like to use. In that case, just fill each of the DataFrames with it, for each date. However, the <em>Site</em> class, already provides an arrange of methods that can be used for acquiring and filling all the required data as easy as possible. For this example, we shall follow this latter approach. Finally, while the execution of this tutorial
+should preferably be followed in the order intended, here it is more or less required, since many quantities require the previous computation of other quantities.</p>
+<p>4.1) SET AND COMPUTE CLIMATE DATA</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute and fill site data related to climate.</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">set_climate_data_from_pvgis_tmy_data</span><span class="p">(</span><span class="n">startyear</span><span class="o">=</span><span class="mi">2005</span><span class="p">,</span> <span class="n">endyear</span><span class="o">=</span><span class="mi">2015</span><span class="p">)</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_extraterrestrial_normal_irradiance</span><span class="p">()</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_cummulative_time_integral_of_irradiances</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>4.2) COMPUTE SUN DATA</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute and fill site data related sun position and relative airmass.</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_sun_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>4.3) COMPUTE AIR DATA</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We compute and fill site data related to air quantities.</span>
+
+<span class="c1"># 4.31) -- ATMOSPHERIC OZONE COLUMN --</span>
+<span class="c1"># There are two options for computing the ozone column.</span>
+<span class="c1"># We can use the van heuklon model or, if we have the data</span>
+<span class="c1"># (see tutorial 1), we can use satellite data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Site_obj.compute_ozone_column_using_van_Heuklon_model()</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_ozone_column_using_satelite_data</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="n">OZONE_DATABASE_PATH</span><span class="p">)</span>
+
+<span class="c1"># 4.32) -- ATMOSPHERIC WATER COLUMN --</span>
+<span class="c1"># There are two options for computing the water column.</span>
+<span class="c1"># We can use the gueymard model or, if we have the data</span>
+<span class="c1"># (see tutorial 1), we can use satellite data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Site_obj.compute_water_column_using_gueymard94_model()</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_water_column_using_satelite_data</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="n">WATER_DATABASE_PATH</span><span class="p">)</span>
+
+<span class="c1"># 4.33) -- ANGSTROM EXPONENT AT 500 nm--</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_angstrom_turbidity_exponent_500nm_using_SF_model</span><span class="p">()</span>
+
+<span class="c1"># 4.34) -- AERSOL OPTICAL DEPTH AT 500 nm --</span>
+<span class="c1"># For this step we do have to previously set up</span>
+<span class="c1"># # the satellite data we need to use (see tutorial 1).</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_aod_500nm_using_satelite_data</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="n">AOD_550NM_DATABASE_PATH</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+C:\Users\PC-LENOVO\Desktop\solrad-project\src\solrad\atmosphere\water_column.py:499: UserWarning: Local water column database is empty of filled_NaNs.npy files. No column water filled_NaNs.npy files to retrieve were found.
+  warnings.warn(msg)
+C:\Users\PC-LENOVO\Desktop\solrad-project\src\solrad\atmosphere\water_column.py:536: UserWarning: Not all raw.npy files have an associated filled_NaNs.npy file in the database, and viceversa. Therefore, not all information will be available for all files.
+  warnings.warn(msg)
+C:\Users\PC-LENOVO\Desktop\solrad-project\src\solrad\atmosphere\aod_550nm.py:490: UserWarning: Local aod_550nm database is empty of filled_NaNs.npy files. No column water filled_NaNs.npy files to retrieve were found.
+  warnings.warn(msg)
+C:\Users\PC-LENOVO\Desktop\solrad-project\src\solrad\atmosphere\aod_550nm.py:527: UserWarning: Not all raw.npy files have an associated filled_NaNs.npy file in the database, and viceversa. Therefore, not all information will be available for all files.
+  warnings.warn(msg)
+</pre></div></div>
+</div>
+<p>4.4) COMPUTE AEROSOL PROPERTIES</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_single_scattering_albedo_using_SF_model</span><span class="p">()</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_aerosol_asymmetry_factor_using_SF_model</span><span class="p">()</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">compute_spectrally_averaged_aerosol_asymmetry_factor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="5)-VISUALIZE-AND-MANIPULATE-DATA">
+<h2>5) VISUALIZE AND MANIPULATE DATA<a class="headerlink" href="#5)-VISUALIZE-AND-MANIPULATE-DATA" title="Permalink to this heading">#</a></h2>
+<p>We can very easily plot data from the main attributes and interpolated if need be.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># -- PLOT DATA --</span>
+
+<span class="c1"># Normal direct irradiance.</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="n">col</span>    <span class="o">=</span> <span class="s2">&quot;Gb(n)&quot;</span><span class="p">,</span>
+                   <span class="n">years</span>  <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">months</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">days</span>   <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">hours</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">],</span>
+                   <span class="n">mode</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                   <span class="n">interp_method</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+                   <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="c1"># Temperature.</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="n">col</span> <span class="o">=</span> <span class="s2">&quot;T2m&quot;</span><span class="p">,</span>
+                <span class="n">years</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">months</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">days</span>   <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">hours</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">],</span>
+                <span class="n">mode</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="n">interp_method</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+                <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="c1"># Humidity.</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="n">col</span> <span class="o">=</span> <span class="s2">&quot;RH&quot;</span><span class="p">,</span>
+                   <span class="n">years</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">months</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">days</span>   <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">hours</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">],</span>
+                   <span class="n">mode</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                   <span class="n">interp_method</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+                   <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="c1"># ANGSTROM EXPONENT AT 500 nm</span>
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="n">col</span> <span class="o">=</span> <span class="s2">&quot;alpha_500nm&quot;</span><span class="p">,</span>
+                   <span class="n">years</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">months</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">days</span>   <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">hours</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">],</span>
+                   <span class="n">mode</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                   <span class="n">interp_method</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+                   <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+
+<span class="c1"># -- INTERPOLATE DATA --</span>
+
+<span class="c1"># Interpolate temperature data.</span>
+<span class="n">interpolated_data</span> <span class="o">=</span>\
+<span class="n">Site_obj</span><span class="o">.</span><span class="n">time_interpolate_variable</span><span class="p">(</span><span class="n">col</span>   <span class="o">=</span> <span class="s2">&quot;T2m&quot;</span><span class="p">,</span>
+                                   <span class="n">year</span>  <span class="o">=</span> <span class="mi">2023</span><span class="p">,</span>
+                                   <span class="n">month</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                                   <span class="n">day</span>   <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                                   <span class="n">new_hms_float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+                                   <span class="n">interp_method</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">interpolated_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial2_site_24_0.png" src="../_images/notebooks_tutorial2_site_24_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial2_site_24_1.png" src="../_images/notebooks_tutorial2_site_24_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial2_site_24_2.png" src="../_images/notebooks_tutorial2_site_24_2.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_tutorial2_site_24_3.png" src="../_images/notebooks_tutorial2_site_24_3.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[16.245      16.45277778 16.66055556 16.86833333 17.07611111 17.28333333
+ 17.49       17.69666667 17.90333333 18.11       18.31666667 18.52333333
+ 18.73       18.93666667 19.14333333 19.35       19.55666667 19.76333333
+ 19.97       20.17666667 20.38333333 20.59       20.79666667 20.93777778
+ 21.01333333 21.08888889 21.16444444 21.24       21.31555556 21.39111111
+ 21.46666667 21.54222222 21.61777778 21.69333333 21.76888889 21.84444444
+ 21.92       21.99555556 22.07111111 22.14666667 22.22222222 22.29777778
+ 22.37333333 22.44888889 22.52444444 22.6        22.67555556 22.75111111
+ 22.82666667 22.90222222 22.92388889 22.89166667 22.85944444 22.82722222
+ 22.795      22.76277778 22.73055556 22.69833333 22.66611111 22.63444444
+ 22.60333333 22.57222222 22.54111111 22.51       22.47888889 22.44777778
+ 22.41666667 22.38555556 22.35388889 22.32166667 22.28944444 22.25722222
+ 22.225      22.19277778 22.16055556 22.12833333 22.09611111 22.02611111
+ 21.91833333 21.81055556 21.70277778 21.595      21.48722222 21.37944444
+ 21.27166667 21.16388889 21.05611111 20.94833333 20.84055556 20.73277778
+ 20.625      20.51722222 20.40944444 20.30166667 20.19388889 20.08555556
+ 19.97666667 19.86777778 19.75888889 19.65      ]
+</pre></div></div>
+</div>
+</section>
+<section id="6)-SAVE-Site_obj">
+<h2>6) SAVE Site_obj<a class="headerlink" href="#6)-SAVE-Site_obj" title="Permalink to this heading">#</a></h2>
+<p>You can easily save the object as a pickle format for later use.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You must change this path to hwere you want the pickle obj to be stored. Don&#39;t leave as is.</span>
+<span class="n">EXAMPLES_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">solrad</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="s2">&quot;examples&quot;</span><span class="p">)</span>
+<span class="n">Site_obj_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">EXAMPLES_PATH</span><span class="p">,</span> <span class="s2">&quot;example_Site_obj.pkl&quot;</span><span class="p">)</span>
+<span class="n">aux</span><span class="o">.</span><span class="n">save_obj_with_pickle</span><span class="p">(</span><span class="n">Site_obj</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">Site_obj_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="tutorial3_sky.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">TUTORIAL 3 : The <em>Sky</em> class and computation of radiometric quantities</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="tutorial1_satellite_databases.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">TUTORIAL 1 : Acquisition and processing of satellite data</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Andrés Yesid Moreno Villa
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">TUTORIAL 2 : The <em>Site</em> class and the computation of site variables</a><ul>
+<li><a class="reference internal" href="#IMPORTATION-OF-LIBRARIES">IMPORTATION OF LIBRARIES</a></li>
+<li><a class="reference internal" href="#DEFINITION-DEFAULT-PATH-VARIABLES">DEFINITION DEFAULT PATH VARIABLES</a></li>
+<li><a class="reference internal" href="#1)-INITIALIZATION-OF-SITE-OBJECT">1) INITIALIZATION OF SITE OBJECT</a></li>
+<li><a class="reference internal" href="#2)-TERRAIN-AND-HORIZON">2) TERRAIN AND HORIZON</a></li>
+<li><a class="reference internal" href="#3)-DEFINE-SIMULATION-TIME">3) DEFINE SIMULATION TIME</a></li>
+<li><a class="reference internal" href="#3.5)-PRINCIPAL-ATTRIBUTES-OF-Site_obj">3.5) PRINCIPAL ATTRIBUTES OF <em>Site_obj</em></a></li>
+<li><a class="reference internal" href="#4)-FILLING-THE-MAIN-ATTRIBUTES-OF-Site_obj">4) FILLING THE MAIN ATTRIBUTES OF <em>Site_obj</em></a></li>
+<li><a class="reference internal" href="#5)-VISUALIZE-AND-MANIPULATE-DATA">5) VISUALIZE AND MANIPULATE DATA</a></li>
+<li><a class="reference internal" href="#6)-SAVE-Site_obj">6) SAVE Site_obj</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

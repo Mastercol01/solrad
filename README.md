@@ -17,4 +17,4 @@ pip install solrad
 # Getting started
 To get started with Solrad, we recommend downloading the 'examples' folder and following the step-by-step tutorial presented there in the intended order. This tutorial will guide you through downloading all required third-party satellite data, processing it, setting up a simulation instance, acquiring the necessary site-relevant variables, and performing the computation of relevant radiometric quantities.
 
-Solrad currently lacks official documentation (work in progress), but all classes, functions, and modules are thoroughly documented using docstrings. We encourage you to read these docstrings whenever you feel lost.
+Another way which may be more intuitive is to checkout solrad's documentation, as that same tutorial is hosted there in the form of jupyter notebooks  and may be simpler to follow (you can download these jupyter notebooks from `docs/source/notebooks`) directory.

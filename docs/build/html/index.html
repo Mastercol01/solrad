@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="src" href="modules.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="TUTORIAL 1 : Acquisition and processing of satellite data" href="notebooks/tutorial1_satellite_databases.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
         <title>solrad 0.0.2 documentation</title>
@@ -156,6 +156,9 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html">TUTORIAL 1 : Acquisition and processing of satellite data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/tutorial2_site.html">TUTORIAL 2 : The <em>Site</em> class and the computation of site variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/tutorial3_sky.html">TUTORIAL 3 : The <em>Sky</em> class and computation of radiometric quantities</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">src</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of src</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="solrad.html">solrad package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of solrad package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="solrad.atmosphere.html">solrad.atmosphere package</a></li>
@@ -221,10 +224,46 @@
 <section id="getting-started">
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h1>
 <p>To get started with Solrad, we recommend downloading the ‘examples’ folder and following the step-by-step tutorial presented there in the intended order. This tutorial will guide you through downloading all required third-party satellite data, processing it, setting up a simulation instance, acquiring the necessary site-relevant variables, and performing the computation of relevant radiometric quantities.</p>
-<p>Solrad currently lacks official documentation (work in progress), but all classes, functions, and modules are thoroughly documented using docstrings. We encourage you to read these docstrings whenever you feel lost.</p>
+<p>Another way which may be more intuitive is to checkout solrad’s documentation, as that same tutorial is hosted there in the form of jupyter notebooks  and may be simpler to follow (you can download these jupyter notebooks from <code class="docutils literal notranslate"><span class="pre">docs/source/notebooks</span></code>) directory.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html">TUTORIAL 1 : Acquisition and processing of satellite data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#[1]-(OPTIONAL)">[1] (OPTIONAL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#[2]-(OPTIONAL)">[2] (OPTIONAL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#[3]-(REQUIRED)">[3] (REQUIRED)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#IMPORTAION-OF-LIBRARIES">IMPORTAION OF LIBRARIES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#DEFINITION-DEFAULT-PATH-CONSTANTS">DEFINITION DEFAULT PATH CONSTANTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#DEFINITION-DEFAULT-PATH-VARIABLES">DEFINITION DEFAULT PATH VARIABLES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#RETRIEVE-DATA">RETRIEVE DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#FILL-DATA-NaNs">FILL DATA NaNs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial1_satellite_databases.html#PLOT-PROCESSED-DATA-AND-RAW-DATA-(IF-AVAILABLE)">PLOT PROCESSED DATA AND RAW DATA (IF AVAILABLE)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/tutorial2_site.html">TUTORIAL 2 : The <em>Site</em> class and the computation of site variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#IMPORTATION-OF-LIBRARIES">IMPORTATION OF LIBRARIES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#DEFINITION-DEFAULT-PATH-VARIABLES">DEFINITION DEFAULT PATH VARIABLES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#1)-INITIALIZATION-OF-SITE-OBJECT">1) INITIALIZATION OF SITE OBJECT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#2)-TERRAIN-AND-HORIZON">2) TERRAIN AND HORIZON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#3)-DEFINE-SIMULATION-TIME">3) DEFINE SIMULATION TIME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#3.5)-PRINCIPAL-ATTRIBUTES-OF-Site_obj">3.5) PRINCIPAL ATTRIBUTES OF <em>Site_obj</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#4)-FILLING-THE-MAIN-ATTRIBUTES-OF-Site_obj">4) FILLING THE MAIN ATTRIBUTES OF <em>Site_obj</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#5)-VISUALIZE-AND-MANIPULATE-DATA">5) VISUALIZE AND MANIPULATE DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial2_site.html#6)-SAVE-Site_obj">6) SAVE Site_obj</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/tutorial3_sky.html">TUTORIAL 3 : The <em>Sky</em> class and computation of radiometric quantities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#IMPORTATION-OF-LIBRARIES">IMPORTATION OF LIBRARIES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#1)-LOAD-Site_obj">1) LOAD <em>Site_obj</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#2)-INITIALIZATION-OF-SKY-OBJECT">2) INITIALIZATION OF SKY OBJECT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#3)-DISCRETISATION-OF-THE-SKY-VAULT">3) DISCRETISATION OF THE SKY-VAULT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#4)-ZONE_DATA-AND-PATCH_DATA">4) ZONE_DATA AND PATCH_DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#5)-RADIANCES">5) RADIANCES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#6)-(SPECTRAL)-RADIANT-EXPOSURE-VECTORS">6) (SPECTRAL) RADIANT EXPOSURE VECTORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#7)-ABSORBED-ENERGY">7) ABSORBED ENERGY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/tutorial3_sky.html#8)-OPTIMAL-ORIENTATION">8) OPTIMAL ORIENTATION</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">src</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="solrad.html">solrad package</a></li>
 </ul>
@@ -238,12 +277,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="modules.html">
+          <a class="next-page" href="notebooks/tutorial1_satellite_databases.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">src</div>
+                <div class="title">TUTORIAL 1 : Acquisition and processing of satellite data</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

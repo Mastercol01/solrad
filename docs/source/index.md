@@ -12,6 +12,9 @@
 :caption: 'Contents:'
 :maxdepth: 2
 
+notebooks/tutorial1_satellite_databases
+notebooks/tutorial2_site
+notebooks/tutorial3_sky
 modules
 ```
 
